@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/2.1.10/vue.min.js"></script>
+</head>
+<body>
+
+	<h3>计算属性</h3>
+	<div id="example">
+		<p>Original message: "{{ message }}"</p>
+		<p>Computed reversed message: "{{ reversedMessage }}"</p>
+		<p>Computed reversed message: "{{ reverseMessageMethod() }}"</p>
+	</div>
+
+
+	<script>
+		var vm = new Vue({
+			el : '#example',
+			data : {
+				message : 'Hello'
+			},
+			computed : {
+				reversedMessage : function() {
+					return this.message.split('').reverse().join('')
+				}
+			},
+			methods : {
+				reverseMessageMethod : function() {
+					return this.message.split('').reverse().join('')
+				}
+			}
+		});
+	</script>
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>index</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+	<!-- 新浪实时股票数据接口测试类 -->
+	<div>
+		code : <input id="input" type="text" value="sh601006" />
+	</div>
+	<div>
+		result :
+		<textarea id="output" rows="10" cols="50"></textarea>
+	</div>
+	<div>
+		<input type="button" value="submit" onclick="fnGet()"/>
+	</div>
+
+	<script type="text/javascript">
+		//定义函数
+		var fnGetSinajs = function(code, callback) {
+			var url = ('http://hq.sinajs.cn/list=' + code), head = document
+					.getElementsByTagName('head')[0], loaded = false, script = document
+					.createElement("script");
+			script.type = 'text/javascript';
+			script.src = url;
+			script.onload = script.onreadystatechange = function() {
+				if (loaded) {
+					return;
+				}
+				var readyState = script.readyState;
+				if ('undefined' == typeof readyState || readyState == 'loaded'
+						|| readyState == 'complete') {
+					try {
+						var varName = 'hq_str_' + code;
+						setTimeout(function() {
+							var data = window[varName] || null;
+							callback && callback(data);
+						}, 10)
+					} finally {
+						script.onload = script.onreadystatechange = null;
+						head.removeChild(script);
+						script = head = null;
+					}
+				}
+			};
+			head.appendChild(script);
+		};
+	</script>
+
+	<script type="text/javascript">
+		var elInput  = document.getElementById('input')
+		var elOutput = document.getElementById('output')
+		var fnGet = function(){
+			var code = elInput.value;
+			fnGetSinajs(code, function(data) {
+				elOutput.value=data;
+			});
+		}
+	</script>
+</body>
+</html>

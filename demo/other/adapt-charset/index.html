@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>index</title>
+<meta name="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8" />
+</head>
+<body>
+	<div>有时候不同编码的iframe页面嵌套内容可能会出现乱码,可以使用套一层的方式来解决这个问题</div>
+	<iframe id="wrapIFrame" src="gbk.html"> </iframe>
+	<iframe id="wrapIFrame" src="wrap_utf8.html?text_gbk.html"> </iframe>
+	<iframe id="wrapIFrame" src="wrap_gbk.html?text_gbk.html" scrolling="no"> </iframe>
+</body>
+</html>

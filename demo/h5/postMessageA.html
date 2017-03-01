@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>A</title>
+</head>
+<body>
+	<textarea id="input"></textarea>
+	<input onclick="send()" type="button" value="发送 " />
+	<iframe id="ifr" src="postMessageB.html"></iframe>
+	<script type="text/javascript">
+		var send = function() {
+			document.getElementById('ifr').contentWindow.postMessage(document.getElementById('input').value, '*');
+		};
+	</script>
+</body>
+</html>

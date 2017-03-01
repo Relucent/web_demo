@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="Concurrent.Thread-full-20080319.js"></script>
+</head>
+<body>
+	<div id="panel"> </div>
+	<script type="text/javascript">
+		Concurrent.Thread.create(function() {
+			while (1) {
+				document.getElementById('panel').innerHTML += +new Date()+'<br>';
+				sleep(1000);
+			}
+		});
+	</script>
+</body>
+</html>

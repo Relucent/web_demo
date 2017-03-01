@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.7.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+	<input type="button" value="openDig" onclick="openDlg()" />
+
+	<script type="text/javascript">
+		$.openDlg = function(cfg) {
+			cfg = cfg || {};
+			var url = cfg.url || 'about:blank';
+			var name = cfg.name || '';
+			var width = cfg.width || 700;
+			var height = cfg.height || 500;
+			var scrollbars = cfg.scrollbars || false;
+			var screenWidth = window.screen.width;
+			var screenHeight = window.screen.height;
+			var closeAfter = cfg.closeAfter;
+
+			if (width > screenWidth - 50) {
+				width = screenWidth - 50;
+			}
+			if (height > screenHeight - 75) {
+				height = screenHeight - 75;
+			}
+			var x = parseInt((screenWidth - width) / 2);
+			var y = parseInt((screenHeight - height) / 2) - 50;
+			if (y <= 0) {
+				y = 50;
+			}
+			;
+
+			var dlg = window.open(url, name, 'top=' + y + ',left=' + x + ',width=' + width + ',height=' + height + ',resizable=yes,scrollbars=' + scrollbars);
+
+			var timer = 0;//
+			var main = $(window);
+			var destroyFn = function() {
+				clearInterval(timer);
+				if (dlg && (!dlg.closed)) {
+					dlg.close();
+				}
+
+				main.unbind('unload', destroyFn);
+				destroyFn = dlg = main = null;
+			};
+
+			// 循环
+			timer = setInterval(function() {
+				if ((!dlg) || (dlg.closed)) {
+					destroyFn();
+					closeAfter && closeAfter();
+				}
+			}, 500);
+
+			main.bind('unload', destroyFn);
+
+			try {
+				dlg.focus();
+			} catch (e) {
+			}
+
+			return dlg;
+		};
+
+		function openDlg() {
+			$.openDlg({
+				url : 'open.html',
+				closeAfter:function(){
+					alert('关闭了');		
+				}
+			});
+		}
+	</script>
+
+
+</body>
+</html>

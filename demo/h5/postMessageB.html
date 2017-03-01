@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>B</title>
+</head>
+<body>
+	<textarea id="output"></textarea>
+	<script type="text/javascript">
+		if (window.attachEvent) {
+			window.attachEvent('onmessage', function(event) {
+				document.getElementById('output').value = event.data;
+			});
+		} else {
+			window.addEventListener('message', function(event) {
+				document.getElementById('output').value = event.data;
+			}, false);
+		}
+	</script>
+</body>
+</html>

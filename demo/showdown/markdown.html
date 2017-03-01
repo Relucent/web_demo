@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>markdown - showdown.js</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../../s/showdown/showdown.js"></script>
+    <style type="text/css">
+        textarea {
+            width: 97%;
+            height: 100%;
+            border: 1px solid #e9e9e9;
+        }
+        p {
+            margin: 0 2px 16px 2px;
+        }
+        body {
+            background: #fdeddd;
+        }
+    </style>
+</head>
+<body>
+
+<div style="width:1000px;margin: 0 auto;">
+    <div>
+        <h1>Markdown - Showdown.js</h1>
+        <p> showdown.js 是一个 javascript 写的 markdown 渲染库</p>
+    </div>
+    <div style="float: left;width: 500px;height: 600px">
+        <textarea id="content" name="content">
+# Markdown - Showdown.js
+
+## Overview
+
+showdown.js 是一个 javascript 写的 markdown 渲染库
+
+段落之间用一个空行表示
+
+这里是第二个段文字
+
+如果只有一个换行，而没有空行
+markdown
+会把它连在一起，
+就像这样
+
+## 链接
+想要加一个连接很容易（so easy），只需要这样
+把链接用<>括起来即可
+
+设定连接title [百度](https://www.baidu.com/ "这是一个连接到www.baidu.com的连接")
+
+只可惜markdown不能给连接指定target
+
+还有......
+</textarea>
+    </div>
+    <div style="float: left;width:490px;height:600px;border: 1px solid #e9e9e9;background: #f8f8f8;overflow: auto;" id="preview"></div>
+</div>
+
+<script type="text/javascript">
+    function _(id) {
+        return document.getElementById(id);
+    }
+    function content_preview() {
+        var c = _('content');
+        if(c) {
+            var converter = new Showdown.converter();
+            var html = converter.makeHtml(c.value);
+            _('preview').innerHTML = html;
+        }
+    }
+    var content = _('content');
+    if(content) {
+        content.onkeyup = content.onpaste = content_preview;
+    }
+    content_preview();
+</script>
+</body>
+</html>
