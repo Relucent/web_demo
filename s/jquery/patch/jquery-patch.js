@@ -458,7 +458,7 @@
 		};
 		return ({
 			postJSON : function(url, data, callback) {
-				ajax('post', url, data, callback);
+				return ajax('post', url, data, callback);
 			},
 		});
 
@@ -512,14 +512,15 @@
 					this.reset();
 				});
 			},
-			markInvalid : function(errors) {
+			markInvalid : function(errors, force) {
 				this.each(function(i, el) {
-					var el = $(this), nodeName = (this.nodeName || '').toLowerCase(), name;
+					var el = $(this), nodeName = (this.nodeName || '').toLowerCase(), name, anchor;
 					if (rform.test(nodeName)) {
 						for (name in errors) {
-							el.find('[name="' + name + '"]').markInvalid(errors[name]);
+							anchor = el.find('[invalid-tips-anchor="' + name + '"]');
+							anchor.length ? anchor.markInvalid(errors[name], true) : el.find('[name="' + name + '"]').markInvalid(errors[name]);
 						}
-					} else if (rsubmittable.test(nodeName)) {
+					} else if (force === true || rsubmittable.test(nodeName)) {
 						layer.tips(errors, this, {
 							tips : [ 2, '#FFBA32' ],
 							tipsMore : true
@@ -658,16 +659,19 @@
 				var originalSuccess = options.success;
 				return function(response, status, xhr) {
 					try {
-						/*REDIRECT_INTERCEPTOR*/(xhr.getResponseHeader('_SESSION_TIMEOUT') === 'Y') && $.dlg.alert('当前会话已经失效，请重新登录', function(dlg) {
-							$.top().location.href = (_ctx || '') + '/logout.html';
-							dlg.close();
-						});
+						/*REDIRECT_INTERCEPTOR*/(xhr.getResponseHeader('_SESSION_TIMEOUT') === 'Y') && (typeof layui === 'undefined' ? (function() {
+							alert('当前会话已经失效，请重新登录');
+							window.top.location.href = (_ctx || '') + '/_/logout.html';
+						})() : layui.layer.alert('当前会话已经失效，请重新登录', function(index) {
+							layui.layer.close(index);
+							window.top.location.href = (_ctx || '') + '/_/logout.html';
+						}));
 					} catch (e) {
 					}
 					originalSuccess.apply(this, [ response, status, xhr ]);
 				};
 			})())
-			originalAjax.call(url, options);
+			return originalAjax.call(url, options);
 		}
 	})();
 
