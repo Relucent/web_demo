@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+	
+		var Hello = function(){
+		}
+		Hello.prototype.say = function(name){
+			console.log('hello ' + name);
+			return 0;
+		}
+	
+		var aop = function(clazz, methodName, interceptor) {
+			var method = clazz.prototype[methodName];
+			clazz.prototype[methodName] = function() {
+				var target = this, args = Array.prototype.slice.call(arguments) || [];
+				return interceptor.call(this,/*invocation*/{
+					target : this,
+					method : method,
+					args : args,
+					proceed : function() {
+						return method.apply(target, args);
+					}
+				});
+			};
+		}
+		
+		aop(Hello,'say',function(ink){
+			console.log('aop:args->' + ink.args);
+			var result = ink.proceed();
+			console.log('aop:proceed()->' + result);
+			return 1;
+		});
+		
+		
+		var hello = new Hello();
+
+		var result = hello.say('aop');
+		console.log('result->' + result);
+	</script>
+</body>
+</html>
