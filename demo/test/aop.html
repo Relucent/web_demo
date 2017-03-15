@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>AOP-DEMO</title>
 </head>
 <body>
 	<script type="text/javascript">
@@ -30,6 +30,7 @@
 		}
 		
 		aop(Hello,'say',function(ink){
+			console.log('aop:target->' + ink.target);
 			console.log('aop:args->' + ink.args);
 			var result = ink.proceed();
 			console.log('aop:proceed()->' + result);
@@ -38,7 +39,6 @@
 		
 		
 		var hello = new Hello();
-
 		var result = hello.say('aop');
 		console.log('result->' + result);
 	</script>
