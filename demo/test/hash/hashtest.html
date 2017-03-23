@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hash</title>
+</head>
+<body>
+
+	<a href="#!1">#1</a>
+	<a href="#!2">#2</a>
+	<a href="#!3">#3</a>
+	<a href="#!5">#4</a>
+	<a href="#!5">#5</a>
+
+	<div id="show"></div>
+
+	<script type="text/javascript">
+		window.addEventListener("hashchange", function() {
+			document.getElementById('show').innerHTML = location.hash;
+		}, false);
+	</script>
+</body>
+</html>
