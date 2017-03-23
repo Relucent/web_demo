@@ -95,9 +95,10 @@ var __ = __ || {};
 
 				var start = 0, limit = this.options.limit;
 
+				this.options.filters = filters || {};
 				options && ((start = options.start || 0) | (limit = options.limit || 10));
 
-				var params = $.extend({}, filters, {
+				var params = $.extend({}, this.options.filters, {
 					':start' : start,
 					':limit' : limit
 				});
