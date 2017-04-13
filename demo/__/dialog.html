@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>Dialog</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<style type="text/css">
+.dialog-shade {
+	position: fixed;
+	_position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999999;
+	background-color: white;
+	margin: 0;
+	padding: 0;
+	filter: alpha(opacity = 50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+
+.dialog {
+	position: fixed;
+	_position: absolute;
+	width: 450px;
+	margin-left: -225px;
+	left: 50%;
+	z-index: 1000000;
+	border: 1px solid #D0D0D0;
+	-webkit-box-shadow: 0 0 8px #D0D0D0;
+	font: 13px/20px normal Microsoft YaHei, Arial, sans-serif;
+	color: #4F5155;
+	background-color: ##edeef1;
+	width: 450px;
+	margin-left: -225px;
+	left: 50%;
+	top: 5%;
+	z-index: 1000000;
+	border: 1px solid #D0D0D0;
+	-webkit-box-shadow: 0 0 8px #D0D0D0;
+	font: 13px/20px normal Microsoft YaHei, Arial, sans-serif;
+	color: #4F5155;
+	z-index: 1000000;
+}
+
+.dialog h1 {
+	padding: 2px 2px 2px 5px;
+	margin: 0 0 0 0;
+	color: #444;
+	font-size: 14px;
+	border-bottom: 1px solid #D0D0D0;
+	color: #ffffff;
+	background-color: #52a7f9;
+	color: #444;
+	font-size: 14px;
+	border-bottom: 1px solid #D0D0D0;
+	color: #ffffff;
+	font-size: 14px;
+	border-bottom: 1px solid #D0D0D0;
+	color: #ffffff;
+}
+
+.dialog p {
+	padding: 2px 2px 2px 5px;
+}
+</style>
+</head>
+<body style="width: 100%;">
+	<div class="dialog-shade">&nbsp;</div>
+	<div class="dialog">
+		<h1>提示</h1>
+		<p>Hello World!</p>
+	</div>
+</body>
+</html>
