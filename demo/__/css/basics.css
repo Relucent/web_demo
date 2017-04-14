@@ -50,10 +50,10 @@ ul, li, ol {
 }
 
 hr {
-	margin: 5px 0px;
+	margin: 10px 0px;
 	clear: both;
-	border: 0;
-	background-color: #e2e2e2;
+	border: none;
+	border-bottom: solid 1px #e2e2e2;
 	box-sizing: content-box;
 }
 

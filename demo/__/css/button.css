@@ -77,3 +77,7 @@
 	padding: 0 10px;
 	font-size: 12px;
 }
+
+.y-btn-radius {
+	border-radius: 100px;
+}
