@@ -3,84 +3,16 @@
 <head>
 <meta charset="utf-8" />
 <title>颜色规范</title>
-<style type="text/css">
-body {
-	font: 14px Helvetica Neue, Helvetica, PingFang SC, 微软雅黑, Verdana, Arial, sans-serif;
-}
-
-blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
-	margin: 0;
-	padding: 0;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-ul, li, ol {
-	list-style: none;
-}
-
-article {
-	margin: 20px 20px 20px 20px;
-}
-
-hr {
-	height: 1px;
-	margin: 10px 0px;
-	border: 0;
-	background-color: #e2e2e2;
-	clear: both;
-}
-
-.doc-color li {
-	display: inline-block;
-	vertical-align: middle;
-	width: 180px;
-	margin-right: 20px;
-	margin-bottom: 20px;
-	padding: 20px 10px;
-	color: #fff;
-	text-align: center;
-	border-radius: 2px;
-	line-height: 22px;
-	font-size: 14px;
-}
-
-.doc-necolor li {
-	margin-right: 0px;
-	padding: 20px 0px;
-}
-
-.doc-font {
-	display: inline-block;
-	width: 45%;
-}
-
-.doc-font li {
-	height: 50px;
-	line-height: 50px;
-	margin-bottom: 20px;
-	padding-left: 10px;
-	border-radius: 2px;
-	text-align: left;
-	vertical-align: top;
-	background-color: #c2c2c2;
-	color: #333;
-}
-
-.yahei {
-	font-family: Microsoft YaHei;
-}
-
-.verdana {
-	font-family: Verdana;
-}
-</style>
+<link rel="stylesheet" href="css/basics.css">
+<link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
-	<article>
+
+	<article class="demo-box">
 		<h1>颜色</h1>
 		<hr>
 
-		<ul class="doc-color">
+		<ul class="demo-list">
 			<li style="background-color: #009688;">
 				<p>#009688</p>
 				<p>修饰元素</p>
@@ -131,7 +63,7 @@ hr {
 			</li>
 		</ul>
 
-		<ul class="doc-color">
+		<ul class="demo-list">
 			<li style="background-color: #52a7f9;">
 				<p>#52a7f9</p>
 			</li>
@@ -153,7 +85,7 @@ hr {
 		</ul>
 
 		<!-- 背景边框 -->
-		<ul class="doc-color doc-necolor">
+		<ul class="demo-list demo-necolor">
 			<li style="background-color: #fbfbfb;">
 				<p>#fbfbfb</p>
 			</li>
@@ -178,11 +110,11 @@ hr {
 		</ul>
 	</article>
 
-	<article>
+	<article class="demo-box">
 		<h1>字体</h1>
 		<hr>
 
-		<ul class="doc-font yahei">
+		<ul class="demo-font yahei">
 			<li>
 				<p style="font-size: 30px">微软雅黑 Microsoft YaHei 30px</p>
 			</li>
@@ -199,7 +131,7 @@ hr {
 				<p style="font-size: 12px">微软雅黑 Microsoft YaHei 12px</p>
 			</li>
 		</ul>
-		<ul class="doc-font verdana">
+		<ul class="demo-font verdana">
 			<li>
 				<p style="font-size: 30px">Verdana 30px</p>
 			</li>
