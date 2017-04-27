@@ -14,69 +14,68 @@
 			</thead>
 			<tbody>
 				<tr v-for="record in records">
-					<td style="height:20px;" @click="editable($event,'id',record)">{{record.id}}</td>
-					<td style="height:20px;" @click="editable($event,'name',record)">{{record.name}}</td>
+					<td style="height: 20px;" @click="editable($event,'id',record)">{{record.id}}</td>
+					<td style="height: 20px;" @click="editable($event,'name',record)">{{record.name}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<script>
-		new Vue(
-				{
-					el : '#example',
-					data : {
-						records : [ {
-							id : 1,
-							name : 'name1'
-						}, {
-							id : 2,
-							name : 'name2'
-						}, {
-							id : 3,
-							name : 'name3'
-						}, {
-							id : 4,
-							name : 'name4'
-						}, {
-							id : 5,
-							name : 'name5'
-						} ]
-					},
-					methods : {
-						editable : function(event, field, record) {
-							var target = event.target, originalValue = target.innerText;
-							target.innerHTML = '<input type="text" value="" style="width:100%;height:99%;box-sizing:border-box;background:transparent;font-size:13px;color:blue;text-align:left;border:none;" />';
+		new Vue({
+			el : '#example',
+			data : {
+				records : [ {
+					id : 1,
+					name : 'name1'
+				}, {
+					id : 2,
+					name : 'name2'
+				}, {
+					id : 3,
+					name : 'name3'
+				}, {
+					id : 4,
+					name : 'name4'
+				}, {
+					id : 5,
+					name : 'name5'
+				} ]
+			},
+			methods : {
+				editable : function(event, field, record) {
+					var target = event.target, originalValue = target.innerText;
+					target.innerHTML = '<input type="text" value="" style="width:100%;height:99%;box-sizing:border-box;background:transparent;font-size:13px;color:blue;text-align:left;border:none;" />';
 
-							var input = target.childNodes[0];
-							input.value = originalValue;
-							input.focus();
+					var input = target.childNodes[0];
+					input.value = originalValue;
+					input.focus();
 
-							var length = input.value.length;
-							if (document.selection) {
-								var sel = input.createTextRange();
-								sel.moveStart('character', length);
-								sel.collapse();
-								sel.select();
-							} else if (typeof input.selectionStart == 'number' && typeof input.selectionEnd == 'number') {
-								input.selectionStart = input.selectionEnd = length;
-							}
-
-							var action = function() {
-								if (originalValue != this.value) {
-									var temp = document.createElement('div');
-									temp.innerText = this.value;
-									target.innerHTML = temp.innerHTML;
-									record[field] = this.value;
-								} else {
-									target.innerText = originalValue;
-								}
-								input.removeEventListener('blur', action, false);
-
-							};
-							input.addEventListener('blur', action, false);
-						}
+					var length = input.value.length;
+					if (document.selection) {
+						var sel = input.createTextRange();
+						sel.moveStart('character', length);
+						sel.collapse();
+						sel.select();
+					} else if (typeof input.selectionStart == 'number' && typeof input.selectionEnd == 'number') {
+						input.selectionStart = input.selectionEnd = length;
 					}
-				})
+
+					var action = function() {
+						if (originalValue != this.value) {
+							var temp = document.createElement('div');
+							temp.innerText = this.value;
+							target.innerHTML = temp.innerHTML;
+							record[field] = this.value;
+						} else {
+							target.innerText = originalValue;
+						}
+						input.removeEventListener('blur', action, false);
+
+					};
+					input.addEventListener('blur', action, false);
+				}
+			}
+		})
 	</script>
 
 </body>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/2.1.10/vue.min.js"></script>
+</head>
+<body>
+	<h3>组件</h3>
+
+	<hr>
+
+	<div id="example">
+		<my-component></my-component>
+	</div>
+	<script>
+		Vue.component('my-component', {
+			template : '<div>A custom component!</div>'
+		});
+		// 创建根实例
+		new Vue({
+			el : '#example'
+		});
+	</script>
+
+	<hr>
+
+	<div id="example-2">
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+	</div>
+	<script>
+		(function() {
+			var data = {
+				counter : 0
+			}
+			Vue.component('simple-counter', {
+				template : '<button v-on:click="counter += 1">{{ counter }}</button>',
+				// 技术上 data 的确是一个函数了，因此 Vue 不会警告，
+				// 但是我们返回给每个组件的实例的却引用了同一个data对象
+				data : function() {
+					return data
+				}
+			});
+		})();
+		new Vue({
+			el : '#example-2'
+		});
+	</script>
+
+	<hr>
+
+	<div id="example-3">
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+	</div>
+	<script>
+		Vue.component('simple-counter', {
+			template : '<button v-on:click="counter += 1">{{ counter }}</button>',
+			// 技术上 data 的确是一个函数了，因此 Vue 不会警告，
+			// 但是我们返回给每个组件的实例的却引用了同一个data对象
+			data : function() {
+				return {
+					counter : 0
+				}
+			}
+		});
+		new Vue({
+			el : '#example-3'
+		});
+	</script>
+</body>
+</html>
