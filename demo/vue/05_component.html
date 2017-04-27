@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="../../s/vue/2.1.10/vue.min.js"></script>
+<script src="../../s/vue/2.3.0/vue.min.js"></script>
 </head>
-<body>
+<body oncontextmenu="return false;">
 	<h3>组件</h3>
 
 	<hr>
@@ -13,6 +13,9 @@
 		<my-component></my-component>
 	</div>
 	<script>
+		document.oncontextmenu = function() {
+			return false
+		}
 		Vue.component('my-component', {
 			template : '<div>A custom component!</div>'
 		});
@@ -70,5 +73,43 @@
 			el : '#example-3'
 		});
 	</script>
+
+	<hr>
+
+	<div id="example-4">
+		<button-counter v-on:compute="computeTotal"></button-counter>
+		+
+		<button-counter v-on:compute="computeTotal"></button-counter>
+		= <span>{{ total }}</span>
+	</div>
+
+	<script>
+		Vue.component('button-counter', {
+			template : '<button v-on:click="increment">{{ counter }}</button>',
+			data : function() {
+				return {
+					counter : 0
+				}
+			},
+			methods : {
+				increment : function() {
+					this.counter += 1
+					this.$emit('compute')
+				}
+			},
+		})
+		new Vue({
+			el : '#example-4',
+			data : {
+				total : 0
+			},
+			methods : {
+				computeTotal : function() {
+					this.total += 1
+				}
+			}
+		})
+	</script>
+
 </body>
 </html>
