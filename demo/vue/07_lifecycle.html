@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/2.3.0/vue.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none;
+}
+</style>
+</head>
+<body>
+
+	<div id="example" style="color: red;">{{value}}</div>
+
+	<div id="console"></div>
+
+	<script>
+		var log = function(text) {
+			var console = document.getElementById('console');
+			var line = document.createElement('div');
+			line.innerText = text;
+			console.appendChild(line);
+		}
+
+		var vm = new Vue({
+			el : '#example',
+			data : {
+				value : 0
+			},
+			beforeCreate : function() {
+				log('beforeCreate');
+			},
+			created : function() {
+				log('created');
+			},
+			beforeMount : function() {
+				log('beforeMount');
+			},
+			mounted : function() {
+				log('mounted');
+			},
+			beforeUpdate : function() {
+				log('beforeUpdate');
+			},
+			updated : function() {
+				log('updated');
+			},
+			activated : function() {
+				log('activated');
+			},
+			deactivated : function() {
+				log('deactivated');
+			},
+			destroyed : function() {
+				log('destroyed');
+			}
+		});
+
+		setTimeout(function() {
+			vm.value = 1;
+		}, 1000);
+		setTimeout(function() {
+			vm.$destroy();
+		}, 2000);
+	</script>
+</body>
+</html>
