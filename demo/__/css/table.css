@@ -3,7 +3,9 @@
 .y-table {
 	width: 100%;
 	background-color: #fff;
-	font-size: 14px
+	font-size: 14px;
+	border-collapse: collapse;
+	border-spacing: 0
 }
 
 .y-table th, .y-table thead tr {
