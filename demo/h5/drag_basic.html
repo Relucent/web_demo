@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DRAG</title>
+<style type="text/css">
+.box {
+	display: inline-block;
+	margin: 5px;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #ccccff;
+	background-color: #ccccff;
+	text-align: center;
+	line-height: 100px;
+}
+
+.bin {
+	display: table-cell;
+	width: 300px;
+	height: 500px;
+	margin: 10px;
+	border: 1px solid #ccccff;
+}
+</style>
+</head>
+<body>
+	<div style="display: table;">
+		<div class="bin">
+			<div class="box" draggable="true">1</div>
+			<div class="box" draggable="true">2</div>
+			<div class="box" draggable="true">3</div>
+			<div class="box" draggable="true">4</div>
+			<div class="box" draggable="true">5</div>
+		</div>
+
+		<div class="bin">&nbsp;</div>
+	</div>
+
+	<script type="text/javascript">
+		var bins = document.querySelectorAll('.bin');
+		var boxs = document.querySelectorAll('.box');
+		var drag = null;
+		for (var i = 0; i < boxs.length; i++) {
+
+			var box = boxs[i];
+
+			box.onselectstart = function() {
+				return false;
+			};
+			box.ondragstart = function(e) {
+				e.dataTransfer.effectAllowed = 'move';
+				e.dataTransfer.setData('text/plain', e.target.outerHTML);
+				e.dataTransfer.setDragImage(e.target, 0, 0);
+				drag = this;
+				return true;
+			};
+			box.ondragend = function(e) {
+				e.dataTransfer.clearData('text/plain');
+				drag = null;
+				return false
+			};
+		}
+
+		for (var i = 0; i < bins.length; i++) {
+			var bin = bins[i];
+			//当拖曳元素进入目标元素
+			bin.ondragover = function(e) {
+				e.preentDefault();
+				return true;
+			};
+
+			//拖拽元素在目标元素上移动
+			bin.ondragenter = function(e) {
+				this.style.backgroundColor = '#eeeeff';
+				return true;
+			};
+			//拖拽元素在目标元素上离开
+			bin.ondragleave = function(e) {
+				this.style.backgroundColor = '#fff';
+				return true;
+			};
+
+			//拖拽的元素在目标元素上同时鼠标放开
+			bin.ondrop = function(e) {
+				var inner = e.dataTransfer.getData('text/plain');
+				if (drag) {
+					drag.parentNode.removeChild(drag);
+					this.appendChild(drag);
+				}
+				this.style.backgroundColor = '#fff';
+				return false;
+			};
+		}
+
+		document.body.ondrop = function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		//dragstart –> dragenter –> dragover –> drop –> dragend
+	</script>
+</body>
+</html>
