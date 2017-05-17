@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+	<div id="x-example" v-cloak style="height: 255px; width: 300px; border: 1px solid #bcbcff; overflow-y: scroll;" :key="records">
+		<div v-for="(record,index) in records" style="background-color: #fbfbff; margin-bottom: 1px">
+			<input type="checkbox" :value="record"/>
+			<span style="display: inline-block; width: 230px;">{{record}}</span> 
+			<a @click="remove(index)" style="cursor: pointer;">[-]</a>
+		</div>
+	</div>
+
+	<button onclick="add()">ADD</button>
+
+	<script>
+		var vue = new Vue({
+			el : '#x-example',
+			data : {
+				records : []
+			},
+			methods : {
+				remove : function(index) {
+					this.records.splice(index, 1);
+				}
+			}
+		});
+
+		var index = 0;
+
+		var add = function() {
+			vue.records.push(index++);
+		}
+	</script>
+</body>
+</html>
