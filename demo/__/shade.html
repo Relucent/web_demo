@@ -1,0 +1,51 @@
+<div class="y-shade">&nbsp;</div>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>Shade</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<link rel="stylesheet" href="css/basics.css">
+<link rel="stylesheet" href="css/demo.css">
+<link rel="stylesheet" href="css/shade.css">
+</head>
+<body>
+
+	<div id="shade" style="display: none;">
+		<div class="y-loading-mask"></div>
+		<div class="y-loading-panel">
+			<div class="y-loading-indicator">Loading...</div>
+		</div>
+	</div>
+
+	<article class="demo-box">
+
+		<section>
+			<p>正月开岁</p>
+			<p>二月绀香</p>
+			<p>三月桃良</p>
+			<p>四月秀蔓</p>
+			<p>五月鸣蜩</p>
+			<p>六月精阳</p>
+			<p>七月流火</p>
+			<p>八月未央</p>
+			<p>九月授衣</p>
+			<p>十月获稻</p>
+			<p>葭月潜龙</p>
+			<p>腊月嘉年</p>
+		</section>
+		<br />
+		<button class="y-btn" onclick="mask()">添加遮层</button>
+	</article>
+
+	<script type="text/javascript">
+		var mask = function() {
+			var shade = document.getElementById('shade');
+			shade.style.display = 'block';
+			setTimeout(function() {
+				shade.style.display = 'none';
+			}, 5 * 1000)
+		}
+	</script>
+
+</body>
+</html>
