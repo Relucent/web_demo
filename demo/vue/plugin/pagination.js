@@ -20,7 +20,42 @@ var __ = __ || {};
 				return ((total < 0 || limit < 1) ? 0 : (((total - 1) / limit) | 0)) + 1;
 			}
 		};
-
+		var Computed = {
+			currentPage : function() {
+				return PageUtil.getPageNo(this.start, this.limit);
+			},
+			totalPages : function() {
+				return PageUtil.getPageCount(this.total, this.limit);
+			},
+			hasPrevious : function() {
+				return this.currentPage != 1
+			},
+			hasNext : function() {
+				return this.currentPage != this.totalPages
+			},
+			indexs : function() {
+				var indexs = [], left = 1, right = this.totalPages;
+				if (this.totalPages >= 11) {
+					if (this.currentPage > 5 && this.currentPage < this.totalPages - 4) {
+						left = this.currentPage - 5;
+						right = this.currentPage + 4;
+					} else {
+						if (this.currentPage <= 5) {
+							left = 1;
+							right = 10;
+						} else {
+							right = this.totalPages;
+							left = this.totalPages - 9;
+						}
+					}
+				}
+				while (left <= right) {
+					indexs.push(left);
+					left++;
+				}
+				return indexs;
+			}
+		};
 		var Pagination = function(options) {
 
 			this.id = $.uuid();
@@ -36,42 +71,7 @@ var __ = __ || {};
 						this.gotoPage(page);
 					}, this)
 				}),
-				computed : {
-					currentPage : function() {
-						return PageUtil.getPageNo(this.start, this.limit);
-					},
-					totalPages : function() {
-						return PageUtil.getPageCount(this.total, this.limit);
-					},
-					hasPrevious : function() {
-						return this.currentPage != 1
-					},
-					hasNext : function() {
-						return this.currentPage != this.totalPages
-					},
-					indexs : function() {
-						var indexs = [], left = 1, right = this.totalPages;
-						if (this.totalPages >= 11) {
-							if (this.currentPage > 5 && this.currentPage < this.totalPages - 4) {
-								left = this.currentPage - 5;
-								right = this.currentPage + 4;
-							} else {
-								if (this.currentPage <= 5) {
-									left = 1;
-									right = 10;
-								} else {
-									right = this.totalPages;
-									left = this.totalPages - 9;
-								}
-							}
-						}
-						while (left <= right) {
-							indexs.push(left);
-							left++;
-						}
-						return indexs;
-					},
-				},
+				computed : Computed,
 				data : {
 					start : 0,
 					limit : 10,
@@ -123,6 +123,24 @@ var __ = __ || {};
 					start : PageUtil.getStart(page, this.vm.limit),
 					limit : this.vm.limit
 				});
+			},
+			components : {
+				'pagination-page' : {
+					template : [ //
+					'<ul class="data-grid-page">',//
+					'	<li v-if="hasPrevious"><a v-on:click.stop="gotoPage(currentPage-1)">上一页</a></li>',//
+					'	<li v-for="index in indexs"><a v-on:click.stop="gotoPage(index)" v-bind:class="{\'active\':currentPage==index}">{{index}}</a></li>',//
+					'	<li><span>第 {{currentPage}} 页，共 {{totalPages}} 页</span></li>',//
+					'	<li v-if="hasNext"><a v-on:click.stop="gotoPage(currentPage+1)">下一页</a></li>',//
+					'</ul>' ].join(''),
+					props : [ 'start', 'limit', 'total' ],
+					computed : Computed,
+					methods : {
+						gotoPage : function() {
+							this.$parent.gotoPage();
+						}
+					},
+				}
 			}
 		});
 
