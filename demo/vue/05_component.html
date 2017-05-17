@@ -111,5 +111,42 @@
 		})
 	</script>
 
+	<hr>
+	<div id="example-5">
+		<increment-button></increment-button>
+		+
+		<increment-button></increment-button>
+		= <span v-text="counter"></span>
+	</div>
+	<script>
+		new Vue({
+			el : '#example-5',
+			data : {
+				counter : 0
+			},
+			methods : {
+				increment : function() {
+					this.counter += 1
+				}
+			},
+			components : {
+				'increment-button' : {
+					template : '<button v-on:click="increment">{{ counter }}</button>',
+					data : function() {
+						return {
+							counter : 0
+						}
+					},
+					methods : {
+						increment : function() {
+							this.counter++;
+							this.$parent.increment();
+						}
+					}
+				}
+			}
+		});
+	</script>
+
 </body>
 </html>
