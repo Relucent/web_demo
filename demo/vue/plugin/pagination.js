@@ -67,9 +67,7 @@ var __ = __ || {};
 			this.vm = new Vue({
 				el : options.el,
 				methods : $.extend({}, options.methods || {}, {
-					gotoPage : $.proxy(function(page) {
-						this.gotoPage(page);
-					}, this)
+					gotoPage : $.proxy(this.gotoPage, this)
 				}),
 				computed : Computed,
 				data : {
@@ -84,6 +82,24 @@ var __ = __ || {};
 					},
 					formatDate : function(value, format) {
 						return $.formatDate(value, format);
+					}
+				},
+				components : {
+					'pagination-page' : {
+						template : [ //
+						'<ul class="data-grid-page">',//
+						'	<li v-if="hasPrevious"><a v-on:click.stop="gotoPage(currentPage-1)">上一页</a></li>',//
+						'	<li v-for="index in indexs"><a v-on:click.stop="gotoPage(index)" v-bind:class="{\'active\':currentPage==index}">{{index}}</a></li>',//
+						'	<li><span>第 {{currentPage}} 页，共 {{totalPages}} 页</span></li>',//
+						'	<li v-if="hasNext"><a v-on:click.stop="gotoPage(currentPage+1)">下一页</a></li>',//
+						'</ul>' ].join(''),
+						props : [ 'start', 'limit', 'total' ],
+						computed : Computed,
+						methods : {
+							gotoPage : function(page) {
+								this.$parent.gotoPage(page);
+							}
+						},
 					}
 				}
 			});
@@ -123,24 +139,6 @@ var __ = __ || {};
 					start : PageUtil.getStart(page, this.vm.limit),
 					limit : this.vm.limit
 				});
-			},
-			components : {
-				'pagination-page' : {
-					template : [ //
-					'<ul class="data-grid-page">',//
-					'	<li v-if="hasPrevious"><a v-on:click.stop="gotoPage(currentPage-1)">上一页</a></li>',//
-					'	<li v-for="index in indexs"><a v-on:click.stop="gotoPage(index)" v-bind:class="{\'active\':currentPage==index}">{{index}}</a></li>',//
-					'	<li><span>第 {{currentPage}} 页，共 {{totalPages}} 页</span></li>',//
-					'	<li v-if="hasNext"><a v-on:click.stop="gotoPage(currentPage+1)">下一页</a></li>',//
-					'</ul>' ].join(''),
-					props : [ 'start', 'limit', 'total' ],
-					computed : Computed,
-					methods : {
-						gotoPage : function() {
-							this.$parent.gotoPage();
-						}
-					},
-				}
 			}
 		});
 
