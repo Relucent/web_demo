@@ -11,20 +11,13 @@
 </head>
 <body>
 
-	<select id="combobox" style="width: 150px;">
-		<option value="A">A</option>
-		<option value="B">B</option>
-		<option value="C">C</option>
-	</select>
-
+	<select id="combobox" style="width: 80%;"></select>
 	<script type="text/javascript">
-		$('#combobox').select2();
-		$('#combobox').on('change', function() {
-			alert($('#combobox').val());
+		$('#combobox').select2({
+			tags : true,
+			multiple : true,
+			tokenSeparators : [ ',', ' ' ]
 		});
-		setTimeout(function() {
-			$('#combobox').val('C').trigger('change');
-		}, 1000);
 	</script>
 </body>
 </html>

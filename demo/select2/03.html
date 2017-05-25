@@ -4,23 +4,21 @@
 <title>select2</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet" href="../../assets/select2/4.0.0/css/select2.css">
+<link rel="stylesheet" href="../../s/select2/4.0.0/css/select2.css">
 
-<script src="../../assets/jquery/1.10.2/jquery.js"></script>
-<script src="../../assets/select2/4.0.0/js/select2.full.js"></script>
+<script src="../../s/jquery/1.11.1/jquery.js"></script>
+<script src="../../s/select2/4.0.0/js/select2.full.js"></script>
 </head>
 <body>
 
 	<input id="switch" type="button" value="hide" />
-<span id="box">
-	<select id="combobox" style="width: 150px;">
-		<option value="A">A</option>
-		<option value="B">B</option>
-		<option value="C">C</option>
+	<span id="box"> <select id="combobox" style="width: 150px;">
+			<option value="A">A</option>
+			<option value="B">B</option>
+			<option value="C">C</option>
 	</select>
-</span>
+	</span>
 	<script type="text/javascript">
-		
 		$('#combobox').select2();
 
 		$('#switch').on('click', function() {

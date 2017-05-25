@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>select2</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="../../s/select2/4.0.0/css/select2.css">
+
+<script src="../../s/jquery/1.11.1/jquery.js"></script>
+<script src="../../s/select2/4.0.0/js/select2.full.js"></script>
+</head>
+<body>
+
+	<select id="combobox" style="width: 150px;"></select>
+	<script type="text/javascript">
+		var data = [ {
+			id : 1,
+			text : '齐'
+		}, {
+			id : 2,
+			text : '楚'
+		}, {
+			id : 3,
+			text : '燕'
+		}, {
+			id : 4,
+			text : '韩'
+		}, {
+			id : 5,
+			text : '赵'
+		}, {
+			id : 6,
+			text : '魏'
+		}, {
+			id : 7,
+			text : '秦'
+		} ];
+
+		$('#combobox').select2({
+			data : data,
+			minimumResultsForSearch : Infinity,
+			sorter : function(data) {
+				return data.sort(function(v1, v2) {
+					return v1.text > v2.text ? 1 : v1.text < v2.text ? -1 : 0;
+				});
+			}
+		});
+	</script>
+</body>
+</html>
