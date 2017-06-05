@@ -6,11 +6,13 @@
 </head>
 <body>
 
-	<div id="x-example" v-cloak style="height: 255px; width: 300px; border: 1px solid #bcbcff; overflow-y: scroll;" :key="records">
-		<div v-for="(record,index) in records" style="background-color: #fbfbff; margin-bottom: 1px">
-			<input type="checkbox" :value="record"/>
-			<span style="display: inline-block; width: 230px;">{{record}}</span> 
+	<div id="x-example" v-cloak style="height: 255px; width: 300px; border: 1px solid #bcbcff; overflow-y: scroll;">
+		<div v-for="(record,index) in records" style="background-color: #fbfbff; margin-bottom: 1px" :key="record">
+			<input type="checkbox" :value="record" />
+			<span style="display: inline-block; width: 180px;">{{record}}</span> 
 			<a @click="remove(index)" style="cursor: pointer;">[-]</a>
+			<a v-if="index<(records.length-1)" @click="swap(index,index+1)" style="cursor: pointer;">[↓]</a>
+			<a v-if="index!=0" @click="swap(index,index-1)" style="cursor: pointer;">[↑]</a>
 		</div>
 	</div>
 
@@ -25,6 +27,11 @@
 			methods : {
 				remove : function(index) {
 					this.records.splice(index, 1);
+				},
+				swap: function(index1,index2) {
+					var record1 = this.records[index1],record2 = this.records[index2];
+					Vue.set(this.records, index1, record2);
+					Vue.set(this.records, index2, record1);
 				}
 			}
 		});
