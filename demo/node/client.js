@@ -1,6 +1,7 @@
 var http = require('http');
 
 var options = {
+	scheme : 'http',
 	host : '127.0.0.1',
 	port : '2000',
 	path : '/index.html'
