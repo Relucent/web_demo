@@ -8,6 +8,11 @@ var __ = __ || {};
 			start : 0,
 			limit : 10
 		};
+		var pagination = {
+			start : 0,
+			limit : 10,
+			total : 0
+		};
 
 		var PageUtil = {
 			getPageNo : function(start, limit) {
@@ -85,7 +90,7 @@ var __ = __ || {};
 					}
 				},
 				components : {
-					'pagination-page' : {
+					'x-pagination' : {
 						template : [ //
 						'<ul class="data-grid-page">',//
 						'	<li v-if="hasPrevious"><a v-on:click.stop="gotoPage(currentPage-1)">上一页</a></li>',//
@@ -93,7 +98,9 @@ var __ = __ || {};
 						'	<li><span>第 {{currentPage}} 页，共 {{totalPages}} 页</span></li>',//
 						'	<li v-if="hasNext"><a v-on:click.stop="gotoPage(currentPage+1)">下一页</a></li>',//
 						'</ul>' ].join(''),
-						props : [ 'start', 'limit', 'total' ],
+						data : function() {
+							return pagination;
+						},
 						computed : Computed,
 						methods : {
 							gotoPage : function(page) {
@@ -122,10 +129,10 @@ var __ = __ || {};
 				$.post(this.options.url, params, function(response) {
 					$.unmask(this.id + '-mask');
 					var page = $.decode(response);
-					vm.start = page.start | 0;
-					vm.limit = page.limit || 10;
+					vm.start = pagination.start = page.start | 0;
+					vm.limit = pagination.limit = page.limit || 10;
+					vm.total = pagination.total = page.total | 0;
 					vm.records = page.records || [];
-					vm.total = page.total | 0;
 				}, 'text');
 			},
 			reload : function() {
