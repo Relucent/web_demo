@@ -78,12 +78,16 @@ table td input {
 			},
 			methods : {
 				analytic : function(template, parameters) {
-					var matcheds = [], matched, pattern = /<%=[^<%=%>]+%>/img, kv = {}, k, i;
+					var matcheds = [], matched, pattern = /<%=[^<%=%>]+%>/img, kv = {}, k, i, kSet = {};
 					for (i = 0; i < parameters.length; i++) {
 						kv[parameters[i].name] = parameters[i].value;
 					}
 					while ((matched = (pattern.exec(template) || {})[0]) != null) {
 						name = matched.replace(/(^<%=)|(%>$)/img, '');
+						if (kSet[name] === true) {
+							continue;
+						}
+						kSet[name] = true
 						matcheds.push({
 							name : matched.replace(/(^<%=)|(%>$)/img, ''),
 							expression : matched,
