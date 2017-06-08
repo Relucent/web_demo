@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<style type="text/css">
+textarea {
+	border: 1px solid #e2e2f2;
+	width: 600px;
+	height: 150px;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+
+thead th, tbody td {
+	width: 250px;
+	height: 34px;
+	border: 1px solid #e2e2f2;
+}
+
+thead td {
+	font-weight: bold;
+}
+
+table td {
+	text-align: center;
+}
+
+table td input {
+	width: 90%;
+}
+
+[v-cloak] {
+	display: none;
+}
+</style>
+</head>
+<body>
+
+	<div id="global" v-cloak="">
+
+		<h2>模板文本</h2>
+		<textarea v-model="template"></textarea>
+
+		<h2>参数提取</h2>
+		<table class="x-table" style="width: 600px">
+			<thead>
+				<tr>
+					<th>参数名</th>
+					<th>表达式</th>
+					<th>参数值</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="parameter in parameters" :key="parameters">
+					<td><input type="text" :value="parameter.name" disabled="disabled" /></td>
+					<td><input type="text" :value="parameter.expression" disabled="disabled" /></td>
+					<td><input type="text" v-model="parameter.value" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>文本输出</h2>
+		<textarea :value="output()"></textarea>
+	</div>
+	<script>
+		var vm = new Vue({
+			el : '#global',
+			data : {
+				template : 'Hello <%=name%>!',
+				parameters : [],
+			},
+			mounted : function() {
+				this.parameters = this.analytic(this.template, {});
+			},
+			methods : {
+				analytic : function(template, parameters) {
+					var matcheds = [], matched, pattern = /<%=[^<%=%>]+%>/img, kv = {}, k, i;
+					for (i = 0; i < parameters.length; i++) {
+						kv[parameters[i].name] = parameters[i].value;
+					}
+					while ((matched = (pattern.exec(template) || {})[0]) != null) {
+						name = matched.replace(/(^<%=)|(%>$)/img, '');
+						matcheds.push({
+							name : matched.replace(/(^<%=)|(%>$)/img, ''),
+							expression : matched,
+							value : kv[name] || ''
+						});
+					}
+					return matcheds;
+				},
+				output : function() {
+					var parameters = this.parameters, kv = {}, k, i;
+					for (i = 0; i < parameters.length; i++) {
+						kv[parameters[i].name] = parameters[i].value;
+					}
+					return (this.template + '').replace(/<%=([^<%=%>]+)%>/img, function($0, $1) {
+						return kv[$1] || '';
+					});
+				}
+			}
+		});
+		vm.$watch('template', function(newVal, oldVal) {
+			Vue.set(this, 'parameters', this.analytic(newVal, this.parameters));
+		})
+	</script>
+</body>
+</html>
