@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>KnockoutJS</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script src="../../s/knockout/3.4.2/knockout.debug.js"></script>
+</head>
+<body>
+
+	<div data-bind="text:name"></div>
+
+	<script type="text/javascript">
+		var ViewModel = function(message) {
+			this.message = ko.observable(message);
+		};
+		ko.applyBindings(new ViewModel('hello world'));
+	</script>
+</body>
+</html>
