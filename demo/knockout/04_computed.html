@@ -12,11 +12,11 @@
 		<table>
 			<tr>
 				<td>firstName</td>
-				<td data-bind="text:firstName"></td>
+				<td><input type="text" data-bind="value:firstName"></td>
 			</tr>
 			<tr>
 				<td>lastName</td>
-				<td data-bind="text:lastName"></td>
+				<td><input type="text" data-bind="value:lastName"></td>
 			</tr>
 			<tr>
 				<td>fullName</td>
@@ -33,6 +33,32 @@
 			}, this);
 		};
 		ko.applyBindings(new ViewModel(), document.getElementById('demo-1'));
+	</script>
+
+	<hr>
+	<div id="demo-2">
+		<p>
+			price: <span data-bind="text:price"></span>
+		</p>
+		<p>
+			Enter bid price: <input data-bind="value: formattedPrice,valueUpdate:'input'" />
+		</p>
+	</div>
+	<script type="text/javascript">
+		var ViewModel = function(message) {
+			this.price = ko.observable(25.99);
+			this.formattedPrice = ko.computed({
+				read : function() {
+					return '$' + this.price().toFixed(2);
+				},
+				write : function(value) {
+					value = parseFloat(value.replace(/[^\.\d]/g, ""));
+					this.price(isNaN(value) ? 0 : value);
+				},
+				owner : this
+			});
+		};
+		ko.applyBindings(new ViewModel(), document.getElementById('demo-2'));
 	</script>
 </body>
 </html>
