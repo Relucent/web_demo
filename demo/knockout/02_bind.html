@@ -39,5 +39,23 @@
 
 	<hr />
 
+	<div id="demo-3">
+		<div>数据双向绑定</div>
+		<pre>默认情况下，ko是在change事件的时候检测input属性的改变，但是也可以通过valueUpdate来改变检测的时机
+input：值改变的时候触发，但是只支持一些现代浏览器比如ie9+；
+keyup：松开一个按键的时候触发
+keypress：每插入一个字符的时候触发
+afterkeydown：按一个键同时触发，在一些手机浏览器中不支持</pre>
+		<input type="text" data-bind="value:value,valueUpdate:'input'" />
+		<div data-bind="text:value" style="height: 25px;">value</div>
+	</div>
+	<script type="text/javascript">
+		var viewModel = {
+			value : ko.observable(''),
+		};
+		ko.applyBindings(viewModel, document.getElementById('demo-3'));
+	</script>
+
+	<hr />
 </body>
 </html>
