@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>KnockoutJS</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script src="../../s/knockout/3.4.2/knockout.debug.js"></script>
+</head>
+<body>
+	<h2>计算属性</h2>
+	<div id="demo-1">
+		<table>
+			<tr>
+				<td>firstName</td>
+				<td data-bind="text:firstName"></td>
+			</tr>
+			<tr>
+				<td>lastName</td>
+				<td data-bind="text:lastName"></td>
+			</tr>
+			<tr>
+				<td>fullName</td>
+				<td data-bind="text:fullName"></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		var ViewModel = function(message) {
+			this.firstName = ko.observable('Brendan');
+			this.lastName = ko.observable('Eich');
+			this.fullName = ko.computed(function() {
+				return this.firstName() + " " + this.lastName();
+			}, this);
+		};
+		ko.applyBindings(new ViewModel(), document.getElementById('demo-1'));
+	</script>
+</body>
+</html>

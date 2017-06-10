@@ -8,13 +8,18 @@
 </head>
 <body>
 
-	<div data-bind="text:name"></div>
+	<div data-bind="text:message"></div>
 
 	<script type="text/javascript">
 		var ViewModel = function(message) {
 			this.message = ko.observable(message);
+			console.log(this.message);
 		};
-		ko.applyBindings(new ViewModel('hello world'));
+		var viewModel = new ViewModel('hello world!');
+		ko.applyBindings(viewModel);
+		setTimeout(function() {
+			viewModel.message('hello knockout!');
+		}, 2000);
 	</script>
 </body>
 </html>

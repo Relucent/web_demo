@@ -16,6 +16,7 @@
 			bind : function(el, binding, vnode, oldVnode) {
 				var s = JSON.stringify
 				el.innerHTML = //
+				'this: ' + this + '<br>' + //
 				'name: ' + s(binding.name) + '<br>' + //
 				'value: ' + s(binding.value) + '<br>' + //
 				'expression: ' + s(binding.expression) + '<br>' + //
