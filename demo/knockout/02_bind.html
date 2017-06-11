@@ -57,5 +57,17 @@ afterkeydown：按一个键同时触发，在一些手机浏览器中不支持</
 	</script>
 
 	<hr />
+
+	<div id="demo-4">
+		<div>使用if binding可以控制某个组件动态显示</div>
+		<label> Display message</label> <input type="checkbox" data-bind="checked:displayMessage" /> <span data-bind="if: displayMessage" style="color: blue;">Here is a message</span>
+	</div>
+	<script type="text/javascript">
+		ko.applyBindings({
+			displayMessage : ko.observable(true)
+		}, document.getElementById('demo-4'));
+	</script>
+	<hr />
+
 </body>
 </html>
