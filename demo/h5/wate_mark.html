@@ -13,13 +13,16 @@
 			canvas.height = 300;
 			if (canvas.getContext) {
 				var ctx = canvas.getContext("2d");
+				ctx.save();
 				ctx.rotate(45 * Math.PI / 180);//旋转画布
 				ctx.font = "30px Courier New";
 				ctx.fillStyle = "blue";
 				ctx.globalAlpha = 0.1;
 				ctx.fillText(text || '', 50, 10);
+				ctx.restore();
 				var mark = document.createElement('div');
 				mark.style.position = 'absolute';
+				mark.style.margin="30px 30px";
 				mark.style.zIndex = 999999;
 				mark.style.width = '100%';
 				mark.style.height = '100%';
