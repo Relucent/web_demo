@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WateMark</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var addWateMark = function(text) {
+			var canvas = document.createElement('canvas');
+			canvas.width = 300;
+			canvas.height = 300;
+			if (canvas.getContext) {
+				var ctx = canvas.getContext("2d");
+				ctx.rotate(45 * Math.PI / 180);//旋转画布
+				ctx.font = "30px Courier New";
+				ctx.fillStyle = "blue";
+				ctx.globalAlpha = 0.1;
+				ctx.fillText(text || '', 50, 10);
+				var mark = document.createElement('div');
+				mark.style.position = 'absolute';
+				mark.style.zIndex = 999999;
+				mark.style.width = '100%';
+				mark.style.height = '100%';
+				mark.style.pointerEvents = 'none';
+				mark.style.backgroundRepeat = 'repeat';
+				mark.style.backgroundImage = 'url(' + canvas.toDataURL("image/png") + ')';
+				document.body.appendChild(mark);
+			}
+		};
+		addWateMark('hello world');
+	</script>
+
+
+</body>
+</html>
