@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>切换焦点</title>
+<style type="text/css">
+input[type="text"], select {
+	width: 100px;
+}
+
+input:focus, select:focus {
+	background-color: #00ff00;
+}
+</style>
+</head>
+<body>
+
+	<input id="text1" type="text" />
+	<input id="text2" type="text" />
+	<input id="text3" type="text" />
+	<select id="select1">
+		<option>选项一</option>
+		<option>选项二</option>
+		<option>选项三</option>
+	</select>
+	<select id="select2">
+		<option>选项2.1</option>
+		<option>选项2.2</option>
+		<option>选项2.3</option>
+	</select>
+	<input id="button" type="button" value="Button" />
+
+
+	<script type="text/javascript">
+		var EventKit = {
+			/** 绑定事件 */
+			on : function(target, type, handler) {
+				if (target.addEventListener) {
+					target.addEventListener(type, handler, false);
+				} else {
+					target.attachEvent("on" + type, handler);
+				}
+			},
+			/** 是否回车键*/
+			isEnter : function(event) {
+				var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+				return keyCode == 13;
+			},
+			/** 是否按下Shift键*/
+			shiftKey : function(event) {
+				return event.shiftKey || false;
+			},
+			/** 阻止默认事件 */
+			preventDefault : function(event) {
+				event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+			}
+		}
+		var text1 = document.getElementById('text1');
+		var text2 = document.getElementById('text2');
+		var text3 = document.getElementById('text3');
+		var select1 = document.getElementById('select1');
+		var select2 = document.getElementById('select2');
+		var button = document.getElementById('button');
+
+		//初始化时焦点切换到text1
+		setTimeout(function() {
+			text1.focus();
+		}, 200);
+
+		//在text1按回车，切换到text2
+		EventKit.on(text1, 'keyup', function(event) {
+			if (EventKit.isEnter(event)) {
+				EventKit.preventDefault(event);
+				text2.focus();
+			}
+		});
+
+		//在text2按回车，切换到text3
+		EventKit.on(text2, 'keyup', function(event) {
+			if (EventKit.isEnter(event)) {
+				EventKit.preventDefault(event);
+				text3.focus();
+			}
+		});
+		//在text3按回车，切换到text4
+		EventKit.on(text3, 'keyup', function(event) {
+			if (EventKit.isEnter(event)) {
+				EventKit.preventDefault(event);
+				select1.focus();
+			}
+		});
+		//在select1按回车，切换到select2
+		EventKit.on(select1, 'keyup', function(event) {
+			if (EventKit.isEnter(event)) {
+				EventKit.preventDefault(event);
+				select2.focus();
+			}
+		});
+		//在select2按回车，切换到button
+		EventKit.on(select2, 'keyup', function(event) {
+			if (EventKit.isEnter(event)) {
+				EventKit.preventDefault(event);
+				button.focus();
+			}
+		});
+		//在button按回车
+		EventKit.on(button, 'keyup', function(event) {
+			if (EventKit.isEnter(event)) {
+				alert('submit')
+				EventKit.preventDefault(event);
+				text1.focus();
+			}
+		});
+	</script>
+
+</body>
+</html>
