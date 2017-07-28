@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ImagepReview</title>
+</head>
+<body>
+
+	<form enctype="multipart/form-data">
+		<input id="imageUpload" type="file" /> </br> <img id="preview" style="width: 300px; height: 300px; border: 1px solid gray; display: block;"></img>
+	</form>
+
+	<script type="text/javascript">
+		document.getElementById('imageUpload').addEventListener('change', function(e) {
+			var file = e.target.files[0];
+			var img = document.getElementById('preview')
+			var objectURL = URL.createObjectURL(file);
+			img.src = objectURL;
+
+			var onload = function() {
+				img.removeEventListener('load', onload);
+				URL.revokeObjectURL(objectURL);
+				onload = null
+			}
+			img.addEventListener('load', onload)
+		});
+	</script>
+</body>
+</html>
