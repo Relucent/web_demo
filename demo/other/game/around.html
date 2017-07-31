@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>around</title>
+<style type="text/css">
+#panel {
+	position: relative;
+	margin: 20px 20px 20px 20px;
+}
+
+#circle {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100px;
+	height: 100px;
+	border: 1px solid red;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+#sphere {
+	position: absolute;
+	top: 45px;
+	left: -5px;
+	width: 10px;
+	height: 10px;
+	background-color: green;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+</style>
+</head>
+<body>
+	<div id="panel">
+		<div id="sphere"></div>
+		<div id="circle"></div>
+	</div>
+	<script type="text/javascript">
+		var dom = document.getElementById('sphere');
+		var angle = 90;
+		var nextAround = function() {
+			angle = (angle + 1) % 360;
+			dom.style.left = (45 - Math.cos(angle * 0.017453293) * 50) + 'px';
+			dom.style.top = (45 - Math.sin(angle * 0.017453293) * 50) + 'px';
+			setTimeout(nextAround, 10);
+		}
+		nextAround();
+	</script>
+</body>
+</html>
