@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>CodeMirror</title>
+<link rel="stylesheet" href="../../../s/codemirror/5.28.0/lib/codemirror.css">
+
+<script type="text/javascript" src="../../../s/codemirror/5.28.0/lib/codemirror.js"></script>
+<script type="text/javascript" src="../../../s/codemirror/5.28.0/mode/javascript/javascript.js"></script>
+<script src="../../../s/vue/2.3.3/vue.min.js"></script>
+<script src="vue-codemirror.js"></script>
+
+<style type="text/css">
+.CodeMirror {
+	border: 1px solid #ddd;
+	font-size: 13px
+}
+
+.CodeMirror pre {
+	font-family: 'Microsoft Yahei', "Helvetica Neue", Helvetica, Verdana, "PingFang SC", Arial, sans-serif;
+}
+</style>
+<body>
+	<div v-cloak id="app">
+		<codemirror :value="code" @change="change" :options="options"></codemirror>
+	</div>
+	<script type="text/javascript">
+		var code = 'var component = {\n\tname: "vue-codemirror-lite",\n\tauthor: "Fangxw",\n\trepo: "https://github.com/cnu4/vue-codemirror-lite"\n}\n\n//Press Ctrl-Space to trigger hint';
+
+		var app = new Vue({
+			el : '#app',
+			computed : {
+				code : function() {
+					return code;
+				},
+				options : function() {
+					return {
+						mode : 'javascript',
+						tabSize : 2,
+						lineNumbers : true,
+						lineWrapping : true,
+						extraKeys : {
+							'Ctrl-/' : 'autocomplete'
+						},
+					}
+				}
+			},
+			methods : {
+				change : function(code) {
+					console.log('change', code)
+				}
+			}
+		})
+	</script>
+</body>
+</html>
