@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Arrow Functions</title>
+</head>
+<body>
+	<pre>
+&lt;!-- 	单行注释
+--&gt; 	“趋向于”操作符
+&lt;= 	小于等于
+=&gt; 	箭头函数
+</pre>
+	<script type="text/javascript">
+
+		//注释
+		<!--
+
+		//“趋向于”运算符！
+		function countdown(n) {
+    		while (n --> 0){  // "n goes to zero"
+      			console.log(n);
+    		}
+		}
+		countdown(5);
+		
+		var sum  =  (num1, num2) => num1 + num2;
+		console.log(sum(1,2));
+		
+		
+		var arr = [1,2,3,4,5];
+		
+		arr.sort((a,b)=>{return a==b?0:a>b?-1:1})
+		console.log(arr);
+		
+		var full = ({ first, last }) => first + ' ' + last;
+		
+		var person = {first:'hello', last:'world' };
+		console.log(full(person));
+</script>
+</body>
+</html>
