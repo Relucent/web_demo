@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CodeMirror</title>
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/lib/codemirror.css">
+<script src="../../s/codemirror/5.28.0/lib/codemirror.js"></script>
+<script src="../../s/codemirror/5.28.0/mode/clike/clike.js"></script>
+
+<!--引入css文件，用以支持主题-->
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/theme/eclipse.css">
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/theme/seti.css">
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/theme/dracula.css">
+
+<!--引入js，绑定Vim-->
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/addon/dialog/dialog.css">
+<script src="../../s/codemirror/5.28.0/keymap/vim.js"></script>
+<script src="../../s/codemirror/5.28.0/addon/search/searchcursor.js"></script>
+<!--改善vim输入命令时的样式-->
+<script src="../../s/codemirror/5.28.0/addon/dialog/dialog.js"></script>
+
+<!--支持代码折叠-->
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/addon/fold/foldgutter.css" />
+<script src="../../s/codemirror/5.28.0/addon/fold/foldcode.js"></script>
+<script src="../../s/codemirror/5.28.0/addon/fold/foldgutter.js"></script>
+<script src="../../s/codemirror/5.28.0/addon/fold/brace-fold.js"></script>
+<script src="../../s/codemirror/5.28.0/addon/fold/comment-fold.js"></script>
+
+<!--全屏模式-->
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/addon/display/fullscreen.css">
+<script src="../../s/codemirror/5.28.0/addon/display/fullscreen.js"></script>
+
+<!--括号匹配-->
+<script src="../../s/codemirror/5.28.0/addon/edit/matchbrackets.js"></script>
+
+<!--自动补全-->
+<link rel="stylesheet" href="../../s/codemirror/5.28.0/addon/hint/show-hint.css">
+<script src="../../s/codemirror/5.28.0/addon/hint/show-hint.js"></script>
+<script src="../../s/codemirror/5.28.0/addon/hint/anyword-hint.js"></script>
+</head>
+
+<body>
+
+	<textarea id="code">package demo;
+
+public class Hello {
+	public static void main(String[] args) {
+		System.out.println("hello, world");
+	}
+}
+	</textarea>
+
+	<!-- 绑定了VIM，需要点击 I 进行编辑 -->
+	<script type="text/javascript">
+		var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+			//Java高亮显示
+			mode : 'text/x-java',
+
+			//显示行号
+			lineNumbers : true,
+
+			//设置主题
+			theme : 'seti',
+
+			//绑定Vim
+			keyMap : 'vim',
+
+			//代码折叠
+			lineWrapping : true,
+			foldGutter : true,
+			gutters : [ 'CodeMirror-linenumbers', 'CodeMirror-foldgutter' ],
+
+			//全屏模式
+			fullScreen : true,
+
+			//括号匹配
+			matchBrackets : true,
+
+			//智能提示 
+			extraKeys : {
+				'Ctrl-/' : 'autocomplete'//ctrl-space唤起智能提示
+			}
+		});
+	</script>
+</body>
+</html>
