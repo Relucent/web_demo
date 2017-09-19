@@ -1,0 +1,62 @@
+body, html, ul {
+	padding: 0;
+	margin: 0
+}
+
+body, html {
+	height: 100%;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block
+}
+
+body {
+	line-height: 1
+}
+
+ol, ul {
+	list-style: none
+}
+
+blockquote, q {
+	quotes: none
+}
+
+blockquote:after, blockquote:before, q:after, q:before {
+	content: '';
+	content: none
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+
+.index-content-cavn {
+	width: 99.82%;
+	height: 100%;
+	border: 1px solid #dad8d8;
+	border-bottom: none;
+	box-shadow: 0 2px 3px 1px #dad8d8 inset;
+}
+
+.x-model-box:hover {
+	box-shadow: 0 0 10px 2px #d5f3fd;
+}
+
+.x-model-box {
+	width: 90px;
+	height: 60px;
+	background: #f1f9fb;
+	border: 2px solid #def4fd;
+	border-radius: 3px;
+}
+
+.ui-draggable-handle {
+	-ms-touch-action: none;
+	touch-action: none;
+}
