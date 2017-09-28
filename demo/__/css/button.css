@@ -27,7 +27,7 @@
 	filter: alpha(opacity = 80);
 }
 
-.layui-btn:active {
+.y-btn:active {
 	opacity: 1;
 	filter: alpha(opacity = 100);
 }
