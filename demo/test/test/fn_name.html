@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>获得调用的Function名称</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+	<script>
+		(function() {
+
+			var fn = function() {
+				var //
+				callee = arguments.callee, //
+				caller = callee.caller || window, //
+				calleeString = callee.toString().replace(/\s/g, ''), //
+				callerString = caller.toString().replace(/\s/g, ''); //
+
+				if ((/function([^\(]+?)\(\)/ig).test(calleeString)) {
+					alert(RegExp.$1);
+					return;
+				}
+				RegExp.lastIndex = 0;
+				var expressionGroup = callerString.split(calleeString);
+				if (expressionGroup.length > 1) {
+					if ((/var([^\=]+?)\=$/ig).test(expressionGroup[0])) {
+						alert(RegExp.$1);
+					}
+				}
+				for ( var n in caller) {
+					if (caller[n] == callee) {
+						alert(n);
+						return;
+					}
+				}
+			}
+			fn();
+
+		})();
+	</script>
+
+</body>
+</html>
