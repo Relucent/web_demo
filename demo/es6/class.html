@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ES6 Class</title>
+</head>
+<div id="logger"></div>
+<body>
+	<script type="text/javascript">
+		class Point {
+			constructor(x, y) {
+				this.x = x;
+				this.y = y;
+			}
+			toString() {
+				return '(' + this.x + ', ' + this.y + ')';
+			}
+			method1(){
+				//...	
+			}
+		};
+		
+		Point.prototype.method2 = function() {
+			//...
+		};
+		
+		var point = new Point(100,20);
+
+		var logbuffer = [];
+		
+		logbuffer.push(point);//(100, 20)
+		logbuffer.push(typeof Point);// "function"
+		logbuffer.push(Point === Point.prototype.constructor); // true
+
+		//类的内部所有定义的方法，都是不可枚举的(non-enumerable)
+		logbuffer.push(JSON.stringify(Object.keys(Point.prototype))); // []
+		logbuffer.push(JSON.stringify(Object.getOwnPropertyNames(Point.prototype))); //["constructor","toString"]
+		
+		//(与 ES5 一样)实例的属性除非显式定义在其本身(即定义在this对象上)，否则都是定义在原型上(即定义在class上)。
+		logbuffer.push(point.hasOwnProperty('x')); // true
+		logbuffer.push(point.hasOwnProperty('y')); // true
+		logbuffer.push(point.hasOwnProperty('toString')); // false
+		logbuffer.push(point.__proto__.hasOwnProperty('toString')); // true
+		
+		logbuffer.push(point.__proto__ === Point.prototype); // true
+		
+		//通过extends关键字继承
+		class ColorPoint extends Point {
+			//如果子类没有定义constructor方法，这个方法会被默认添加
+			constructor(x, y, color) {
+				//调用父类的constructor，子类必须在constructor方法中调用super方法，否则新建实例时会报错(得不到this对象)
+				super(x, y); 
+				this.color = color;
+			}
+			toString() {
+				return this.color + '_' + super.toString(); // 调用父类的toString()
+			}
+		}
+		
+		var colorPoint = new ColorPoint(100,20,'red');
+
+		logbuffer.push(colorPoint);
+		logbuffer.push(Object.getPrototypeOf(ColorPoint) === Point);
+		
+		document.querySelector('#logger').innerText = logbuffer.join('\n');
+	</script>
+</body>
+</html>
