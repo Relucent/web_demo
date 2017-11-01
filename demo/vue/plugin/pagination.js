@@ -81,14 +81,14 @@ var __ = __ || {};
 					total : 0,
 					records : []
 				},
-				filters : {
+				filters : $.extend({
 					encodeHTML : function(value) {
 						return $.encodeHTML(value);
 					},
 					formatDate : function(value, format) {
 						return $.formatDate(value, format);
 					}
-				},
+				}, options.filters),
 				components : {
 					'x-pagination' : {
 						template : [ //
