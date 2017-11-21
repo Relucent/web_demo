@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/2.5.2/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="example">
+		<async-component></async-component>
+		<sync-component></sync-component>
+	</div>
+	<script>
+		Vue.component('async-component', function(resolve, reject) {
+			setTimeout(function() {
+				resolve({
+					template : '<div>I am async!</div>'
+				})
+			}, 2000)
+		});
+		Vue.component('sync-component', {
+			template : '<div>I am sync!</div>'
+		});
+		new Vue({
+			el : '#example'
+		});
+	</script>
+
+</body>
+</html>
