@@ -139,6 +139,8 @@
 		encodeHTML : function(content) {
 			return $("<div/>").text(String(content)).html().replace(new RegExp('[\"\'<>&\s]', 'g'), function($0) {
 				switch ($0) {
+				case '&':
+					return 'amp;';
 				case '"':
 					return '&quot;';
 				case "'":
