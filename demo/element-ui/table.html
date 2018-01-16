@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.0.11/theme-chalk/index.css">
+</head>
+<body>
+	<div id="vm">
+		<el-row :gutter="3" style="margin: 10px 0;">
+			<el-col :span="5">
+				<el-input placeholder="输入用户名称查询" v-model="username" icon="search" @change="changeUsername"></el-input>
+			</el-col>
+		</el-row>
+		<el-table border fit :data="records" highlight-current-row style="width: 100%;font-size: 12px;" height="300">
+			<el-table-column type="index" width="50"></el-table-column>
+			<el-table-column prop="username" label="用户名称"></el-table-column>
+			<el-table-column prop="sex" label="性别" :formatter="formatSex"></el-table-column>
+			<el-table-column prop="createTime" label="创建时间" sortable></el-table-column>
+		</el-table>
+		<el-col class="toolbar" style="padding:10px;">
+			<el-pagination @current-change="pagedQuery" :current-page="currentPage" :page-size="10" layout="total,prev,pager,next,jumper" :total="total" style="float:right"></el-pagination>
+		</el-col>
+	</div>
+</body>
+<script src="../../s/vue/2.5.2/vue.js"></script>
+<script src="../../s/vue-resource/1.3.5/vue-resource.min.js"></script>
+<script src="../../s/element-ui/2.0.11/index.js"></script>
+<script>
+//Vue.http.options.emulateJSON = true;
+//Vue.http.options.emulateHTTP = true;
+
+var vm = new Vue({
+	el : '#vm',
+	data : {
+		records : [],
+		currentPage : 1,
+		total : 0,
+		listLoading : false,
+		username : null
+	},
+	mounted : function() {
+		this.pagedQuery(1);
+	},
+	methods : {
+		pagedQuery : function(currentPage) {
+			this.listLoading = true;
+
+			(!isNaN(currentPage)) && (this.currentPage = currentPage)
+
+			var params = {
+				':page' : this.currentPage,
+				':limit' : 10
+			};
+			if (this.username && this.username.trim() != '') {
+				params['username'] = this.username;
+			}
+			this.$http.get("table.json", {
+				params : params
+			}).then(function(response) {
+				console.log(response.data);
+				var page = response.data;
+				this.total = page.total;
+				this.records = page.records;
+			}).catch(function(response) {
+				console.error(response);
+			});
+			this.listLoading = false;
+		},
+		formatSex: function (row, column) {
+			if (row.sex != null) {
+				return row.sex == 1 ? '男' : '女';
+			}
+		},
+		changeUsername : function() {
+			this.pagedQuery(1);
+		}
+	}
+});
+</script>
+</html>

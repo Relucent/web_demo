@@ -1,0 +1,44 @@
+{
+	"total": 20,
+	"records": [{
+		"username": "管理员",
+		"sex": "1",
+		"createTime": "2018-01-01"
+	},{
+		"username": "用户1",
+		"sex": "1",
+		"createTime": "2018-01-02"
+	},{
+		"username": "用户2",
+		"sex": "2",
+		"createTime": "2018-01-03"
+	},{
+		"username": "用户3",
+		"sex": "1",
+		"createTime": "2018-01-04"
+	},{
+		"username": "用户4",
+		"sex": "1",
+		"createTime": "2018-01-05"
+	},{
+		"username": "用户5",
+		"sex": "1",
+		"createTime": "2018-01-06"
+	},{
+		"username": "用户6",
+		"sex": "1",
+		"createTime": "2018-01-07"
+	},{
+		"username": "用户7",
+		"sex": "2",
+		"createTime": "2018-01-08"
+	},{
+		"username": "用户8",
+		"sex": "2",
+		"createTime": "2018-01-09"
+	},{
+		"username": "用户9",
+		"sex": "2",
+		"createTime": "2018-01-10"
+	}]
+}
