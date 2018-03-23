@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+</head>
+<body>
+	<div id="console"></div>
+	<script>
+		var println = function(text) {
+			console.log(text || '');
+			var container = document.getElementById('console');
+			container.appendChild(document.createTextNode(text || ''));
+			container.appendChild(document.createElement('br'));
+		}
+
+		var strings = [ //
+		'2013-02-08T09',//
+		'2013-02-08 09',//
+		'2013-02-08 09:30',//
+		'2013-02-08 09:30:26',//
+		'2013-02-08 09:30:26.123',//
+		'2013-02-08 24:00:00.000' ];
+
+		for (var i = 0; i < strings.length; i++) {
+			var string = strings[i];
+			var mDate = moment(string);
+			println(mDate.toDate() + '');
+			println(mDate + '');
+			println(mDate.format());
+			println()
+		}
+	</script>
+</body>
+</html>
