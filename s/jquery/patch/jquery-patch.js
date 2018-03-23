@@ -62,7 +62,8 @@
 						return B.join("");
 					} else {
 						if ((Object.prototype.toString.call(C) === "[object Date]")) {
-							return "\"" + C.getFullYear() + "-" + _(C.getMonth() + 1) + "-" + _(C.getDate()) + "T" + _(C.getHours()) + ":" + _(C.getMinutes()) + ":" + _(C.getSeconds()) + "\"";
+							return "\"" + C.getFullYear() + "-" + _(C.getMonth() + 1) + "-" + _(C.getDate()) + "T" + _(C.getHours()) + ":"
+									+ _(C.getMinutes()) + ":" + _(C.getSeconds()) + "\"";
 						} else {
 							if (typeof C == "string") {
 								return "\"" + C.replace(/([\x00-\x1f\\"])/g, function(B, _) {
@@ -176,11 +177,22 @@
 				's' : function(d, v) {
 					d.setSeconds(v);
 				}
-			};
-			return function(dateString, pattern) {
+			}, PATTERNS = [//
+			[ 'yyyy-MM-dd HH:mm:ss', /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/ ],//
+			[ 'yyyy-MM-dd', /\d{4}-\d{2}-\d{2}/ ] //
+			];
+			return function(input, pattern) {
 				try {
+					if (!pattern) {
+						for (i = 0, l = PATTERNS.length; i < l; i++) {
+							if (PATTERNS[i][1].exec(input)) {
+								pattern = PATTERNS[i][0];
+								break;
+							}
+						}
+					}
 					var matchs1 = (pattern || 'yyyy-MM-dd').match(/([yMdHsm])(\1*)/g);
-					var matchs2 = dateString.match(/(\d)+/g);
+					var matchs2 = input.match(/(\d)+/g);
 					if (matchs1.length == matchs2.length) {
 						var d = new Date(1970, 0, 1);
 						for (var i = 0; i < matchs1.length; i++) {
@@ -207,7 +219,7 @@
 					return '';
 				}
 				try {
-					pattern = pattern || 'yyyy-MM-dd';
+					pattern = pattern || 'yyyy-MM-dd HH:mm:ss';
 					return pattern.replace(SIGN_RG, function($0) {
 						switch ($0.charAt(0)) {
 						case 'y':
@@ -394,7 +406,8 @@
 				y = 50;
 			}
 			$.mask(url + '-dlg');
-			var dlg = window.open(url, name, 'top=' + y + ',left=' + x + ',width=' + width + ',height=' + height + ',resizable=yes,scrollbars=' + scrollbars);
+			var dlg = window.open(url, name, 'top=' + y + ',left=' + x + ',width=' + width + ',height=' + height + ',resizable=yes,scrollbars='
+					+ scrollbars);
 			var interval = null;
 			var main = $(window);
 			var destroyFn = function() {
@@ -442,7 +455,7 @@
 				contentType : "application/json",
 				timeout : 60 * 1000,
 				dataType : 'text',
-				/*'xhrFields': {'withCredentials': true},'crossDomain': true,*/
+				/* 'xhrFields': {'withCredentials': true},'crossDomain': true, */
 				success : function(response, status, xhr) {
 					var headers = {};
 					try {
@@ -481,10 +494,12 @@
 			vals : function(values, flag) {
 				if (values == undefined) {
 					values = {};
-					mapField(this).filter(function() {
-						var type = this.type;
-						return this.name && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));
-					}).map(function(i, elem) {
+					mapField(this).filter(
+							function() {
+								var type = this.type;
+								return this.name && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type)
+										&& (this.checked || !rcheckableType.test(type));
+							}).map(function(i, elem) {
 						values[elem.name] = $(this).val();
 					});
 					return values;
@@ -586,7 +601,7 @@
 		})(),
 		layer : (function() {
 			var T = '&', initialize = function() {
-				layui !== 'undefined' && ((layui.layer[T] = {
+				typeof (layui) !== 'undefined' && ((layui.layer[T] = {
 					uuid : $.uuid(),
 					fulls : {},
 					results : {}
@@ -657,22 +672,24 @@
 				options = url;
 				url = undefined;
 			}
-			$.isFunction(options.success) && (options.success = (function() {
-				var originalSuccess = options.success;
-				return function(response, status, xhr) {
-					try {
-						/*REDIRECT_INTERCEPTOR*/(xhr.getResponseHeader('_SESSION_TIMEOUT') === 'Y') && (typeof layui === 'undefined' ? (function() {
-							alert('当前会话已经失效，请重新登录');
-							window.top.location.href = (_ctx || '') + '/_/logout.html';
-						})() : layui.layer.alert('当前会话已经失效，请重新登录', function(index) {
-							layui.layer.close(index);
-							window.top.location.href = (_ctx || '') + '/_/logout.html';
-						}));
-					} catch (e) {
-					}
-					originalSuccess.apply(this, [ response, status, xhr ]);
-				};
-			})())
+			$.isFunction(options.success)
+					&& (options.success = (function() {
+						var originalSuccess = options.success;
+						return function(response, status, xhr) {
+							try {
+								/* REDIRECT_INTERCEPTOR */(xhr.getResponseHeader('_SESSION_TIMEOUT') === 'Y')
+										&& (typeof layui === 'undefined' ? (function() {
+											alert('当前会话已经失效，请重新登录');
+											window.top.location.href = (_ctx || '') + '/_/logout.html';
+										})() : layui.layer.alert('当前会话已经失效，请重新登录', function(index) {
+											layui.layer.close(index);
+											window.top.location.href = (_ctx || '') + '/_/logout.html';
+										}));
+							} catch (e) {
+							}
+							originalSuccess.apply(this, [ response, status, xhr ]);
+						};
+					})())
 			return originalAjax.call(url, options);
 		}
 	})();
