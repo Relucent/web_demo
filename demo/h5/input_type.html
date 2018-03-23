@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>HTML5 新的 Input 类型</title>
+<meta charset="UTF-8">
+<style type="text/css">
+label {
+	display: block;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+	<label>DATETIME_LOCAL: 'YYYY-MM-DDTHH:mm'</label>
+	<input type="datetime-local" />
+
+	<label>DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss'</label>
+	<input type="datetime-local" step="1" />
+
+	<label>DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS'</label>
+	<input type="datetime-local" step="0.001" />
+
+	<label>DATE: 'YYYY-MM-DD'</label>
+	<input type="date" />
+
+	<label>TIME: 'HH:mm'</label>
+	<input type="time" />
+
+	<label>TIME_SECONDS: 'HH:mm:ss'</label>
+	<input type="time" step="1" />
+
+	<label>TIME_MS: 'HH:mm:ss.SSS'</label>
+	<input type="time" step="0.001" />
+
+	<label>WEEK: 'YYYY-[W]WW'</label>
+	<input type="week" />
+
+	<label>MONTH: 'YYYY-MM'</label>
+	<input type="month" />
+
+	<label>EMAIL</label>
+	<input type="email" />
+
+	<label>URL</label>
+	<input type="url" />
+
+	<label>NUMBER</label>
+	<input type="number" min="1" max="10" />
+
+	<label>RANGE</label>
+	<input type="range" min="1" max="10" />
+
+	<label>COLOR</label>
+	<input type="color" />
+
+	<label>SEARCH</label>
+	<input type="search" />
+</body>
+</html>
