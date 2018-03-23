@@ -698,4 +698,44 @@
 		traditional : true
 	});
 
+	$.ajaxUpload = function(option) {
+		var url = option.url, done = option.done || $.noop, params = option.params || {}, el = $(
+				'<input type="file" name="upload-file" value="" style="display: none;" />'//
+		).appendTo($(document.body)).off('change.upload').on('change.upload', function() {
+			// console.log(this.files)
+			var file = this.files[0];
+			if (file == null || ($.isFunction(option.before) && option.before(file) === false)) {
+				destroy();
+				return;
+			}
+			var formData = new FormData();
+			formData.append("upload-file", file);
+			$.each(params, function(key, value) {
+				formData.append(key, value);
+			});
+			return $.ajax({
+				url : url,
+				type : 'POST',
+				data : formData,
+				contentType : false,
+				processData : false,
+				dataType : 'json',
+				success : function(response) {
+					try {
+						done(response);
+					} catch (x) {
+					}
+				},
+				error : function() {
+					alert('接口异常');
+				},
+				complete : function() {
+					destroy();
+				}
+			});
+		}).click(), destroy = function() {
+			el.remove() || (el = null);
+		};
+	};
+
 })(jQuery);
