@@ -94,7 +94,7 @@
 		//测试数据
 		var pagedQuery = function() {
 			var sample = [];
-			for (var i = 0; i < 1000; i++) {
+			for (var i = 0; i < 2; i++) {
 				sample.push({
 					id : i,
 					name : 'data-' + i
@@ -155,8 +155,8 @@
 					return this.currentPage != this.totalPages
 				},
 				indexs : function() {
-					var indexs = [], groups = this.groups, currentPage = this.currentPage, totalPages = this.totalPages;
-					var ample = (totalPages > groups ? Math.ceil((currentPage + 1) / groups) : 1);
+					var indexs = [], currentPage = this.currentPage, totalPages = this.totalPages, groups = Math.min(this.groups, totalPages);
+					var ample = totalPages > groups ? Math.ceil((currentPage + (groups > 1 ? 1 : 0)) / (groups > 0 ? groups : 1)) : 1;
 					var halve = Math.floor((groups - 1) / 2), left = ample > 1 ? currentPage - halve : 1, right = ample > 1 ? (function() {
 						var max = currentPage + (groups - halve - 1);
 						return Math.min(max, totalPages);
