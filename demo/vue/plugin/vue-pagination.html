@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Pagination</title>
+<script src="../../../s/vue/2.5.13/vue.min.js"></script>
+<style type="text/css">
+.y-page {
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	text-align: right;
+	padding: 10px 0;
+}
+
+.y-page ul, .y-page li {
+	display: inline-block;
+	font-size: 14px;
+}
+
+.y-page li {
+	margin: 0 5px;
+}
+
+.y-page a {
+	display: inline-block;
+	cursor: pointer;
+	padding: 5px 5px;
+	font-size: 14px;
+	border: 1px solid #cdcdfd;
+	border-radius: 3px;
+	text-align: center;
+	min-width: 35px;
+}
+
+.y-page a.active {
+	background: #1e9fff;
+	background-size: 100% 100%;
+	color: #fff;
+}
+
+.y-grid {
+	margin: 10px auto;
+	width: 100%;
+	border: 1px solid #cdcdcd;
+	border-bottom: none;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.y-grid thead tr {
+	border-right: 1px solid #cdcdcd;
+}
+
+.y-grid thead tr td, .y-grid th {
+	border-bottom: 1px solid #cdcdcd;
+	font-weight: bold;
+}
+
+.y-grid td {
+	font-family: "Microsoft Yahei", "Helvetica Neue";
+	font-size: 14px;
+	padding: 8px 6px;
+}
+
+.y-grid tbody tr td {
+	border-bottom: 1px solid #cdcdcd;
+}
+</style>
+</head>
+<body>
+	<div style="margin-left: 10px;">
+		<div id="el" style="">
+
+			<table class="y-grid">
+				<thead>
+					<tr>
+						<td>ID</td>
+						<td>NAME</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="record in page.records">
+						<td v-text="record.id"></td>
+						<td>{{record.name}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div is="pagination" :start="page.start" :limit="page.limit" :total="page.total" @offset="offsetStart"></div>
+		</div>
+	</div>
+	<script>
+		//测试数据
+		var pagedQuery = function() {
+			var sample = [];
+			for (var i = 0; i < 1000; i++) {
+				sample.push({
+					id : i,
+					name : 'data-' + i
+				});
+			}
+			return function(start, limit) {
+				var total = sample.length, end = Math.min(start + limit, total), records = sample.slice(start, end);
+				return {
+					start : start,
+					limit : limit,
+					total : total,
+					records : records
+				};
+			}
+		}();
+
+		//分页组件
+		Vue.component('pagination', {
+			props : {
+				start : {
+					type : Number,
+					'default' : 0
+				},
+				limit : {
+					type : Number,
+					'default' : 20
+				},
+				total : {
+					type : Number,
+					'default' : 0
+				},
+				groups : {
+					type : Number,
+					'default' : 5
+				}
+			},
+			template : [ //
+			'<ul class="y-page">',//
+			'	<li v-if="hasPrevious"><a v-on:click.stop="gotoPage(currentPage-1)">上一页</a></li>',//
+			'	<li v-for="index in indexs">',//
+			' 		<a v-if="index==null">…</a>',//
+			'		<a v-else v-on:click.stop="gotoPage(index)" v-bind:class="{\'active\':currentPage==index}">{{index}}</a>',//
+			'	</li>',//
+			'	<li><span>第 {{currentPage}} 页，共 {{totalPages}} 页</span></li>',//
+			'	<li v-if="hasNext"><a v-on:click.stop="gotoPage(currentPage+1)">下一页</a></li>',//
+			'</ul>' ].join(''),
+			computed : {
+				currentPage : function() {
+					return ((this.start / this.limit) | 0) + 1
+				},
+				totalPages : function() {
+					return ((this.total < 0 || this.limit < 1) ? 0 : (((this.total - 1) / this.limit) | 0)) + 1
+				},
+				hasPrevious : function() {
+					return this.currentPage != 1
+				},
+				hasNext : function() {
+					return this.currentPage != this.totalPages
+				},
+				indexs : function() {
+					var indexs = [], groups = this.groups, currentPage = this.currentPage, totalPages = this.totalPages;
+					var ample = (totalPages > groups ? Math.ceil((currentPage + 1) / groups) : 1);
+					var halve = Math.floor((groups - 1) / 2), left = ample > 1 ? currentPage - halve : 1, right = ample > 1 ? (function() {
+						var max = currentPage + (groups - halve - 1);
+						return Math.min(max, totalPages);
+					}()) : groups;
+
+					if (right - left < groups - 1) {
+						left = right - groups + 1;
+					}
+					if (left > 2) {
+						indexs.push(1, null);
+					}
+					while (left <= right) {
+						indexs.push(left++);
+					}
+					if (totalPages > groups && totalPages > right) {
+						indexs.push(null, totalPages);
+					}
+					return indexs;
+				}
+			},
+			methods : {
+				gotoPage : function(pageNo) {
+					var start = (pageNo < 1 || this.limit < 1) ? -1 : (pageNo - 1) * this.limit;
+					if (start !== this.start) {
+						this.$emit('offset', start);
+					}
+				}
+			}
+		});
+
+		//创建 Vue实例
+		var vm = new Vue({
+			el : '#el',
+			data : {
+				page : {
+					start : 0,
+					limit : 5,
+					total : 0,
+					records : []
+				}
+			},
+			methods : {
+				search : function() {
+					vm.page = pagedQuery(this.page.start, this.page.limit);
+				},
+				offsetStart : function(start) {
+					this.page.start = start;
+					this.search();
+				}
+			}
+		});
+
+		//調用查询
+		vm.search();
+	</script>
+</body>
+</html>
