@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Promise</title>
+</head>
+<body>
+
+	<h1>Promise</h1>
+	<div><button onclick="doRun()">Run</button></div>
+	<div><textarea id="output" style="height: 500px; width:500px;"></textarea></div>
+
+	<script type="text/javascript">
+	
+		var log = function(msg){
+			var output = document.querySelector('#output');
+			output.value = output.value + msg + '\n';
+			console.log(msg);
+		},doRun = function(){
+			new Promise(function(resolve, reject) {
+				var random = Math.random() * 2;
+				log('set random: ' + random);
+				setTimeout(function() {
+					if (random < 1) {
+						log('call resolve()...');
+						resolve('200 OK');
+					} else {
+						log('call reject()...');
+						reject('500 ERROR');
+					}
+				}, 1000);
+			}).then(function (result) {
+			    log('成功：' + result);
+			}).catch(function (reason) {
+				log('失败：' + reason)
+			});
+		}
+	</script>
+</body>
+</html>
