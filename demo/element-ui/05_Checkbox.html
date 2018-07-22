@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>element-ui</title>
+</head>
+<body>
+	<div id="app">
+		<form>
+
+			<h3>基础用法</h3>
+			<el-checkbox v-model="checked">选择框</el-checkbox>
+
+
+			<h3>多选框组</h3>
+			<el-checkbox-group v-model="checkList">
+				<el-checkbox label="A">复选框 A</el-checkbox>
+				<el-checkbox label="B">复选框 B</el-checkbox>
+				<el-checkbox label="C">复选框 C</el-checkbox>
+				<el-checkbox label="D" disabled>禁用</el-checkbox>
+				<el-checkbox label="E" disabled>选中且禁用</el-checkbox>
+			</el-checkbox-group>
+
+			<h3>indeterminate 状态</h3>
+			<p>indeterminate 属性用以表示 checkbox 的不确定状态，一般用于实现全选的效果</p>
+			<el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+			<el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+				<el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+			</el-checkbox-group>
+			
+			<h3>可选项目数量的限制</h3>
+			<p>使用 min 和 max 属性能够限制可以被勾选的项目的数量</p>
+			<el-checkbox-group v-model="checkedCities2"
+				  :min="1"
+				  :max="2">
+			  <el-checkbox v-for="city in cities2" :label="city" :key="city">{{city}}</el-checkbox>
+			</el-checkbox-group>
+		</form>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					checked : true,
+					checkList : [ 'A', 'E' ],
+					checkedCities : ['北京', '上海'],
+					cities : ['北京', '上海', '广州', '深圳'],
+					isIndeterminate : true,
+					checkAll : false,
+					cities2 : ['北京', '上海', '广州', '深圳'],
+					checkedCities2: ['北京'],
+				};
+			},
+			methods : {
+				handleCheckAllChange : function(checked){
+			        this.checkedCities = checked ? this.cities : [];
+			        this.isIndeterminate = false;
+				},
+				handleCheckedCitiesChange : function(checkeds){
+					var checkedCount = checkeds.length;
+				    this.checkAll = checkedCount === this.cities.length;
+					this.isIndeterminate = checkeds.length !=0 && !this.checkAll;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

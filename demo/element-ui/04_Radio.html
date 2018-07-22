@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>element-ui</title>
+</head>
+<body>
+	<div id="app">
+		<form>
+			<el-radio v-model="radio" label="1">备选项</el-radio>
+			<el-radio v-model="radio" label="2">备选项</el-radio>
+		</form>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					radio : '1'
+				};
+			}
+		})
+	</script>
+</body>
+</html>
