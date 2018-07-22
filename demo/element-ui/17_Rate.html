@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>Rate 评分</title>
+</head>
+<body>
+	<div id="app">
+
+		<h3>默认不区分颜色</h3>
+		<el-rate v-model="value1"></el-rate>
+
+		<h3>区分颜色</h3>
+		<el-rate v-model="value2" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"> </el-rate>
+
+		<h3>辅助文字</h3>
+		<el-rate v-model="value3" show-text :texts="['极差','失望','一般','满意','惊喜']"> </el-rate>
+
+		<h3>其它 icon</h3>
+		<el-rate v-model="value4" :icon-classes="['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3']" void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"> </el-rate>
+
+		<h3>只读</h3>
+		<el-rate v-model="value5" disabled show-score text-color="#ff9900" score-template="{value}"> </el-rate>
+	
+	
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		var url = 'https://jsonplaceholder.typicode.com/posts/';
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					value1 : null,
+					value2 : null,
+					value3 : null,
+					value4 : null,
+					value5 : 3.7
+				};
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>

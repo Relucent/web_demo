@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>Upload 上传</title>
+</head>
+<body>
+	<div id="app">
+
+		<h3>点击上传单文件</h3>
+		<div is="el-upload" :action="action" 
+			:before-upload="beforeAvatarUpload" 
+			:on-success="onSuccess" 
+			:auto-upload="true" 
+			:show-file-list="true"
+  			:file-list="fileList">
+			<button is="el-button" size="small" type="primary">点击上传</button>
+			<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2MB</div>
+		</div>
+		
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+
+		var url = 'https://jsonplaceholder.typicode.com/posts/';
+
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					fileList:[],
+					action : url
+				};
+			},
+			methods : {
+				beforeAvatarUpload: function(file) {
+					var isJPG = file.type === 'image/jpeg';
+					var isLt2M = (file.size / (1024 * 1024)) < 2;
+					console.log(file.name);
+					if (!isJPG) {
+						this.$message.error('只能是上传 JPG 格式!');
+					}
+					if (!isLt2M) {
+						this.$message.error('上传文件大小不能超过 2MB!');
+					}
+					return isJPG && isLt2M;
+				},
+				onSuccess: function(response, file, fileList) {
+					console.log(response);
+					this.fileList = fileList.slice(-1);
+				}
+			}
+		})
+	</script>
+</body>
+</html>
