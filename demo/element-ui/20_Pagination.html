@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<title>Table 表格 + Pagination 分页</title>
+</head>
+<body>
+	<div id="vm">
+		<el-row :gutter="3" style="margin: 10px 0;">
+			<el-col :span="5">
+				<el-input placeholder="输入用户名称查询" v-model="username" icon="search" @change="changeUsername"></el-input>
+			</el-col>
+		</el-row>
+		<el-table border fit :data="records" highlight-current-row style="width: 100%;font-size: 12px;" height="500">
+			<el-table-column type="index" width="50"></el-table-column>
+			<el-table-column prop="username" label="用户名称"></el-table-column>
+			<el-table-column prop="sex" label="性别" :formatter="formatSex"></el-table-column>
+		</el-table>
+		<el-col class="toolbar" style="padding:10px;">
+			<el-pagination background @current-change="pagedQuery" :current-page="currentPage" :page-size="10" layout="total,prev,pager,next,jumper" :total="total" style="float:right"></el-pagination>
+		</el-col>
+	</div>
+
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+	var getData = (function(){
+		var sample = [];
+		for(var i=0;i<100;i++){
+			sample.push({
+				username: '用户' + i ,
+				sex: parseInt(Math.random()*2)
+			});
+		}
+		return function(params,callback){
+			var currentPage = params[':currentPage'], limit = params[':limit'], start = ( currentPage -1 )* limit;
+			var total = sample.length, end = Math.min(start + limit, total), records = sample.slice(start, end);
+			var response = {};
+			response.data =  {
+				start : start,
+				limit : limit,
+				total : total,
+				records : records
+			};
+			callback(response)
+		}
+	})();
+	
+	
+	var vm = new Vue({
+		el : '#vm',
+		data : {
+			records : [],
+			currentPage : 1,
+			total : 0,
+			listLoading : false,
+			username : null
+		},
+		mounted : function() {
+			this.pagedQuery(1);
+		},
+		methods : {
+			pagedQuery : function(currentPage) {
+				this.listLoading = true;
+	
+				(!isNaN(currentPage)) && (this.currentPage = currentPage)
+	
+				var params = {
+					':currentPage' : this.currentPage,
+					':limit' : 10
+				};
+				if (this.username && this.username.trim() != '') {
+					params['username'] = this.username;
+				}
+				
+				var me = this;
+				getData(params, function(response) {
+					console.log(response.data);
+					var page = response.data;
+					me.total = page.total;
+					me.records = page.records;
+				})
+	
+				this.listLoading = false;
+			},
+			formatSex: function (row, column) {
+				if (row.sex != null) {
+					return row.sex == 1 ? '男' : '女';
+				}
+			},
+			changeUsername : function() {
+				this.pagedQuery(1);
+			}
+		}
+	});
+	</script>
+</body>
+</html>

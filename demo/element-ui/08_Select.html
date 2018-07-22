@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<title>Select 选择器</title>
+</head>
+<body>
+	<div id="app">
+		<form>
+			<h3>基础用法</h3>
+			<el-select v-model="value01" placeholder="请选择" clearable >
+			  <el-option
+			    v-for="item in options"
+			    :key="item.value"
+			    :label="item.label"
+			    :value="item.value">
+			  </el-option>
+			</el-select>
+			
+			<h3>基础多选</h3>
+			<el-select v-model="value02" multiple placeholder="请选择">
+				<el-option
+					v-for="item in options"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value">
+				</el-option>
+			</el-select>
+			
+			<h3>自定义模板</h3>
+			<el-select v-model="value03" placeholder="请选择">
+				<el-option
+				v-for="item in options"
+				:key="item.value"
+				:label="item.label"
+				:value="item.value">
+					<span style="float: left">{{ item.label }}</span>
+					<span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+				</el-option>
+			</el-select>
+		</form>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					options: [{
+						value: 'A',
+						label: '选项1'
+					}, {
+						value: 'B',
+						label: '选项2'
+					}, {
+						value: 'C',
+						label: '选项3'
+					}, {
+						value: 'D',
+						label: '选项4'
+					}, {
+						value: 'E',
+						label: '选项5'
+					}],
+					value01: '',
+					value02: '',
+					value03: ''
+				}
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>

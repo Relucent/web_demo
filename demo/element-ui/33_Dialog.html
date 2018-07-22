@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>Dialog 对话框</title>
+</head>
+<body>
+	<div id="app">
+	
+		<h3>基础用法</h3>
+		<el-button type="text" @click="dialogVisible1=true">打开 Dialog</el-button>
+		
+		<el-dialog
+		  title="提示"
+		  :visible.sync="dialogVisible1"
+		  width="30%"
+		  :before-close="handleClose">
+		  <span>这是一段信息</span>
+		  <span slot="footer" class="dialog-footer">
+			<el-button @click="dialogVisible1 = false">取 消</el-button>
+		    <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+		  </span>
+		</el-dialog>
+
+		<h3>自定义内容(iFrame)</h3>
+		<el-button type="text" @click="dialogVisible2=true">打开Dialog</el-button>
+		<el-dialog :visible.sync="dialogVisible2" @open="openHook">
+			<iframe :src="dialogUrl" height="250" width="100%" style="border:none;"></iframe>
+		</el-dialog>
+
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data: function(){
+				return {
+					dialogVisible1: false,
+					dialogVisible2:false,
+					dialogUrl:'about:blank'
+				}
+			},
+			created: function(){
+				var vm = this;
+				window.addEventListener('message', function(e){
+					var data = e.data;
+					if(data.action==='dialog:close'){
+						vm.dialogVisible2 = false;
+					}
+				});
+			},
+			methods: {
+				handleClose: function(done) {
+					this.$confirm('确认关闭？')
+				    	['then'](function(){
+				    		done();
+				    	})
+				        ['catch'](function(){});
+				},
+				openHook: function(){
+					this.dialogUrl = '33_Dialog01.html';
+				}
+			}
+		})
+	</script>
+</body>
+</html>

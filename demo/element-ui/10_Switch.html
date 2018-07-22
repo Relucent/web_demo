@@ -3,14 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
-<title>Radio 单选框</title>
+<title>Switch 开关</title>
 </head>
 <body>
 	<div id="app">
-		<form>
-			<el-radio v-model="radio" label="1">备选项</el-radio>
-			<el-radio v-model="radio" label="2">备选项</el-radio>
-		</form>
+		<h3>基本用法</h3>
+		<el-switch
+			v-model="value01"
+			active-color="#13ce66"
+			inactive-color="#ff4949">
+		</el-switch>
+		
+		<h3>文字描述</h3>
+		<el-switch
+			v-model="value02"
+			active-text="启用"
+			inactive-text="停用">
+		</el-switch>
+				
 	</div>
 	<script src="../../s/vue/2.5.16/vue.min.js"></script>
 	<script src="../../s/element-ui/2.4.4/index.js"></script>
@@ -19,9 +29,11 @@
 			el : '#app',
 			data : function() {
 				return {
-					radio : '1'
-				};
-			}
+					value01: true,
+					value02: true
+				}
+			},
+			methods : {}
 		})
 	</script>
 </body>

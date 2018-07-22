@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>Message 消息提示</title>
+</head>
+<body>
+	<div id="app">
+		<h3>基础用法</h3>
+		<el-button :plain="true" @click="open1">打开消息提示</el-button>
+
+		<h3>不同状态</h3>
+		<el-button :plain="true" @click="open2">成功</el-button>
+		<el-button :plain="true" @click="open3">警告</el-button>
+		<el-button :plain="true" @click="open4">错误</el-button>
+
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {};
+			},
+			methods : {
+				open1 : function() {
+					this.$message('这是一条消息提示');
+				},
+				open2 : function() {
+					// type: success/warning/info/error	
+					this.$message({
+						message : '这是一条成功消息',
+						type : 'success'
+					});
+				},
+				open3 : function() {
+					this.$message.warning('这是一条警告消息');
+				},
+				open4 : function() {
+					this.$message.error('这是一条错误消息');
+				}
+			}
+		})
+	</script>
+</body>
+</html>

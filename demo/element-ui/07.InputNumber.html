@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<title>InputNumber 计数器</title>
+</head>
+<body>
+	<div id="app">
+		<form>
+			<h3>基础用法</h3>
+			<el-input-number v-model="num01" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+		
+			<h3>按钮位置</h3>
+			<el-input-number v-model="num02" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number>
+		</form>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					num01 : 1,
+					num02 : 1
+				};
+			},
+			methods : {
+				handleChange : function(value) {
+					console.log(value);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

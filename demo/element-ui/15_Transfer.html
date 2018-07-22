@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>element-ui</title>
+</head>
+<body>
+	<div id="app">
+		<h3>基础用法</h3>
+		<el-transfer v-model="value1" :data="data"></el-transfer>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		var generateData = function() {
+			var data = [];
+			for (let i = 1; i <= 15; i++) {
+				data.push({
+					key : i,
+					label : '备选项 ' + i,
+					disabled : i % 4 === 0
+				});
+			}
+			return data;
+		}
+
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					data : generateData(),
+					value1 : [ 1, 4 ]
+				}
+			}
+		})
+	</script>
+</body>
+</html>

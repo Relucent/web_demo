@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<title>DateTimePicker 日期时间选择器</title>
+</head>
+<body>
+	<div id="app">
+
+		<!-- DateTimePicker 由 DatePicker 和 TimePicker 派生 , Picker Options 或者其他选项可以参照 DatePicker 和 TimePicker-->
+
+		<h3>默认</h3>
+		<el-date-picker v-model="value01" type="datetime" placeholder="选择日期时间"> </el-date-picker>
+		<div>{{value01}}</div>
+
+		<h3>选择日期范围</h3>
+		<el-date-picker v-model="value02" type="datetimerange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
+		<div>{{value02}}</div>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {
+					value01 : '',
+					value02 : []
+				}
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>
