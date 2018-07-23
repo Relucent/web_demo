@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>Popover 弹出框</title>
+</head>
+<body>
+	<div id="app">
+
+		<h3>基本用法</h3>
+		<el-popover placement="top-start" title="标题" width="200" trigger="hover" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"> <el-button slot="reference">hover 激活</el-button> </el-popover>
+		<el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"> <el-button slot="reference">click 激活</el-button> </el-popover>
+		<el-popover ref="popover" placement="right" title="标题" width="200" trigger="focus" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"> </el-popover>
+		<el-button v-popover:popover>focus 激活</el-button>
+
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app',
+			data : function() {
+				return {}
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>
