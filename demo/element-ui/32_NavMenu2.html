@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/element-ui/2.4.4/index.js"></script>
+<title>NavMenu 导航菜单</title>
+</head>
+<body>
+	<h3>动态加载的导航菜单</h3>
+
+	<script type="text/x-template" id="menu-node-template">
+		<li :is="isLeaf(menu)?'el-menu-item':'el-submenu'" :index="menu.id">
+			<span slot="title">{{menu.label}}</span>			
+			<template v-if="!isLeaf(menu)">
+		        <menu-node v-for="childmenu in menu.children" :menu="childmenu"></menu-node>
+			</template>
+		</li>
+	</script>
+
+	<div id="app">
+		<div is="el-row">
+			<div is="el-col" :span="6">
+				<ul is="el-menu" ref="nav" :default-active="active">
+					<li is="menu-node" v-for="menu in menus" :menu="menu">
+						<span slot="title">{{menu.label}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+
+	<script>
+		Vue.component('menu-node', {
+			props : [ 'menu' ],
+			template : '#menu-node-template',
+			methods : {
+				isLeaf : function(menu) {
+					return menu.children == null || menu.children.length == 0;
+				}
+			}
+		});
+
+		var menus = [ {
+			id : 1,
+			label : '一级 1',
+			children : [ {
+				id : 4,
+				label : '二级 1-1',
+				children : [ {
+					id : 9,
+					label : '三级 1-1-1'
+				}, {
+					id : 10,
+					label : '三级 1-1-2'
+				} ]
+			} ]
+		}, {
+			id : 2,
+			label : '一级 2',
+			children : [ {
+				id : 5,
+				label : '二级 2-1'
+			}, {
+				id : 6,
+				label : '二级 2-2'
+			} ]
+		}, {
+			id : 3,
+			label : '一级 3',
+			children : [ {
+				id : 7,
+				label : '二级 3-1'
+			}, {
+				id : 8,
+				label : '二级 3-2'
+			} ]
+		} ];
+
+		var vue = new Vue({
+			el : '#app',
+			data : {
+				active : null,
+				menus : []
+			},
+			mounted : function() {
+				this.active = '9';
+				this.menus = menus;
+
+			},
+			methods : {
+				handleSelect : function(key, keyPath) {
+					console.log(key, keyPath);
+				},
+				handleOpen : function(key, keyPath) {
+					console.log(key, keyPath);
+				},
+				handleClose : function(key, keyPath) {
+					console.log(key, keyPath);
+				}
+			}
+		});
+	</script>
+</body>
+</html>
