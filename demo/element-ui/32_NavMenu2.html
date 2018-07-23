@@ -8,36 +8,35 @@
 <title>NavMenu 导航菜单</title>
 </head>
 <body>
-	<h3>动态加载的导航菜单</h3>
 
+	<h3>动态加载的导航菜单</h3>
 	<script type="text/x-template" id="menu-node-template">
-		<li :is="isLeaf(menu)?'el-menu-item':'el-submenu'" :index="menu.id">
+		<li :is="dynamicComponentTag(menu)" :index="menu.id">
 			<span slot="title">{{menu.label}}</span>			
 			<template v-if="!isLeaf(menu)">
 		        <menu-node v-for="childmenu in menu.children" :menu="childmenu"></menu-node>
 			</template>
 		</li>
 	</script>
-
 	<div id="app">
 		<div is="el-row">
 			<div is="el-col" :span="6">
 				<ul is="el-menu" ref="nav" :default-active="active">
-					<li is="menu-node" v-for="menu in menus" :menu="menu">
-						<span slot="title">{{menu.label}}</span>
-					</li>
+					<li is="menu-node" v-for="menu in menus" :menu="menu"></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<script src="../../s/vue/2.5.16/vue.min.js"></script>
 	<script src="../../s/element-ui/2.4.4/index.js"></script>
-
 	<script>
 		Vue.component('menu-node', {
 			props : [ 'menu' ],
 			template : '#menu-node-template',
 			methods : {
+				dynamicComponentTag : function(menu) {
+					return this.isLeaf(menu) ? 'el-menu-item' : 'el-submenu';
+				},
 				isLeaf : function(menu) {
 					return menu.children == null || menu.children.length == 0;
 				}
