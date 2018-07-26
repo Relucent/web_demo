@@ -7,10 +7,63 @@
 </head>
 <body>
 	<div id="app">
-		<form>
-			<el-radio v-model="radio" label="1">备选项</el-radio>
-			<el-radio v-model="radio" label="2">备选项</el-radio>
-		</form>
+
+		<h3>基础用法</h3>
+		<div is="el-radio" v-model="radio1" label="1">备选项</div>
+		<div is="el-radio" v-model="radio1" label="2">备选项</div>
+
+		<h3>禁用状态</h3>
+		<div is="el-radio" v-model="radio2" label="1" disabled>备选项</div>
+		<div is="el-radio" v-model="radio2" label="2" disabled>备选项</div>
+
+		<h3>单选框组</h3>
+		<div is="el-radio-group" v-model="radio3">
+			<div is="el-radio" :label="1">备选项</div>
+			<div is="el-radio" :label="2">备选项</div>
+			<div is="el-radio" :label="3">备选项</div>
+		</div>
+
+		<h3>按钮样式</h3>
+		<div is="el-row">
+			<div is="el-radio-group" v-model="radio4">
+				<div is="el-radio-button" label="北京"></div>
+				<div is="el-radio-button" label="上海"></div>
+				<div is="el-radio-button" label="广州"></div>
+				<div is="el-radio-button" label="深圳"></div>
+			</div>
+		</div>
+		<div is="el-row" style="margin-top: 20px">
+			<div is="el-radio-group" v-model="radio5" size="medium">
+				<div is="el-radio-button" label="北京"></div>
+				<div is="el-radio-button" label="上海"></div>
+				<div is="el-radio-button" label="广州"></div>
+				<div is="el-radio-button" label="深圳"></div>
+			</div>
+		</div>
+		<div is="el-row" style="margin-top: 20px">
+			<div is="el-radio-group" v-model="radio6" size="small">
+				<div is="el-radio-button" label="北京"></div>
+				<div is="el-radio-button" label="上海"></div>
+				<div is="el-radio-button" label="广州"></div>
+				<div is="el-radio-button" label="深圳"></div>
+			</div>
+		</div>
+		<div is="el-row" style="margin-top: 20px">
+			<div is="el-radio-group" v-model="radio7" size="mini">
+				<div is="el-radio-button" label="北京"></div>
+				<div is="el-radio-button" label="上海"></div>
+				<div is="el-radio-button" label="广州"></div>
+				<div is="el-radio-button" label="深圳"></div>
+			</div>
+		</div>
+
+		<h3>带有边框</h3>
+		<div is="el-radio-group" v-model="radio8">
+			<div is="el-radio" label="北京" border></div>
+			<div is="el-radio" label="上海" border></div>
+			<div is="el-radio" label="广州" border></div>
+			<div is="el-radio" label="深圳" border></div>
+		</div>
 	</div>
 	<script src="../../s/vue/2.5.16/vue.min.js"></script>
 	<script src="../../s/element-ui/2.4.4/index.js"></script>
@@ -19,7 +72,14 @@
 			el : '#app',
 			data : function() {
 				return {
-					radio : '1'
+					radio1 : '1',
+					radio2 : '1',
+					radio3 : '1',
+					radio4 : '北京',
+					radio5 : '北京',
+					radio6 : '北京',
+					radio7 : '北京',
+					radio8 : '北京'
 				};
 			}
 		})

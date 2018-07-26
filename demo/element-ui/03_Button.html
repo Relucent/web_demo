@@ -11,86 +11,105 @@
 </style>
 </head>
 <body>
-	<div id="app">
+	<div id="vm">
 		<h3>基础用法</h3>
-		<el-row>
-			<el-button>默认按钮</el-button>
-			<el-button type="primary">主要按钮</el-button>
-			<el-button type="success">成功按钮</el-button>
-			<el-button type="info">信息按钮</el-button>
-			<el-button type="warning">警告按钮</el-button>
-			<el-button type="danger">危险按钮</el-button>
-		</el-row>
-		
-		<el-row>
-			<el-button plain>朴素按钮</el-button>
-			<el-button type="primary" plain>主要按钮</el-button>
-			<el-button type="success" plain>成功按钮</el-button>
-			<el-button type="info" plain>信息按钮</el-button>
-			<el-button type="warning" plain>警告按钮</el-button>
-			<el-button type="danger" plain>危险按钮</el-button>
-		</el-row>
-		
-		<el-row>
-			<el-button round>圆角按钮</el-button>
-			<el-button type="primary" round>主要按钮</el-button>
-			<el-button type="success" round>成功按钮</el-button>
-			<el-button type="info" round>信息按钮</el-button>
-			<el-button type="warning" round>警告按钮</el-button>
-			<el-button type="danger" round>危险按钮</el-button>
-		</el-row>
-		
-		<el-row>
-			<el-button icon="el-icon-search" circle></el-button>
-			<el-button type="primary" icon="el-icon-edit" circle></el-button>
-			<el-button type="success" icon="el-icon-check" circle></el-button>
-			<el-button type="info" icon="el-icon-message" circle></el-button>
-			<el-button type="warning" icon="el-icon-star-off" circle></el-button>
-			<el-button type="danger" icon="el-icon-delete" circle></el-button>
-		</el-row>
-		
+		<div is="el-row">
+			<button is="el-button">默认按钮</button>
+			<button is="el-button" type="primary">主要按钮</button>
+			<button is="el-button" type="success">成功按钮</button>
+			<button is="el-button" type="info">信息按钮</button>
+			<button is="el-button" type="warning">警告按钮</button>
+			<button is="el-button" type="danger">危险按钮</button>
+		</div>
+
+		<div is="el-row">
+			<button is="el-button" plain>朴素按钮</button>
+			<button is="el-button" type="primary" plain>主要按钮</button>
+			<button is="el-button" type="success" plain>成功按钮</button>
+			<button is="el-button" type="info" plain>信息按钮</button>
+			<button is="el-button" type="warning" plain>警告按钮</button>
+			<button is="el-button" type="danger" plain>危险按钮</button>
+		</div>
+
+		<div is="el-row">
+			<button is="el-button" round>圆角按钮</button>
+			<button is="el-button" type="primary" round>主要按钮</button>
+			<button is="el-button" type="success" round>成功按钮</button>
+			<button is="el-button" type="info" round>信息按钮</button>
+			<button is="el-button" type="warning" round>警告按钮</button>
+			<button is="el-button" type="danger" round>危险按钮</button>
+		</div>
+
+		<div is="el-row">
+			<button is="el-button" icon="el-icon-search" circle></button>
+			<button is="el-button" type="primary" icon="el-icon-edit" circle></button>
+			<button is="el-button" type="success" icon="el-icon-check" circle></button>
+			<button is="el-button" type="info" icon="el-icon-message" circle></button>
+			<button is="el-button" type="warning" icon="el-icon-star-off" circle></button>
+			<button is="el-button" type="danger" icon="el-icon-delete" circle></button>
+		</div>
+
 		<h3>禁用状态</h3>
-		<el-row>
-			<el-button disabled>默认按钮</el-button>
-			<el-button type="primary" disabled>主要按钮</el-button>
-			<el-button type="success" disabled>成功按钮</el-button>
-			<el-button type="info" disabled>信息按钮</el-button>
-			<el-button type="warning" disabled>警告按钮</el-button>
-			<el-button type="danger" disabled>危险按钮</el-button>
-		</el-row>
-		
-		<el-row>
-			<el-button plain disabled>朴素按钮</el-button>
-			<el-button type="primary" plain disabled>主要按钮</el-button>
-			<el-button type="success" plain disabled>成功按钮</el-button>
-			<el-button type="info" plain disabled>信息按钮</el-button>
-			<el-button type="warning" plain disabled>警告按钮</el-button>
-			<el-button type="danger" plain disabled>危险按钮</el-button>
-		</el-row>
+		<div is="el-row">
+			<button is="el-button" disabled>默认按钮</button>
+			<button is="el-button" type="primary" disabled>主要按钮</button>
+			<button is="el-button" type="success" disabled>成功按钮</button>
+			<button is="el-button" type="info" disabled>信息按钮</button>
+			<button is="el-button" type="warning" disabled>警告按钮</button>
+			<button is="el-button" type="danger" disabled>危险按钮</button>
+		</div>
+
+		<div is="el-row">
+			<button is="el-button" plain disabled>朴素按钮</button>
+			<button is="el-button" type="primary" plain disabled>主要按钮</button>
+			<button is="el-button" type="success" plain disabled>成功按钮</button>
+			<button is="el-button" type="info" plain disabled>信息按钮</button>
+			<button is="el-button" type="warning" plain disabled>警告按钮</button>
+			<button is="el-button" type="danger" plain disabled>危险按钮</button>
+		</div>
 
 		<h3>文字按钮</h3>
-		<el-row>
-			<el-button type="text">文字按钮</el-button>
-			<el-button type="text" disabled>文字按钮</el-button>
-		</el-row>
+		<div is="el-row">
+			<button is="el-button" type="text">文字按钮</button>
+			<button is="el-button" type="text" disabled>文字按钮</button>
+		</div>
 
 		<h3>按钮组</h3>
-		<el-button-group>
-			<el-button type="primary" icon="el-icon-arrow-left">上一页</el-button>
-			<el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-		</el-button-group>
-		<el-button-group>
-			<el-button type="primary" icon="el-icon-edit"></el-button>
-			<el-button type="primary" icon="el-icon-share"></el-button>
-			<el-button type="primary" icon="el-icon-delete"></el-button>
-		</el-button-group>
+		<div is="el-button-group">
+			<button is="el-button" type="primary" icon="el-icon-arrow-left">上一页</button>
+			<button is="el-button" type="primary">
+				下一页
+				<i class="el-icon-arrow-right el-icon--right"></i>
+			</button>
+		</div>
+		<div is="el-button-group">
+			<button is="el-button" type="primary" icon="el-icon-edit"></button>
+			<button is="el-button" type="primary" icon="el-icon-share"></button>
+			<button is="el-button" type="primary" icon="el-icon-delete"></button>
+		</div>
 
+		<h3>加载中</h3>
+		<button is="el-button" type="primary" :loading="true">加载中</button>
+
+		<h3>不同尺寸</h3>
+		<div is="el-row">
+			<button is="el-button">默认按钮</button>
+			<button is="el-button" size="medium">中等按钮</button>
+			<button is="el-button" size="small">小型按钮</button>
+			<button is="el-button" size="mini">超小按钮</button>
+		</div>
+		<div is="el-row">
+			<button is="el-button" round>默认按钮</button>
+			<button is="el-button" size="medium" round>中等按钮</button>
+			<button is="el-button" size="small" round>小型按钮</button>
+			<button is="el-button" size="mini" round>超小按钮</button>
+		</div>
 	</div>
 	<script src="../../s/vue/2.5.16/vue.min.js"></script>
 	<script src="../../s/element-ui/2.4.4/index.js"></script>
 	<script>
 		new Vue({
-			el : '#app',
+			el : '#vm',
 			data : function() {
 				return {};
 			}

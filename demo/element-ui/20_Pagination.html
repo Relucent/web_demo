@@ -6,13 +6,13 @@
 <title>Table 表格 + Pagination 分页</title>
 </head>
 <body>
-	<div id="vm">
+	<div id="app">
 		<el-row :gutter="3" style="margin: 10px 0;">
 			<el-col :span="5">
 				<el-input placeholder="输入用户名称查询" v-model="username" icon="search" @change="changeUsername"></el-input>
 			</el-col>
 		</el-row>
-		<el-table border fit :data="records" highlight-current-row style="width: 100%;font-size: 12px;" height="500">
+		<el-table border fit :data="records" border highlight-current-row style="width: 100%;font-size: 12px;" height="500">
 			<el-table-column type="index" width="50"></el-table-column>
 			<el-table-column prop="username" label="用户名称"></el-table-column>
 			<el-table-column prop="sex" label="性别" :formatter="formatSex"></el-table-column>
@@ -49,7 +49,7 @@
 	
 	
 	var vm = new Vue({
-		el : '#vm',
+		el : '#app',
 		data : {
 			records : [],
 			currentPage : 1,

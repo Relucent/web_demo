@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s/element-ui/2.4.4/theme-chalk/index.css">
+<title>Container 布局容器</title>
+</head>
+<body>
+	<div id="app">
+
+		<section is="el-container">
+			<header is="el-header">Header</header>
+			<main is="el-main">Main</main>
+		</section>
+
+		<section is="el-container">
+			<header is="el-header">Header</header>
+			<main is="el-main">Main</main>
+			<footer is="el-footer">Footer</footer>
+		</section>
+
+		<section is="el-container">
+			<aside is="el-aside" width="200px">Aside</aside>
+			<main is="el-main">Main</main>
+		</section>
+
+		<section is="el-container">
+			<header is="el-header">Header</header>
+			<section is="el-container">
+				<aside is="el-aside" width="200px">Aside</aside>
+				<main is="el-main">Main</main>
+			</section>
+		</section>
+
+		<section is="el-container">
+			<header is="el-header">Header</header>
+			<section is="el-container">
+				<aside is="el-aside" width="200px">Aside</aside>
+				<section is="el-container">
+					<main is="el-main">Main</main>
+					<footer is="el-footer">Footer</footer>
+				</section>
+			</section>
+		</section>
+
+		<section is="el-container">
+			<aside is="el-aside" width="200px">Aside</aside>
+			<section is="el-container">
+				<header is="el-header">Header</header>
+				<main is="el-main">Main</main>
+			</section>
+		</section>
+
+		<section is="el-container">
+			<aside is="el-aside" width="200px">Aside</aside>
+			<section is="el-container">
+				<header is="el-header">Header</header>
+				<main is="el-main">Main</main>
+				<footer is="el-footer">Footer</footer>
+			</section>
+		</section>
+	</div>
+
+	<style>
+[v-cloak] {
+	display: none !important;
+}
+
+#app>.el-container {
+	margin-bottom: 40px;
+}
+
+.el-header, .el-footer {
+	background-color: #B3C0D1;
+	color: #333;
+	text-align: center;
+	line-height: 60px;
+}
+
+.el-aside {
+	background-color: #D3DCE6;
+	color: #333;
+	text-align: center;
+	line-height: 200px;
+}
+
+.el-main {
+	background-color: #E9EEF3;
+	color: #333;
+	text-align: center;
+	line-height: 160px;
+}
+</style>
+	<script src="../../s/vue/2.5.16/vue.min.js"></script>
+	<script src="../../s/element-ui/2.4.4/index.js"></script>
+	<script>
+		new Vue({
+			el : '#app'
+		})
+	</script>
+</body>
+</html>
