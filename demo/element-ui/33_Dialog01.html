@@ -6,34 +6,42 @@
 <script src="../../s/vue/2.5.16/vue.min.js"></script>
 <script src="../../s/element-ui/2.4.4/index.js"></script>
 <title>Dialog 内容</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+textarea {
+	resize: none !important;
+}
+</style>
 </head>
 <body>
-	<div id="app">
+	<div id="app" v-cloak>
 
-		<el-form label-width="80px" style="width: 460px">
-			<el-form-item label="名称">
-				<el-input auto-complete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="备注">
-			  <el-input type="textarea" :rows="2" auto-complete="off"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="confirm">确定</el-button>
-				<el-button @click="cancel">取消</el-button>
-			</el-form-item>
-		</el-form>
+		<form is="el-form" label-width="80px" style="width: 460px">
+			<div is="el-form-item" label="名称">
+				<span is="el-input" auto-complete="off"></span>
+			</div>
+			<div is="el-form-item" label="备注">
+				<span is="el-input" type="textarea" :rows="2" auto-complete="off"></span>
+			</div>
+			<div is="el-form-item">
+				<button is="el-button" type="primary" @click="confirm">确定</button>
+				<button is="el-button" @click="cancel">取消</button>
+			</div>
+		</form>
 
 	</div>
 	<script src="../../s/vue/2.5.16/vue.min.js"></script>
 	<script src="../../s/element-ui/2.4.4/index.js"></script>
 	<script>
-	
-		var close = function(){
+		var close = function() {
 			parent.postMessage({
-				action: 'dialog:close'
-			},'*');
+				action : 'dialog:close'
+			}, '*');
 		}
-	
+
 		new Vue({
 			el : '#app',
 			data : function() {
@@ -42,7 +50,7 @@
 			methods : {
 				confirm : function(done) {
 					close();
-				    
+
 				},
 				cancel : function() {
 					close();
