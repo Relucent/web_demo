@@ -3,6 +3,9 @@ var __ = {
 		var scripts = document.getElementsByTagName('script'), src = scripts[scripts.length - 1].src;
 		return src.substring(0, src.length - '/s/assets/__.js'.length);
 	})(),
+	url : function(path, params) {
+		return ((/^https?:/ig).test(path) ? path : __.cxt + path) + (__.isEmpty(params) ? '' : '?' + __.encodeUrlParams(params));
+	},
 	api : (function() {
 		var wrapCb = function(callback) {
 			return !callback ? __.noop : function(response) {
@@ -11,34 +14,45 @@ var __ = {
 			}
 		}, catchFn = function(error) {
 			console.log(error);
-		}
+		};
 		return function(method, url, data, callback) {
-			return axios.request({
+			method = method.toLowerCase();
+			var config = {
 				headers : {
 					'X-Requested-with' : 'XMLHttpRequest'
 				},
-				method : method.toLowerCase(),
-				url : __.ctx + url,
-				data : data
-			}).then(wrapCb(callback))['catch'](catchFn);
+				method : method,
+				url : __.url(url)
+			};
+			if ('post' === method || 'put' === method || 'patch' === method) {
+				config.data = data;
+			}
+			// delete', 'get', 'head', 'options
+			else {
+				config.params = data;
+			}
+			return axios.request(config).then(wrapCb(callback))['catch'](catchFn);
 		}
 	})(),
+	err : function(result) {
+		return result && result.success === false;
+	},
 	navigateTo : function(url) {
 		location.href = url;
 	},
 	noop : function() {
 	},
-	each : function(o, callback) {
-		var i, length = o.length;
-		if (__.isArraylike(o)) {
+	each : function(obj, callback) {
+		var i, length = obj.length;
+		if (__.isArraylike(obj)) {
 			for (i = 0; i < length; i++) {
-				if (callback.call(array[i], i, o[i]) === false) {
+				if (callback.call(obj[i], i, obj[i]) === false) {
 					break;
 				}
 			}
 		} else {
-			for (i in o) {
-				if (callback.apply(o[i], args) === false) {
+			for (i in obj) {
+				if (callback.call(obj[i], i, obj[i]) === false) {
 					break;
 				}
 			}
@@ -95,5 +109,46 @@ var __ = {
 	},
 	trim : function(text) {
 		return text == null ? '' : (text + '').replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+	},
+	encodeUrlParams : function(params) {
+		var search = [];
+		var addFields = function(k, v) {
+			if (v == null) {
+				return;
+			}
+			search.push([ encodeURIComponent(k), '=', encodeURIComponent(v) ].join(''));
+		}
+		__.each(params, function(k, v) {
+			if (v == null) {
+				return;
+			}
+			if (__.isArray(v)) {
+				__.each(v, function() {
+					addFields(k, this);
+				});
+			} else {
+				addFields(k, v);
+			}
+		});
+		return search.join('&');
+	},
+	decodeUrlParams : function(search) {
+		search = search || location.search;
+		var params = {};
+		// (remove any leading ? || #)(remove any trailing & || ;)(replace +'s with spaces)(split & || ;)
+		__.each(search.replace(/^[?#]/, '').replace(/[;&]$/, '').replace(/[+]/g, ' ').split(/[&;]/), function(i, t) {
+			var kv = t.split('='), k = decodeURIComponent(kv[0] || ''), v = decodeURIComponent(kv[1] || '');
+			if (!k) {
+				return;
+			}
+			if (__.isArray(params[k])) {
+				params[k].push(v);
+			} else if (params[k] != null) {
+				params[k] = [ params[k], v ];
+			} else {
+				params[k] = v;
+			}
+		});
+		return params;
 	}
 };
