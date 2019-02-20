@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Proxy_Reflect</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var handler = {
+			set : function(target, key, value, receiver) {
+				console.log('set->' + key + ':' + value);
+				return Reflect.set(target, key, value, proxy);
+			},
+			get : function(target, key, receiver) {
+				console.log('get->' + key);
+				return target[key];
+			},
+			deleteProperty : function(target, key) {
+				console.log('delete->' + key);
+				return Reflect.deleteProperty(target, key);
+			}
+		}
+
+		var target = [];
+		var proxy = new Proxy(target, handler);
+
+		proxy[0] = 0;
+		proxy[1] = 1;
+		proxy.length = 0;
+		
+		console.log(JSON.stringify(proxy));
+	</script>
+</body>
+</html>
