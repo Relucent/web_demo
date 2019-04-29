@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>REM布局</title>
+<meta charset="UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="description" content="">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<style type="text/css">
+html, body {
+	margin: 0 0;
+	font-size: 12px;
+}
+
+.box {
+	border: 1px solid #e2e2f2;
+	margin: 10px 0;
+	height: 20px;
+	background-color: #e2e2f2;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box; /* Firefox */
+	-webkit-box-sizing: border-box; /* Safari */
+}
+</style>
+</head>
+<body>
+	<div>
+		<div class="box" style="width: 0.5rem;">0.5rem</div>
+		<div class="box" style="width: 1rem;">1rem</div>
+		<div class="box" style="width: 1.5rem;">1.5rem</div>
+		<div class="box" style="width: 2rem;">2rem</div>
+		<div class="box" style="width: 3rem;">3rem</div>
+		<div class="box" style="width: 4rem;">4rem</div>
+		<div class="box" style="width: 5rem;">5rem</div>
+		<div class="box" style="width: 6rem;">6rem</div>
+		<div class="box" style="width: 7rem;">7rem</div>
+		<div class="box" style="width: 7.5rem;">7.5rem</div>
+	</div>
+	<script>
+		function htmlSizeCalculation(doc, win) {
+			var docEl = doc.documentElement, resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize', recalc = function() {
+				var clientWidth = docEl.clientWidth;
+				if (!clientWidth) {
+					return;
+				}
+				var fontSize = 100 * (clientWidth / 750) + 'px';
+				console.log(fontSize);
+				docEl.style.fontSize = fontSize;
+			};
+			recalc();
+			if (!doc.addEventListener) {
+				return;
+			}
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		}
+		htmlSizeCalculation(document, window);
+	</script>
+</body>
+</html>
