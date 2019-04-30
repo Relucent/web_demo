@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<title>REM布局</title>
+<title>QRCode</title>
 <meta charset="UTF-8">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="renderer" content="webkit" />
@@ -15,24 +15,33 @@
 </head>
 <body>
 	<div>
-		<div id="qrcode" style="width: 300px; height: 300px;border: 1px solid #3333ff;">
-			<!-- [qrcode] -->
+		<div>
+			<div id="qrcode" style="float: left; width: 300px; height: 300px; border: 1px solid #3333ff;">
+				<!-- [qrcode] -->
+			</div>
+			<textarea id="output" style="float: left; width: 500px; height: 298px;" readonly="readonly"></textarea>
+			<div style="clear: both;"></div>
 		</div>
 		<input id="input" type="text" value="" style="width: 300px;" />
 		<button onclick="build()">Confirm</button>
 	</div>
 	<script>
+		var oQRCode = new QRCode('qrcode', {
+			//text : '',
+			width : 300,
+			height : 300,
+			colorDark : "#000",
+			colorLight : "#fff",
+		});
+
 		var build = function() {
 			var value = document.querySelector('#input').value;
-			document.querySelector('#qrcode').innerHTML = '';
-			var qrcode = new QRCode('qrcode', {
-				width : 300,
-				height : 300,
-				text : value,
-				colorDark : "#000",
-				colorLight : "#fff",
-			})
-		}
+			oQRCode.clear();
+			oQRCode.makeCode(value);
+			setTimeout(function() {
+				document.querySelector('#output').value = document.querySelector('#qrcode img').src;
+			}, 50);
+		};
 	</script>
 </body>
 </html>
