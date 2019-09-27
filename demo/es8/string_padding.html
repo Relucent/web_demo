@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>String padding</title>
+<style type="text/css">
+pre.console {
+	margin: 0 0;
+	color: #0000FF;
+}
+</style>
+<script type="text/javascript">
+	const log2 = (message)=>{
+		console.log(message);
+		document.write(`<pre class="console">${message}</pre>`);
+	};	
+</script>
+</head>
+<body>
+
+	<h3>String padding(字符串填充)</h3>
+	<p>String.prototype.padStart 在开始部位填充，返回一个给出长度的字符串，填充物给定字符串，把字符串填充到期望的长度。</p>
+	<p>String.prototype.padEnd 从字符串的尾端右边开始填充，填充物给定字符串，把字符串填充到期望的长度。</p>
+	<pre>
+console.log('hello'.padStart(20))
+console.log('world'.padStart(20))
+console.log('0.00'.padStart(20))
+console.log('10,000.00'.padStart(20))   
+console.log('250,000.00'.padStart(20))
+console.log('ECMAScript'.padStart(20,'#'))
+console.log('ECMAScript'.padStart(20,'#12345'))
+console.log('hello'.padEnd(20))
+console.log('world'.padEnd(20))
+console.log('0.00'.padEnd(20))
+console.log('10,000.00'.padEnd(20))   
+console.log('250,000.00'.padEnd(20))
+console.log('ECMAScript'.padEnd(20,'#'))
+console.log('ECMAScript'.padEnd(20,'#12345'))
+	</pre>
+	<script>
+log2('hello'.padStart(20))
+log2('world'.padStart(20))
+log2('0.00'.padStart(20))
+log2('10,000.00'.padStart(20))   
+log2('250,000.00'.padStart(20))
+log2('ECMAScript'.padStart(20,'#'))
+log2('ECMAScript'.padStart(20,'#12345'))
+log2('hello'.padEnd(20))
+log2('world'.padEnd(20))
+log2('0.00'.padEnd(20))
+log2('10,000.00'.padEnd(20))   
+log2('250,000.00'.padEnd(20))
+log2('ECMAScript'.padEnd(20,'#'))
+log2('ECMAScript'.padEnd(20,'#12345'))
+	</script>
+</body>
+</html>

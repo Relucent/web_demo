@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Object values/entries</title>
+<style type="text/css">
+pre.console {
+	margin: 0 0;
+	color: #0000FF;
+}
+</style>
+<script type="text/javascript">
+	const log2 = (message)=>{
+		console.log(message);
+		document.write(`<pre class="console">${message}</pre>`);
+	};	
+</script>
+</head>
+<body>
+
+
+	<h3>Object.values/Object.entries</h3>
+	<pre>
+let obj = {a: 1, b: 2, c: 3};
+for (let key of Object.keys(obj)) {
+  console.log(key, obj[key])
+}
+for (let value of Object.values(obj)) {
+  console.log(value)
+}
+for (let [key, value] of Object.entries(obj)) {
+  console.log(`${key} is ${value}`)
+}
+	</pre>
+	<script>
+let obj = {a: 1, b: 2, c: 3};
+for (let key of Object.keys(obj)) {
+	log2(key, obj[key])
+}
+for (let value of Object.values(obj)) {
+	log2(value)
+}
+for (let [key, value] of Object.entries(obj)) {
+	log2(`${key} is ${value}`)
+}
+	</script>
+</body>
+</html>
