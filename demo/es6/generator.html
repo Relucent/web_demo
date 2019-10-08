@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Generator</title>
+</head>
+<div id="console-div"></div>
+<body>
+	<script>
+		const log = function(message){
+			var domConsole = document.querySelector('#console-div');
+			console.log(message);
+			let div = document.createElement('div');
+			div.innerText = JSON.stringify(message);
+			domConsole.appendChild(div);
+		};
+	
+		let generateIterator = function* (array) {
+			for(var i=0;i<array.length;i++){
+				yield array[i];
+			}
+		};
+		
+		let generator = generateIterator([1,2,3,4,5]);
+		
+		let item;
+		for(item = generator.next();!item.done;item = generator.next()){
+			log(item);
+		}
+	</script>
+</body>
+</html>
