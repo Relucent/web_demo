@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Data URLs</title>
+</head>
+<body>
+	<div>
+		<p>Data URLs，即前缀为 “data: ”协议的的URL，其允许内容创建者向文档中嵌入小文件</p>
+	</div>
+	<div>
+		<p>Data URLs 由四个部分组成：</p>
+		<ul>
+			<li>前缀(data:)</li>
+			<li>指示数据类型的MIME类型</li>
+			<li>如果非文本则为可选的base64标记</li>
+			<li>数据本身 data: [&lt;mediatype&gt;][;base64], &lt;data&gt;</li>
+		</ul>
+	</div>
+	<a id="data" href="data:text/plain;charset=UTF-8;base64,aGVsbG8sIHdvcmxk" target="_blank" download="hello.txt">hello.txt</a>
+	<button onclick="document.querySelector('#data').click();">Download</button>
+</body>
+</html>
