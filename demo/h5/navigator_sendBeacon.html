@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Navigator.sendBeacon方法</title>
+<meta charset="UTF-8">
+<body>
+	<pre>
+Navigator.sendBeacon方法接受两个参数
+第一个参数是目标服务器的 URL
+第二个参数是所要发送的数据（可选），可以是任意类型（字符串、表单对象、二进制对象等等）。
+
+```
+navigator.sendBeacon(url, data)
+```
+这个方法的返回值是一个布尔值，成功发送数据为true，否则为false。
+
+这个方法主要用于满足统计和诊断代码的需要，这些代码通常尝试在卸载（unload）文档之前向web服务器发送数据。
+目前该方法除IE之外的主流浏览器都支持。
+</pre>
+	<script type="text/javascript">
+		function analytics(state) {
+			if (!navigator.sendBeacon)
+				return;
+
+			var URL = 'http://example.com/analytics';
+			var data = 'state=' + state + '&location=' + window.location;
+			navigator.sendBeacon(URL, data);
+		}
+	</script>
+</body>
+</html>
+
+
