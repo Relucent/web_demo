@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/html2canvas/1.0.0/html2canvas.js"></script>
+<script src="../../s/jspdf/1.5.3/jspdf.min.js"></script>
+</head>
+<body>
+
+	<input type="button" value="Download PDF" onclick="download()" />
+	<input type="button" value="View PDF" onclick="view()" />
+	<input type="button" value="Draw PDF" onclick="draw()" />
+
+	<script type="text/javascript">
+		function download() {
+			var doc = new jsPDF();
+			doc.text(20, 20, 'Hello world.');
+			doc.save('demo.pdf');
+		}
+		function view() {
+			var doc = new jsPDF();
+			doc.text(20, 20, 'Hello world.');
+			var base64 = doc.output('datauristring');
+			console.log(base64);
+		}
+		function draw() {
+			var doc = new jsPDF();
+			doc.rect(20, 20, 10, 10); // empty square
+
+			doc.rect(40, 20, 10, 10, 'F'); // filled square
+
+			doc.setDrawColor(255, 0, 0);
+			doc.rect(60, 20, 10, 10); // empty red square
+
+			doc.setDrawColor(255, 0, 0);
+			doc.rect(80, 20, 10, 10, 'FD'); // filled square with red borders
+
+			doc.setDrawColor(0);
+			doc.setFillColor(255, 0, 0);
+			doc.rect(100, 20, 10, 10, 'F'); // filled red square
+
+			doc.setDrawColor(0);
+			doc.setFillColor(255, 0, 0);
+			doc.rect(120, 20, 10, 10, 'FD'); // filled red square with black borders
+
+			doc.output('datauri');
+		}
+	</script>
+</body>
+</html>
