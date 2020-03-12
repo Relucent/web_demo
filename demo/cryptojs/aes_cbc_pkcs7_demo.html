@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>cryptojs_aes</title>
+<title>AES/CBC/PKCS7Padding</title>
 <meta charset="UTF-8" />
 <script src="../../s/cryptojs/3.1.2/rollups/aes.js"></script>
 </head>
@@ -22,32 +22,43 @@
 	</table>
 
 	<script>
-		var EL = {
+		var GV = {
+			key : '0123456789ABCDEF',
+			iv : '0123456789ABCDEF'
+		}, EL = {
 			input : document.querySelector('#input'),
 			encrypt : document.querySelector('#encrypt'),
 			decrypt : document.querySelector('#decrypt'),
 			output : document.querySelector('#output')
 		}, FN = {
-			encrypt : function(plaintext, key) {
-				var encrypted = CryptoJS.AES.encrypt(plaintext, key, {
+			encrypt : function(plaintext, key, iv) {
+				var plaintextdata = CryptoJS.enc.Utf8.parse(plaintext);
+				var secretkey = CryptoJS.enc.Utf8.parse(key);
+				var ivdata = CryptoJS.enc.Utf8.parse(iv);
+				var encrypted = CryptoJS.AES.encrypt(plaintextdata, secretkey, {
+					iv : ivdata,
 					mode : CryptoJS.mode.CBC,
 					padding : CryptoJS.pad.Pkcs7
 				});
-				return encrypted.ciphertext.toString();
+				return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
 			},
-			decrypt : function(ciphertext, key) {
-				var decrypted = CryptoJS.AES.decrypt(ciphertext, key, {
+			decrypt : function(ciphertext, key, iv) {
+				var ciphertextdata = ciphertext;
+				var secretkey = CryptoJS.enc.Utf8.parse(key);
+				var ivdata = CryptoJS.enc.Utf8.parse(iv);
+				var decrypted = CryptoJS.AES.decrypt(ciphertextdata, secretkey, {
+					iv : ivdata,
 					mode : CryptoJS.mode.CBC,
 					padding : CryptoJS.pad.Pkcs7
 				});
-				return CryptoJS.enc.Utf8.stringify(decrypted).toString();
+				return decrypted.toString(CryptoJS.enc.Utf8);
 			}
 		};
 		EL.encrypt.addEventListener('click', function() {
-			EL.output.value = FN.encrypt(EL.input.value, '0123456789abcdef');
+			EL.output.value = FN.encrypt(EL.input.value, GV.key, GV.iv);
 		});
 		EL.decrypt.addEventListener('click', function() {
-			EL.output.value = FN.decrypt(EL.input.value, '0123456789abcdef');
+			EL.output.value = FN.decrypt(EL.input.value, GV.key, GV.iv);
 		});
 	</script>
 </body>
