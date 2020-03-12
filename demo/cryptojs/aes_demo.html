@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>cryptojs_aes</title>
+<meta charset="UTF-8" />
+<script src="../../s/cryptojs/3.1.2/rollups/aes.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td><textarea id="input" style="width: 300px; height: 300px;"></textarea></td>
+			<td>
+				<div>
+					<input id="encrypt" type="button" value="encrypt" />
+				</div>
+				<div>
+					<input id="decrypt" type="button" value="decrypt" />
+				</div>
+			</td>
+			<td><textarea id="output" style="width: 300px; height: 300px;"></textarea></td>
+		<tr>
+	</table>
+
+	<script>
+		var EL = {
+			input : document.querySelector('#input'),
+			encrypt : document.querySelector('#encrypt'),
+			decrypt : document.querySelector('#decrypt'),
+			output : document.querySelector('#output')
+		}, FN = {
+			encrypt : function(plaintext, key) {
+				var encrypted = CryptoJS.AES.encrypt(plaintext, key, {
+					mode : CryptoJS.mode.CBC,
+					padding : CryptoJS.pad.Pkcs7
+				});
+				return encrypted.ciphertext.toString();
+			},
+			decrypt : function(ciphertext, key) {
+				var decrypted = CryptoJS.AES.decrypt(ciphertext, key, {
+					mode : CryptoJS.mode.CBC,
+					padding : CryptoJS.pad.Pkcs7
+				});
+				return CryptoJS.enc.Utf8.stringify(decrypted).toString();
+			}
+		};
+		EL.encrypt.addEventListener('click', function() {
+			EL.output.value = FN.encrypt(EL.input.value, '0123456789abcdef');
+		});
+		EL.decrypt.addEventListener('click', function() {
+			EL.output.value = FN.decrypt(EL.input.value, '0123456789abcdef');
+		});
+	</script>
+</body>
+</html>

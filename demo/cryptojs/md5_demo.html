@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>cryptojs_md5</title>
+<meta charset="UTF-8" />
+<script src="../../s/cryptojs/3.1.2/rollups/md5.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td><textarea id="input" style="width: 300px; height: 300px;"></textarea></td>
+			<td>
+				<div>
+					<input id="md5" type="button" value="md5" />
+				</div>
+			</td>
+			<td><textarea id="output" style="width: 300px; height: 300px;"></textarea></td>
+		<tr>
+	</table>
+
+	<script>
+		var EL = {
+			input : document.querySelector('#input'),
+			md5 : document.querySelector('#md5'),
+			output : document.querySelector('#output')
+		}, FN = {
+			md5 : function(text) {
+				var hash = CryptoJS.MD5(text);
+				return hash.toString();
+			}
+		};
+		EL.md5.addEventListener('click', function() {
+			EL.output.value = FN.md5(EL.input.value);
+		});
+	</script>
+</body>
+</html>
