@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>自定义类</title>
+</head>
+<body>
+	<!-- ES5 之前JS模拟类定义的方法之一 -->
+	<script type="text/javascript">
+		(function(global) {
+			var __ = global.__ = {
+				define : function(options) {
+					var clazz = options.constructor || new function() {
+					};
+					clazz.prototype = options;
+					if (options.$class) {
+						var gourps = options.$class.split('.'), pkg = global, gourp;
+						for (; gourps.length > 1;) {
+							gourp = gourps.shift();
+							pkg = (pkg[gourp] = (pkg[gourp] || {}));
+						}
+						pkg[gourps.shift()] = clazz;
+					}
+					return clazz;
+				}
+			}
+		})(window);
+
+		//定义一个类
+		__.define({
+			//类名
+			$class : 'OCX.Hello',
+			//构造函数
+			constructor : function(name) {
+				this.name = name;
+			},
+			//方法
+			method1 : function() {
+				return 'hello ' + this.name;
+			},
+			method2 : function() {
+				var str = this.method1();
+				alert(str);
+			}
+		})
+
+		// new
+		var hello = new OCX.Hello('World');
+
+		// 调用方法
+		hello.method2();
+	</script>
+</body>
+</html>
