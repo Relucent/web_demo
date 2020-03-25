@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		class RootCompoent extends React.Component {
+			render() {
+				return (
+					<div>
+						<NameCompoent name={this.props.name} />
+						<LinkCompoent site={this.props.site} /><br/>
+						<ButtonCompoent />
+					</div>
+				);
+			}
+		};
+		class NameCompoent extends React.Component {
+			render() {
+				return (
+					<h1>{this.props.name}</h1>
+				);
+			}
+		};
+		class LinkCompoent extends React.Component {
+			render() {
+				return (
+					<a href={this.props.site}>{this.props.site}</a>
+				);
+			}
+		};
+		class ButtonCompoent extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = { counter: 0 };
+				this.handleClick = this.handleClick.bind(this);
+			}
+			handleClick() {
+				this.setState(state => ({
+					 counter: state.counter + 1
+				}));
+			}
+			render() {
+				return (
+					<button onClick={this.handleClick}>
+						{this.state.counter}++
+					</button>
+				);
+			}
+		};
+		ReactDOM.render(
+			<RootCompoent name="React" site="https://github.com/facebook/react" />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>
