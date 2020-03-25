@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Event</title>
+</head>
+<body>
+	<h3>JS手动触发事件的方法</h3>
+
+	<input id="btn1" type="button" value="button1" />
+	<input id="btn2" type="button" value="button2" onclick="alert('click button2')" disabled="disabled" />
+
+	<script type="text/javascript">
+		var btn1 = document.querySelector('#btn1');
+		btn1.addEventListener('click', function(e) {
+			var myEvent = document.createEvent('Event');
+			myEvent.initEvent('click', true, true);
+			document.querySelector('#btn2').dispatchEvent(myEvent);
+		});
+	</script>
+</body>
+</html>

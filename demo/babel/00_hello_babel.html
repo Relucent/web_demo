@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Babel</title>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<h3>输入以下一代 JavaScript 语法书写的代码：</h3>
+	<textarea id="source" style="width: 380px; height: 200px;">[1, 2, 3].map(n => n ** 2);</textarea>
+	<h3>输出浏览器兼容的 JavaScript 代码：</h3>
+	<textarea id="target" style="width: 380px; height: 200px;">
+	</textarea>
+	<script type="text/javascript">
+		const EL = {
+			source : document.querySelector('#source'),
+			target : document.querySelector('#target')
+		}, FN = {
+			transform : (function() {
+				var timer = 0, fn = function() {
+					try {
+						EL.target.value = babel.transform(EL.source.value).code;
+						EL.target.style.color = 'blue';
+					} catch (x) {
+						EL.target.value = (x);
+						EL.target.style.color = 'red';
+					}
+				};
+				return function() {
+					clearTimeout(timer);
+					timer = setTimeout(fn, 800);
+				};
+			})()
+		};
+		EL.source.addEventListener('keyup', FN.transform);
+		FN.transform();
+	</script>
+</body>
+</html>
