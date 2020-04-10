@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>BPMNJS</title>
+<script src="../../s/bpmn-js/6.4.1/bpmn-viewer.development.js"></script>
+<script src="diagram.bpmn.js"></script>
+<style>
+#canvas {
+	height: 500px;
+}
+</style>
+</head>
+<body>
+	<div id="canvas"></div>
+	<script>
+		var bpmnJS = new BpmnJS({
+			container : '#canvas'
+		});
+		bpmnJS.importXML(xmlStr, function(err) {
+			if (!err) {
+				console.log('success!');
+				// 让图能自适应屏幕
+				var canvas = bpmnJS.get('canvas')
+				canvas.zoom('fit-viewport')
+			} else {
+				console.log('something went wrong:', err);
+			}
+		});
+
+		// document.querySelector('.bjs-powered-by').style.display='none';
+	</script>
+</body>
+
+</html>
