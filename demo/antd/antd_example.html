@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ant.design</title>
+<!-- 在浏览器中使用 script 和 link 标签直接引入文件  -->
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antd/4.1.3/antd.min.css">
+<script src="../../s/antd/4.1.3/antd.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+
+//# antd 是一个对象，ConfigProvider、DatePicker、message 是 antd 的组件，引用的时候需要加上 antd. 才能正常使用。
+
+class App extends React.Component {
+  state = {
+    date: null,
+  };
+  handleChange = date => {
+    antd.message.info(`您选择的日期是: ${date ? date.format('YYYY-MM-DD') : '未选择'}`);
+    this.setState({ date });
+  };
+  render() {
+    const { date } = this.state;
+    return (
+      <antd.ConfigProvider>
+        <div style={{ width: 400, margin: '100px auto' }}>
+          <antd.DatePicker onChange={this.handleChange} />
+          <div style={{ marginTop: 20 }}>
+            当前日期：{date ? date.format('YYYY-MM-DD') : '未选择'}
+          </div>
+        </div>
+      </antd.ConfigProvider>
+    );
+  }
+}
+ReactDOM.render(<App />, document.getElementById('root'));
+	</script>
+</body>
+</html>
