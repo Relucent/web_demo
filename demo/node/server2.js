@@ -1,11 +1,11 @@
-var PORT = 8080;
+const PORT = 8080;
 
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
-var path = require('path');
+const http = require('http');
+const url = require('url');
+const fs = require('fs');
+const path = require('path');
 
-var contentTypes = {
+const contentTypes = {
 	'css' : 'text/css',
 	'gif' : 'image/gif',
 	'html' : 'text/html',
@@ -26,15 +26,17 @@ var contentTypes = {
 	'xml' : 'text/xml'
 };
 
-var server = http.createServer(function(request, response) {
-	var pathname = url.parse(request.url).pathname;
+const webroot = path.resolve(__dirname, './assets');
+
+const server = http.createServer(function(request, response) {
+	let pathname = url.parse(request.url).pathname;
 
 	if (pathname.charAt(pathname.length - 1) === '/') {
 		pathname += 'index.html';
 	}
 
-	var realPath = path.join('assets', pathname);
-	var ext = path.extname(realPath);
+	let realPath = path.join(webroot, pathname);
+	let ext = path.extname(realPath);
 	ext = ext ? ext.slice(1) : 'unknown';
 	fs.exists(realPath, function(exists) {
 		if (!exists) {
@@ -51,7 +53,7 @@ var server = http.createServer(function(request, response) {
 					});
 					response.end(err);
 				} else {
-					var contentType = contentTypes[ext] || "text/plain";
+					let contentType = contentTypes[ext] || "text/plain";
 					response.writeHead(200, {
 						'Content-Type' : contentType
 					});
