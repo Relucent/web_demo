@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RegExp</title>
+<meta name="author" content="yyl" />
+</head>
+<body>
+	<div id="root">
+		<h3>字符串</h3>
+		<textarea id="text" style="width: 500px; height: 200px;"></textarea>
+		<h3>正则</h3>
+		<input id="pattern" type="text" value="" style="width: 400px;" /> <input id="match" type="button" value="测试" style="padding: 0 10px 0 10px;" />
+		<h3>匹配</h3>
+		<pre id="result" style="width: 500px; height: 200px; border: 1px solid #eeeeff;"></pre>
+	</div>
+	<script>
+		~function(el) {
+			(el.text = document.querySelector('#text')) | (el.pattern = document.querySelector('#pattern')) | (el.match = document.querySelector('#match')) | (el.result = document.querySelector('#result'));
+			(el.text.value = '沁园春·雪\n北国风光，千里冰封，万里雪飘。\n望长城内外，惟余莽莽；大河上下，顿失滔滔。\n山舞银蛇，原驰蜡象，欲与天公试比高。\n须晴日，看红装素裹，分外妖娆。\n江山如此多娇，引无数英雄竞折腰。\n惜秦皇汉武，略输文采；唐宗宋祖，稍逊风骚。 \n一代天骄，成吉思汗，只识弯弓射大雕。\n俱往矣，数风流人物，还看今朝。') | (el.pattern.value = '[^，；。\\s]*(?=雪)[^，；。\\s]*');
+			(el.match.addEventListener('click', function() {
+				el.result.innerHTML = (function(text, pattern) {
+					try {
+						return text.replace(new RegExp(pattern, 'gim'), '<a style=\"color:red;text-decoration:underline;\">$1</a>');
+					} catch (e) {
+						return '<a style="color:red;">【正则表达式错误】</a>'
+					}
+				})(el.text.value, '(' + el.pattern.value + ')');
+			}));
+		}({});
+	</script>
+</body>
+</html>
