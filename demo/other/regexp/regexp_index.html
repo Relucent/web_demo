@@ -4,15 +4,31 @@
 <meta charset="UTF-8">
 <title>RegExp</title>
 <meta name="author" content="yyl" />
+<style type="text/css">
+html, body {
+	height: 100%;
+	overflow: hidden;
+}
+
+#root {
+	height: 99%;
+}
+
+#text, #result {
+	font-size: 16px;
+	width: 95%;
+	height: calc(50% - 123px);
+}
+</style>
 </head>
 <body>
 	<div id="root">
 		<h3>字符串</h3>
-		<textarea id="text" style="width: 500px; height: 200px;"></textarea>
+		<textarea id="text" style="white-space: pre; word-wrap: normal; overflow-wrap: normal;"></textarea>
 		<h3>正则</h3>
 		<input id="pattern" type="text" value="" style="width: 400px;" /> <input id="match" type="button" value="测试" style="padding: 0 10px 0 10px;" />
 		<h3>匹配</h3>
-		<pre id="result" style="width: 500px; height: 200px; border: 1px solid #eeeeff;"></pre>
+		<pre id="result" style="border: 1px solid #eeeeff; overflow: auto;"></pre>
 	</div>
 	<script>
 		~function(el) {
