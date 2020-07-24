@@ -26,7 +26,7 @@ html, body {
 		var shadow = document.querySelector('#host').attachShadow({
 			mode : 'open'
 		});
-		shadow.innerHTML = '<style>#title {color: red;}</style><h1 id="title">hello</h1>';
+		shadow.innerHTML = '<style>:host{border: 1px solid blue;width:200px;box-sizing:border-box;} #title {color: red;}</style><h1 id="title">hello</h1>';
 	</script>
 </body>
 </html>

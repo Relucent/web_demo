@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web components</title>
+<meta name="author" content="yyl" />
+<style type="text/css">
+html, body {
+	height: 100%;
+	overflow: hidden;
+}
+</style>
+</head>
+<body>
+	<div id="root">
+		<custom-element value="hello, world"></custom-element>
+	</div>
+
+	<template id="customTemplate">
+		<style>
+		.container {
+			display: block;
+			width: 500px;
+			height: 100px;
+			padding: 10px;
+			border: 1px solid blue;
+			box-sizing: border-box;
+		}
+		.container > .label {
+			font-size: 20px;
+			font-weight: 600;
+			line-height: 1;
+			margin: 0;
+			margin-bottom: 5px;
+		}
+		.container > .input {
+			font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑;
+			font-size: 18px;
+			line-height: 1;
+			width: 200px;
+			height: 30px;
+			margin: 0;
+			border-radius: 5px;
+			margin-bottom: 15px;
+		}
+		.container > .button {
+			padding: 10px 25px;
+			font-size: 12px;
+			border-radius: 5px;
+			text-transform: uppercase;
+		}
+		</style>
+		<div class="container">
+			<label class="label">Label </label>
+			<input class="input"/>
+			<button class="button">Button</button>
+  		</div>
+	</template>
+	<script>
+		class CustomElement extends HTMLElement {
+			constructor() {
+				super();
+				let templateElem = document.getElementById('customTemplate');
+				let content = templateElem.content.cloneNode(true);
+				content.querySelector('.container>.input').value = this.getAttribute('value');
+				this.appendChild(content);
+			}
+		}
+		window.customElements.define('custom-element', CustomElement);
+	</script>
+</body>
+</html>
