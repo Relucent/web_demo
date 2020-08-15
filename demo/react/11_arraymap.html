@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// 在Javascript中，Array的 map() 方法可用于返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+		// 在 React 中，也可以使用map()方法把数组转化为列表元素。
+		// 另外元素的 key 帮助 React 识别哪些元素改变了，比如被添加或删除。
+		// 一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用数据中的 id 来作为元素的 key：
+		function NumberList(props) {
+			const numbers = props.numbers;
+			const listItems = numbers.map((number) => <li key={number}>{number}</li> );
+			return (
+				<ul>{listItems}</ul>
+			);
+		}
+		const numbers = [1, 2, 3, 4, 5];
+		ReactDOM.render(
+			<NumberList numbers={numbers} />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

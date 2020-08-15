@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// 多个组件需要反映相同的变化数据，建议的做法是将共享状态提升到最近的共同父组件中去。这个方式被称为状态提升。
+		// 这个情况下父组件相当于是数据源，而子组件是没有控制权的，如果
+		class InputField extends React.Component {
+			constructor(props) {
+				super(props);
+				this.handleChange = this.handleChange.bind(this);
+			}
+			handleChange(e) {
+				this.props.onValueChange(e.target.value);
+			}
+			render() {
+				const value = this.props.value;
+				return (
+					<input value={value} onChange={this.handleChange} />
+				);
+			}
+		}
+		class InputFieldSet extends React.Component {
+			constructor(props) {
+				super(props);
+				this.handleValueChange = this.handleValueChange.bind(this);
+				this.state = {value: ''};
+			}
+			handleValueChange(value){
+				this.setState({value: value});
+			}
+			render() {
+				const value = this.state.value;
+				return (
+					<div>
+						<InputField value={value} onValueChange={this.handleValueChange} /> <br/>
+						<InputField value={value} onValueChange={this.handleValueChange} /> <br/>
+						<InputField value={value} onValueChange={this.handleValueChange} /> <br/>
+					</div>
+				);
+			}
+		}
+		ReactDOM.render(
+			<InputFieldSet />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

@@ -10,20 +10,11 @@
 <body>
 	<div id="root"></div>
 	<script type="text/babel">
-		const RootCompoent = (props) => (
-			<div>
-				<NameCompoent name={props.name} />
-				<LinkCompoent site={props.site} />
-			</div>
-		);
-		const NameCompoent = (props) => (
-			<h1>{props.name}</h1>
-		);
-		const LinkCompoent = (props) => (
-			<a href={props.site}>{props.site}</a>
-		);
+		// JSX是一种JavaScript的语法扩展，运用于React架构中。其格式类似模版语言，但它具有 JavaScript 的全部功能。
+		const message = 'hello, world' 
+		const element = <h1>{message}</h1> 
 		ReactDOM.render(
-			<RootCompoent name="React" site="https://github.com/facebook/react" />,
+			element,
 			document.getElementById('root')
 		);
     </script>

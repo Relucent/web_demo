@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// 组件可以在其输出中引用其他组件
+		class Welcome extends React.Component {
+			render() {
+				return <h1>Hello, {this.props.name}</h1>;
+			}
+		}
+		function App() {
+			return (
+				<div>
+					<Welcome name="Angular" />
+					<Welcome name="Vue" />
+					<Welcome name="React" />
+				</div>
+			);
+		}
+		ReactDOM.render(
+			<App />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

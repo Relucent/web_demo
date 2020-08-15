@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// React 把组件看成是一个状态机（State Machines）。通过与用户的交互，实现不同状态，然后渲染 UI，让用户界面和数据保持一致。
+		// React 里，只需更新组件的 state，就可以根据新的 state 重新渲染用户界面。
+		// State 与 props 类似，但是 state 是私有的，并且完全受控于当前组件。
+		// 可以为 class 组件声明一些特殊的方法，当组件挂载或卸载时就会去执行这些方法，这些方法叫做“生命周期方法”。
+		class Clock extends React.Component {
+			// 构造函数
+			constructor(props) {
+				super(props);
+				//构造函数是唯一可以直接给 this.state 赋值的地方，如果后续更新状态需要用 setState方法。
+				this.state = {date: new Date()};
+			}
+			// 当 Clock 组件第一次被渲染到 DOM 之后运行
+			componentDidMount() {
+				this.timerId = setInterval(() => this.tick(),      1000    );
+			}
+			// 当 DOM 中 Clock 组件被删除之后运行
+			componentWillUnmount() {
+				clearInterval(this.timerId);
+			}
+			tick() {
+				this.setState({date: new Date()});
+			}
+			render() {
+				return (
+					<div>
+						<h1>Hello, world!</h1>
+						<h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+					</div>
+				);
+			}
+		}
+		ReactDOM.render(
+			<Clock />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

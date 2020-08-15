@@ -10,10 +10,20 @@
 <body>
 	<div id="root"></div>
 	<script type="text/babel">
-		const message = 'hello, world' 
-		const element = <h1>{message}</h1> 
+		// 在 React 中，可以像基本的Javascript一样使用 for语句。
+		function NumberList(props) {
+			const numbers = props.numbers;
+			let html = [];
+			for(let i=0;i<numbers.length;i++){
+            	html.push(<li>{numbers[i]}</li>)
+        	}
+			return (
+				<ul>{html}</ul>
+			);
+		}
+		const numbers = [1, 2, 3, 4, 5];
 		ReactDOM.render(
-			element,
+			<NumberList numbers={numbers} />,
 			document.getElementById('root')
 		);
     </script>

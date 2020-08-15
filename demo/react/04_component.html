@@ -10,14 +10,16 @@
 <body>
 	<div id="root"></div>
 	<script type="text/babel">
-		// 函数组件：定义组件最简单的方式就是编写 JavaScript 函数 
+		// 使用 ES6 的 class来定义组件 
 		// React 规定组件名称必须以大写字母开头
 		// React 会将以小写字母开头的元素视为原生 DOM 标签。例如，<div /> 代表 HTML 的 div 标签，而  <Welcome /> 则代表一个组件。
-		function Welcome(props) {
-			return <h1>Hello, {props.name}</h1>;
+		class Welcome extends React.Component {
+			render() {
+				return <h1>Hello, {this.props.name}</h1>;
+			}
 		}
 		// React元素可以是用户自定义的组件
-		const element = <Welcome name="Function Component" />;
+		const element = <Welcome name="Class Component" />;
 		// 渲染组件
 		ReactDOM.render(
   			element,

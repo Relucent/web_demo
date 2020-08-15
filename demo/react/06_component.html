@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// 可以将一个复杂的将组件拆分为更小的组件，以便于后续的维护
+		const RootCompoent = (props) => (
+			<div>
+				<NameCompoent name={props.name} />
+				<LinkCompoent site={props.site} />
+			</div>
+		);
+		const NameCompoent = (props) => (
+			<h1>{props.name}</h1>
+		);
+		const LinkCompoent = (props) => (
+			<a href={props.site}>{props.site}</a>
+		);
+		ReactDOM.render(
+			<RootCompoent name="React" site="https://github.com/facebook/react" />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

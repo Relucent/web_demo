@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// React 元素的事件处理和 DOM 元素的很相似，但是有一点语法上的不同：
+		// 1、React 事件的命名采用小驼峰式（camelCase），而不是纯小写。
+		// 2、使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串。
+		// 3、在 React 中不能通过返回 false 的方式阻止默认行为。必须显式的使用 preventDefault。
+		class Toggle extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {isToggleOn: true};
+				// 为了在回调中使用 `this`，这个绑定是必不可少的
+				this.handleClick = this.handleClick.bind(this);
+				}
+				handleClick(event) {
+					console.log(event);
+					this.setState(state => ({
+						isToggleOn: !state.isToggleOn
+					}));
+				}
+				render() {
+					return (
+						<button onClick={(e)=>this.handleClick(e)}>
+							{this.state.isToggleOn ? 'ON' : 'OFF'}
+						</button>
+				);
+			}
+		}
+		ReactDOM.render(
+			<Toggle />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>
