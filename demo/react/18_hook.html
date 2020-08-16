@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// Hook 是 React 16.8 的新增特性。它支持在不编写 class 的情况下使用 state 以及其他的 React 特性。
+		function Example() {
+			// 声明一个新的叫做 “count” 的 state 变量 
+			const [count, setCount] = React.useState(0);
+			return (
+				<div>
+					<p>You clicked {count} times</p>
+					<button onClick={() => setCount(count + 1)}>
+        				Click me
+      				</button>
+				</div>
+			);
+		}
+		ReactDOM.render(
+			<Example />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

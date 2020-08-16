@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// React 也支持另一种设置 refs 的方式，称为“回调 refs”。它能助你更精细地控制何时 refs 被设置和解除。
+		class CustomTextInput extends React.Component {
+			constructor(props) {
+				super(props);
+				this.textInput = null;
+				this.setTextInputRef = element => {
+					this.textInput = element;
+				};
+			}
+			componentDidMount() {
+				// 组件挂载后，让文本框自动获得焦点
+				this.focusTextInput();
+			}
+			focusTextInput(){
+				// 使用原生 DOM API 使 text 输入框获得焦点 
+				if (this.textInput) {
+					this.textInput.focus();
+				}
+			}
+			render() {
+				// 使用 `ref` 的回调函数将 text 输入框 DOM 节点的引用存储到 React
+				// React 将在组件挂载时，会调用 ref 回调函数并传入 DOM 元素，当卸载时调用它并传入 null。
+				// 在 componentDidMount 或 componentDidUpdate 触发前，React 会保证 refs 一定是最新的。
+				return (
+					<div>
+						<input type="text" ref={this.setTextInputRef} />
+						<input type="button" value="Focus the text input" onClick={()=>this.focusTextInput()} />
+					</div>
+				);
+			}
+		}
+		ReactDOM.render(
+			<CustomTextInput />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

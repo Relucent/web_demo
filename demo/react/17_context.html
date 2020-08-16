@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。
+		// Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。
+
+		// 创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，这个组件会从组件树中离自身最近的那个匹配的 Provider 中读取到当前的 context 值。
+		const MyContext = React.createContext('hello');
+		class App extends React.Component {
+			render() {
+				const message = 'Hello Context';
+				return (
+					<MyContext.Provider value={message}>
+						<Container />
+					</MyContext.Provider>
+				);
+			}
+		}
+		// 中间的组件不需要指明往下传递 value 了
+		function Container() {
+			return (
+				<div>
+					<Text />
+				</div>
+			);
+		}
+		// 组件可以通过 this.context 能够来消费最近 Context 上的那个值。
+		class Text extends React.Component {
+			constructor(props) {
+				super(props);
+			}
+			render() {
+				return <h3>{this.context}</h3>;
+			}
+		}
+		//重点：将挂载在 class 上的 contextType 属性重赋值为 React.createContext() 创建的 Context 对象。（这样组件才可以通过this.context来进行访问）
+		Text.contextType = MyContext;
+		ReactDOM.render(
+			<App />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>

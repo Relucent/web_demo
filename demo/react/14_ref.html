@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>react</title>
+<script src="../../s/react/16.13.1/react.production.min.js"></script>
+<script src="../../s/react/16.13.1/react-dom.production.min.js"></script>
+<script src="../../s/babel/5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		// Refs 提供了一种方式，允许我们访问 DOM 节点或在 render 方法中创建的 React 元素。
+		// 一般情况，建议避免使用 refs 来做任何可以通过声明式实现来完成的事情，但是有一些情况需要使用到 refs。
+		// 下面是几个适合使用 refs 的情况：
+		// 1、管理焦点，文本选择或媒体播放。
+		// 2、触发强制动画。
+		// 3、集成第三方 DOM 库。
+		class CustomTextInput extends React.Component {
+			constructor(props) {
+				super(props);
+				// 创建一个 ref 来存储 textInput 的 DOM 元素
+				this.textInput = React.createRef();
+				this.focusTextInput = this.focusTextInput.bind(this);
+			}
+			focusTextInput() {
+				// 通过 "current" 来访问 DOM 节点，使用原生 API 使 text 输入框获得焦点。
+				this.textInput.current.focus();
+			}
+			render() {
+				// 告诉 React 我们想把 <input> ref 关联到构造器里创建的 `textInput` 上
+				return (
+					<div>
+						<input type="text" ref={this.textInput} />
+						<input type="button" value="Focus the text input" onClick={this.focusTextInput} />
+					</div>
+				);
+			}
+		}
+		ReactDOM.render(
+			<CustomTextInput />,
+			document.getElementById('root')
+		);
+    </script>
+</body>
+</html>
