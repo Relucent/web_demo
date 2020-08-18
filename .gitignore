@@ -1,0 +1,15 @@
+# Eclipse
+.project
+.settings/
+
+# IntelliJ Idea
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# OS X
+.DS_Store
+
+# Window
+Thumbs.db

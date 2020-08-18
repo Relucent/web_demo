@@ -2,15 +2,13 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="../../s/vue/2.5.16/vue.min.js"></script>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
 </head>
 <body oncontextmenu="return false;">
 	<h3>组件</h3>
-
 	<hr>
-
 	<div id="example">
-		<my-component></my-component>
+		<div is="my-component"></div>
 	</div>
 	<script>
 		document.oncontextmenu = function() {
@@ -24,13 +22,11 @@
 			el : '#example'
 		});
 	</script>
-
 	<hr>
-
 	<div id="example-2">
-		<simple-counter></simple-counter>
-		<simple-counter></simple-counter>
-		<simple-counter></simple-counter>
+		<button is="simple-counter"></button>
+		<button is="simple-counter"></button>
+		<button is="simple-counter"></button>
 	</div>
 	<script>
 		(function() {
@@ -50,13 +46,11 @@
 			el : '#example-2'
 		});
 	</script>
-
 	<hr>
-
 	<div id="example-3">
-		<simple-counter></simple-counter>
-		<simple-counter></simple-counter>
-		<simple-counter></simple-counter>
+		<button is="simple-counter"></button>
+		<button is="simple-counter"></button>
+		<button is="simple-counter"></button>
 	</div>
 	<script>
 		Vue.component('simple-counter', {
@@ -73,16 +67,13 @@
 			el : '#example-3'
 		});
 	</script>
-
 	<hr>
-
 	<div id="example-4">
-		<button-counter v-on:compute="computeTotal"></button-counter>
+		<button is="button-counter" v-on:compute="computeTotal"></button>
 		+
-		<button-counter v-on:compute="computeTotal"></button-counter>
+		<button is="button-counter" v-on:compute="computeTotal"></button>
 		= <span>{{ total }}</span>
 	</div>
-
 	<script>
 		Vue.component('button-counter', {
 			template : '<button v-on:click="increment">{{ counter }}</button>',
@@ -110,12 +101,11 @@
 			}
 		})
 	</script>
-
 	<hr>
 	<div id="example-5">
-		<increment-button></increment-button>
+		<button is="increment-button"></button>
 		+
-		<increment-button></increment-button>
+		<button is="increment-button"></button>
 		= <span v-text="counter"></span>
 	</div>
 	<script>
@@ -147,6 +137,5 @@
 			}
 		});
 	</script>
-
 </body>
 </html>
