@@ -1,7 +1,7 @@
 var __ = {
 	cxt : (function() {
 		var scripts = document.getElementsByTagName('script'), src = scripts[scripts.length - 1].src;
-		return src.substring(0, src.length - '/s/assets/__.js'.length);
+		return src.substring(0, src.length - '/s/__/__.js'.length);
 	})(),
 	url : function(path, params) {
 		return ((/^https?:/ig).test(path) ? path : __.cxt + path) + (__.isEmpty(params) ? '' : '?' + __.encodeUrlParams(params));
@@ -135,7 +135,8 @@ var __ = {
 	decodeUrlParams : function(search) {
 		search = search || location.search;
 		var params = {};
-		// (remove any leading ? || #)(remove any trailing & || ;)(replace +'s with spaces)(split & || ;)
+		// (remove any leading ? || #)(remove any trailing & || ;)(replace +'s
+		// with spaces)(split & || ;)
 		__.each(search.replace(/^[?#]/, '').replace(/[;&]$/, '').replace(/[+]/g, ' ').split(/[&;]/), function(i, t) {
 			var kv = t.split('='), k = decodeURIComponent(kv[0] || ''), v = decodeURIComponent(kv[1] || '');
 			if (!k) {
@@ -150,5 +151,57 @@ var __ = {
 			}
 		});
 		return params;
+	},
+	extend : function() {
+		var src, copyIsArray, copy, name, options, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;
+		// Handle a deep copy situation
+		if (typeof target === "boolean") {
+			deep = target;
+			// skip the boolean and the target
+			target = arguments[i] || {};
+			i++;
+		}
+		// Handle case when target is a string or something (possible in deep copy)
+		if (typeof target !== "object" && !__.isFunction(target)) {
+			target = {};
+		}
+		// extend __ itself if only one argument is passed
+		if (i === length) {
+			target = __;
+			i--;
+		}
+		for (; i < length; i++) {
+			// Only deal with non-null/undefined values
+			if ((options = arguments[i]) != null) {
+				// Extend the base object
+				for (name in options) {
+					src = target[name];
+					copy = options[name];
+					// Prevent never-ending loop
+					if (target === copy) {
+						continue;
+					}
+					// Recurse if we're merging plain objects or arrays
+					if (deep && copy && (__.isPlainObject(copy) || (copyIsArray = __.isArray(copy)))) {
+						if (copyIsArray) {
+							copyIsArray = false;
+							clone = src && __.isArray(src) ? src : [];
+
+						} else {
+							clone = src && __.isPlainObject(src) ? src : {};
+						}
+
+						// Never move original objects, clone them
+						target[name] = __.extend(deep, clone, copy);
+
+						// Don't bring in undefined values
+					} else if (copy !== undefined) {
+						target[name] = copy;
+					}
+				}
+			}
+		}
+		// Return the modified object
+		return target;
 	}
 };
