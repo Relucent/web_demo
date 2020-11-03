@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Object.assign()</title>
+</head>
+<h3>Object.assign()</h3>
+<p>ES6提供了Object.assign()，用于合并/复制对象的属性。</p>
+<pre>Object.assign(target, source_1, ..., source_n)</pre>
+<body>
+	<script type="text/javascript">
+		var point = {
+			x : 1,
+			y : 2
+		};
+		var copy = Object.assign({}, point, {
+			z : 3
+		});
+		console.log(copy); // 输出{x:1,y:2,z:3}
+	</script>
+</body>
+</html>
