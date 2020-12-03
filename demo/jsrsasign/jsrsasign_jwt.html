@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>jsrsasign (JWR)</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<style type="text/css">
+textarea {
+	overflow: auto;
+	resize: none;
+}
+
+.top {
+	vertical-align: top;
+}
+</style>
+<script src="../../s/jsrsasign/10.1.4/jsrsasign-all-min.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<div>
+					<label>Head:</label><br>
+					<textarea id="jwshead" style="width: 520px; height: 100px;" wrap="off">{"alg":"RS256"}</textarea>
+				</div>
+				<div>
+					<label>Payload:</label><br>
+					<textarea id="jwspayload" style="width: 520px; height: 100px;" wrap="off">{"iss":"joe",
+ "exp":9999999999,
+ "subject":'hello'}</textarea>
+				</div>
+				<div>
+					<label>PrivateKey:</label><br>
+					<textarea id="privatekey" style="width: 520px; height: 320px;" wrap="off">-----BEGIN PRIVATE KEY-----
+MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMUuzrEA4KVU14+d
+hnreVHvzw4oRtTo9N++XM6aJuIxE5qr/Zd7eyNIMcqSBgA42qiOlTgyPWlW33vXE
+9PkxBz6+ajGj1yJpKzQo1ddO2f6woYzbKRxoJGJGtxPoO81MLYfXhy4ZYxhFOa8i
+zi6hpQjxMLMbhJEg2xpplFkJBXUHAgMBAAECgYA9ImEE8e+0ctSOe1l5eLsa3x3u
+DcVxdA+Gogtqg+KK4sXdmGeeLNZ4gVF9/YSVY49mk9baAAwS7XocGt+U7wV+fC9l
+axqvPm85SY8Ve7cWkx1CHRzV4ArR7itB9iLNp3OU8s6i4/ZGrf1NTvsuEOIkzDlZ
+PNJyTZZWsUdSq/NiYQJBAOae6nX63K2Jy6N4rQFISq+0IN3GXAzp/X2hSIN6NV2q
+IKSJhSpope27gTFlogBfJR10t6huzB72D55CX/HNDXECQQDa4d+FPwG4xvg0BRJ7
+EdgpC34tmlnjzjsyOMfJCPUF2AAsAO1GmkHoXpo9ptNpHc3GLQcTibEZuVhb1/oi
+Cs33AkBbbdlKGMBwVFbVYjxEa+KgMettwPwxanrC2bQj28lYbuAuGw8eNwrBazrW
+2JIXT6EpQmKldfeatraOaYYcGM0hAkEAi6GsRgR7xLSpggX6VCh+DTEXvV/KGFln
+yhIO4WClbqTs9yVgOLoPcX1oSAw0scohi1sOOJiOMirbAzw0haL+4QJBAJRYcGlk
+kmgi/vp0GYxpx/XpNvaO5bD63azaGVCj9DnM+7RiCTFGASzLNx2uNmrB18hgMi0D
+RUgR1NmjRyhLs1c=
+-----END PRIVATE KEY-----</textarea>
+				</div>
+			</td>
+			<td class="top">
+				<div>
+					<label>JWS:</label><br>
+					<textarea id="jws" style="width: 520px; height: 280px" wrap="off"></textarea>
+				</div>
+				<div>
+					<label>JWT Encoded:</label><br>
+					<textarea id="jwt" style="width: 520px; height: 270px;"></textarea>
+				</div>
+			</td>
+		<tr>
+	</table>
+	<script type="text/javascript">
+		EL = {
+			jwshead : document.querySelector('#jwshead'),
+			jwspayload : document.querySelector('#jwspayload'),
+			privatekey : document.querySelector('#privatekey'),
+			jws : document.querySelector('#jws'),
+			jwt : document.querySelector('#jwt')
+		}, FN = {
+			signature : function(header, payload, privateKey) {
+				var jwsjs = new KJUR.jws.JWSJS();
+				var jws = KJUR.jws.JWS.sign(null, header, payload, privateKey);
+				jwsjs.initWithJWS(jws);
+				return jwsjs.getJSON();
+			},
+			onInputEvent : function() {
+				var jws = FN.signature(EL.jwshead.value, EL.jwspayload.value, EL.privatekey.value);
+				EL.jws.value = JSON.stringify(jws, null, 1);
+				EL.jwt.value = jws.headers + '.' + jws.payload + '.' + jws.signatures;
+			}
+		};
+		EL.jwshead.addEventListener('input', FN.onInputEvent);
+		EL.jwspayload.addEventListener('input', FN.onInputEvent);
+		EL.privatekey.addEventListener('input', FN.onInputEvent);
+		FN.onInputEvent();
+	</script>
+</body>
+</html>
