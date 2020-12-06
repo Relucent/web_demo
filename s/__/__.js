@@ -203,5 +203,108 @@ var __ = {
 		}
 		// Return the modified object
 		return target;
+	},
+	encode : (function() {
+		var I = !!{}.hasOwnProperty, _ = function(I) {
+			return I < 10 ? "0" + I : I;
+		}, A = {
+			"\b" : "\\b",
+			"\t" : "\\t",
+			"\n" : "\\n",
+			"\f" : "\\f",
+			"\r" : "\\r",
+			"\"" : "\\\"",
+			"\\" : "\\\\"
+		}, stringify = (function(C) {
+			if (typeof C == "undefined" || C === null) {
+				return "null";
+			} else {
+				if (Object.prototype.toString.call(C) === "[object Array]") {
+					var B = [ "[" ], G, E, D = C.length, F;
+					for (E = 0; E < D; E += 1) {
+						F = C[E];
+						switch (typeof F) {
+						case "undefined":
+						case "function":
+						case "unknown":
+							break;
+						default:
+							if (G) {
+								B.push(",");
+							}
+							B.push(F === null ? "null" : stringify(F));
+							G = true;
+						}
+					}
+					B.push("]");
+					return B.join("");
+				} else {
+					if ((Object.prototype.toString.call(C) === "[object Date]")) {
+						return "\"" + C.getFullYear() + "-" + _(C.getMonth() + 1) + "-" + _(C.getDate()) + "T" + _(C.getHours()) + ":" + _(C.getMinutes()) + ":" + _(C.getSeconds()) + "\"";
+					} else {
+						if (typeof C == "string") {
+							return "\"" + C.replace(/([\x00-\x1f\\"])/g, function(B, _) {
+								var I = A[_];
+								if (I) {
+									return I;
+								}
+								return '';
+							}).replace(/[^\u0000-\u00FF]/g, function($0) {
+								return escape($0).replace(/(%u)(\w{4})/gi, "\\u$2")
+							}) + "\"";
+						} else {
+							if (typeof C == "number") {
+								return isFinite(C) ? String(C) : "null";
+							} else {
+								if (typeof C == "boolean") {
+									return String(C);
+								} else {
+									B = [ "{" ], G, E, F;
+									for (E in C) {
+										if (!I || C.hasOwnProperty(E)) {
+											F = C[E];
+											if (F === null) {
+												continue;
+											}
+											switch (typeof F) {
+											case "undefined":
+											case "function":
+											case "unknown":
+												break;
+											default:
+												if (G) {
+													B.push(",");
+												}
+												B.push(stringify(E), ":", stringify(F));
+												G = true;
+											}
+										}
+									}
+									B.push("}");
+									return B.join("");
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+		return stringify;
+	})(),
+	decode : function(json, unsafe) {
+		if (json == null) {
+			return null;
+		}
+		try {
+			return JSON.parse(json);
+		} catch (e) {
+			if (unsafe === true) {
+				try {
+					return eval('(' + json + ')');
+				} catch (e) {
+				}
+			}
+		}
+		return undefined;
 	}
 };
