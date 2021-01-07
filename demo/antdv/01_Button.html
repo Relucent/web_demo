@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<!-- 在浏览器中使用 script 和 link 标签直接引入文件  -->
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+
+</head>
+<body>
+	<div id="vm">
+		<button is="a-button" type="primary">Primary</button>
+		<button is="a-button">Default</button>
+		<button is="a-button" type="dashed">Dashed</button>
+		<button is="a-button" type="danger">Danger</button>
+		<button is="a-button" type="primary">按钮</button>
+		<button is="a-button" type="link">Link</button>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : {
+				text : 'hello'
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+#vm {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+
+#vm .ant-layout-header, #vm .ant-layout-footer {
+	background: #7dbcea;
+	color: #fff;
+}
+
+#vm .ant-layout-footer {
+	line-height: 1.5;
+}
+
+#vm .ant-layout-sider {
+	background: #3ba0e9;
+	color: #fff;
+	line-height: 120px;
+}
+
+#vm .ant-layout-content {
+	background: #3ba0ff;
+	color: #fff;
+	min-height: 120px;
+	line-height: 120px;
+}
+</style>
+</head>
+<body>
+	<div id="vm" id="layout-basic">
+		<section is="a-layout" :style="{height: '100%'}">
+			<aside is="a-layout-sider">Sider</aside>
+			<section is="a-layout">
+				<header is="a-layout-header">Header</header>
+				<main is="a-layout-content">Content</main>
+				<footer is="a-layout-footer">Footer</footer>
+			</section>
+		</section>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : {},
+			methods : {}
+		});
+	</script>
+</body>
+</html>

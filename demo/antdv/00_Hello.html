@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+#vm {
+	margin: 5px 5px;
+}
+</style>
+</head>
+<body>
+	<div id="vm">
+		<div>
+			<button is="a-button" type="primary" @click="showModal">hello</button>
+			<div is="a-modal" title="Title" :visible="visible" :confirm-loading="confirmLoading" @ok="handleOk" @cancel="handleCancel">
+				<p>{{ message }}</p>
+			</div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : {
+				message : 'Hello AndV!',
+				visible : false,
+				confirmLoading : false
+			},
+			methods : {
+				showModal : function() {
+					this.visible = true;
+				},
+				handleOk : function(e) {
+					var vm = this;
+					vm.message = 'The modal will be closed after two seconds';
+					vm.confirmLoading = true;
+					setTimeout(function() {
+						vm.visible = false;
+						vm.confirmLoading = false;
+					}, 2000);
+				},
+				handleCancel : function(e) {
+					console.log('Clicked cancel button');
+					this.visible = false;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

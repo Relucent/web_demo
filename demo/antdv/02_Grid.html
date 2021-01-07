@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+#vm div {
+	background: #ccccff;
+}
+
+#vm div :nth-child(2) {
+	background: #8888ff;
+}
+</style>
+</head>
+<body>
+	<div id="vm">
+		<div>
+			<div is="a-row">
+				<div is="a-col" :span="12">col-12</div>
+				<div is="a-col" :span="12">col-12</div>
+			</div>
+			<div is="a-row">
+				<div is="a-col" :span="8">col-8</div>
+				<div is="a-col" :span="8">col-8</div>
+				<div is="a-col" :span="8">col-8</div>
+			</div>
+			<div is="a-row">
+				<div is="a-col" :span="6">col-6</div>
+				<div is="a-col" :span="6">col-6</div>
+				<div is="a-col" :span="6">col-6</div>
+				<div is="a-col" :span="6">col-6</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : {},
+			methods : {}
+		});
+	</script>
+</body>
+</html>
