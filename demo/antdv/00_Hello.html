@@ -18,7 +18,7 @@
 </style>
 </head>
 <body>
-	<div id="vm">
+	<div id="vm" v-cloak>
 		<div>
 			<button is="a-button" type="primary" @click="showModal">hello</button>
 			<div is="a-modal" title="Title" :visible="visible" :confirm-loading="confirmLoading" @ok="handleOk" @cancel="handleCancel">

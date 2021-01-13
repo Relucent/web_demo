@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+</style>
+</head>
+<body>
+	<!-- Dropdown下拉菜单 -->
+	<div id="vm">
+		<div is="a-dropdown">
+			<a class="ant-dropdown-link" @click="e => e.preventDefault()"> Hover me <span is="a-icon" type="down"></span></a>
+			<div is="a-menu" slot="overlay">
+				<div is="a-menu-item" key="0">
+					<a target="_blank" rel="noopener noreferrer" href="http://www.baidu.com/">1st menu item</a>
+				</div>
+				<div is="a-menu-item" key="1">
+					<a target="_blank" rel="noopener noreferrer" href="http://www.aliyun.com/">2nd menu item</a>
+				</div>
+				<div is="a-menu-divider"></div>
+				<div is="a-menu-item" key="3" disabled>3rd menu item（disabled）</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : {},
+			mounted : function() {
+			},
+			methods : {}
+		});
+	</script>
+</body>
+</html>

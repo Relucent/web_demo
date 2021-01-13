@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+</style>
+</head>
+<body>
+	<!-- Pagination 分页 -->
+	<div id="vm" v-cloak>
+		<div is="a-pagination" :current="page.current" :page-size.sync="page.pageSize" :total="page.total" @change="onChange"></div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : function() {
+				return {
+					page : {
+						current : 2,
+						pageSize : 10,
+						total : 200
+					}
+				};
+			},
+			methods : {
+				onChange : function(current) {
+					this.page.current = current;
+					console.log('onChange(current=' + current + ')')
+				}
+			}
+		});
+	</script>
+</body>
+</html>

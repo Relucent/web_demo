@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+</style>
+</head>
+<body>
+	<!-- Affix 固钉 -->
+	<!-- 当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。 -->
+	<!-- 页面可视范围过小时，慎用此功能以免遮挡页面内容。 -->
+	<div id="vm">
+		<div style="height: 1500px;"></div>
+		<div is="a-affix" :offset-top="top">
+			<button is="a-button" type="primary" @click="top += 10">Affix top</button>
+		</div>
+		<br />
+		<div is="a-affix" :offset-bottom="bottom">
+			<button is="a-button" type="primary" @click="bottom += 10">Affix bottom</button>
+		</div>
+		<div style="height: 1500px;"></div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm',
+			data : {
+				top : 10,
+				bottom : 10
+			},
+			mounted : function() {
+				document.documentElement.scrollTop = 1500;
+			},
+			methods : {}
+		});
+	</script>
+</body>
+</html>

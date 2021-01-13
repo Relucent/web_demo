@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+body {
+	padding: 10px 10px;
+}
+
+hr {
+	background-color: red;
+	border: none;
+	width: 100%;
+	height: 1px;
+	opacity: .1;
+	margin: 35px 1px;
+	height: 1px;
+}
+</style>
+</head>
+<body>
+	<h2>Steps 步骤条</h2>
+
+	<hr />
+
+	<div id="vm1" v-cloak>
+		<div is="a-steps">
+			<div is="a-step" status="finish" title="Login">
+				<span is="a-icon" slot="icon" type="user"></span>
+			</div>
+			<div is="a-step" status="finish" title="Verification">
+				<span is="a-icon" slot="icon" type="solution"></span>
+			</div>
+			<div is="a-step" status="process" title="Pay">
+				<span is="a-icon" slot="icon" type="loading"></span>
+			</div>
+			<div is="a-step" status="wait" title="Done">
+				<span is="a-icon" slot="icon" type="smile-o"></span>
+			</div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm1'
+		});
+	</script>
+
+	<hr />
+
+	<div id="vm2" v-cloak>
+		<div is="a-steps" direction="vertical" size="small" :current="current">
+			<div is="a-step" title="Finished" description="This is a description."></div>
+			<div is="a-step" title="In Progress" description="This is a description."></div>
+			<div is="a-step" title="Waiting" description="This is a description."></div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm2',
+			data : function() {
+				return {
+					current : 1
+				};
+			}
+		});
+	</script>
+
+	<hr />
+
+	<div id="vm3" v-cloak>
+		<div is="a-steps" :current="current">
+			<div is="a-step" v-for="item in steps" :key="item.title" :title="item.title"></div>
+		</div>
+		<div>{{ steps[current].content }}</div>
+		<div>
+			<button is="a-button" v-if="current < steps.length - 1" type="primary" @click="next">Next</button>
+			<button is="a-button" v-if="current == steps.length - 1" type="primary" @click="$message.success('Processing complete!')">Done</button>
+			<button is="a-button" v-if="current > 0" style="margin-left: 8px" @click="prev">Previous</button>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm3',
+			data : function() {
+				return {
+					current : 0,
+					steps : [ {
+						title : 'First',
+						content : 'First-content',
+					}, {
+						title : 'Second',
+						content : 'Second-content',
+					}, {
+						title : 'Last',
+						content : 'Last-content',
+					} ]
+				};
+			},
+			methods : {
+				next : function(current) {
+					this.current++;
+				},
+				prev : function(current) {
+					this.current--;
+				}
+			}
+		});
+	</script>
+
+	<hr />
+	<div id="vm4" v-cloak>
+		<div is="a-steps" :current="current" @change="onChange">
+			<div is="a-step" title="Step 1" description="This is a description."></div>
+			<div is="a-step" title="Step 2" description="This is a description."></div>
+			<div is="a-step" title="Step 3" description="This is a description."></div>
+		</div>
+		<hr is="a-divider" />
+		<div is="a-steps" v-model="current" direction="vertical">
+			<div is="a-step" title="Step 1" description="This is a description."></div>
+			<div is="a-step" title="Step 2" description="This is a description."></div>
+			<div is="a-step" title="Step 3" description="This is a description."></div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm4',
+			data : function() {
+				return {
+					current : 0
+				};
+			},
+			methods : {
+				onChange : function(current) {
+					console.log('onChange(current=' + current + ')');
+					this.current = current;
+				}
+			}
+		});
+	</script>
+
+	<hr />
+	<div id="vm5" v-cloak>
+		<div is="a-steps" v-model="current" type="navigation" size="small" :style="stepStyle">
+			<div is="a-step" title="Step 1" sub-title="00:00:05" status="finish" description="This is a description."></div>
+			<div is="a-step" title="Step 2" sub-title="00:01:02" status="process" description="This is a description."></div>
+			<div is="a-step" title="Step 3" sub-title="waiting for longlong time" status="wait" description="This is a description."></div>
+		</div>
+		<div is="a-steps" s v-model="current" type="navigation" :style="stepStyle">
+			<div is="a-step" status="finish" title="Step 1"></div>
+			<div is="a-step" status="process" title="Step 2"></div>
+			<div is="a-step" status="wait" title="Step 3"></div>
+			<div is="a-step" status="wait" title="Step 4"></div>
+		</div>
+		<div is="a-steps" s v-model="current" type="navigation" size="small" :style="stepStyle">
+			<div is="a-step" status="finish" title="finish 1"></div>
+			<div is="a-step" status="finish" title="finish 2"></div>
+			<div is="a-step" status="process" title="current process"></div>
+			<div is="a-step" status="wait" title="wait" disabled></div>
+		</div>
+		111s
+	</div>
+	<script>
+		new Vue({
+			el : '#vm5',
+			data : {
+				current : 0,
+				stepStyle : {
+					marginBottom : '60px',
+					boxShadow : '0px -1px 0 0 #e8e8e8 inset',
+				}
+			}
+		});
+	</script>
+</body>
+</html>

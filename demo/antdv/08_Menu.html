@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>antd</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/moment/2.21.0/moment.min.js"></script>
+<link rel="stylesheet" href="../../s/antdv/1.7.2/antd.min.css">
+<script src="../../s/antdv/1.7.2/antd.min.js"></script>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+</style>
+</head>
+<body>
+	<!-- Menu 导航菜单  -->
+	<div id="vm1" v-cloak>
+		<div is="a-menu" v-model="current" mode="horizontal">
+			<div is="a-menu-item" key="mail">
+				<span is="a-icon" type="mail"></span> Navigation One
+			</div>
+			<div is="a-menu-item" key="app" disabled>
+				<span is="a-icon" type="appstore"></span> Navigation Two
+			</div>
+			<div is="a-sub-menu">
+				<span slot="title" class="submenu-title-wrapper"><span is="a-icon" type="setting"></span>Navigation Three - Submenu</span>
+				<div is="a-menu-item" -group title="Item 1">
+					<div is="a-menu-item" key="setting:1">Option 1</div>
+					<div is="a-menu-item" key="setting:2">Option 2</div>
+				</div>
+				<div is="a-menu-item" -group title="Item 2">
+					<div is="a-menu-item" key="setting:3">Option 3</div>
+					<div is="a-menu-item" key="setting:4">Option 4</div>
+				</div>
+			</div>
+			<div is="a-menu-item" key="alipay">
+				<a href="https://antdv.com" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm1',
+			data : {
+				current : [ 'mail' ]
+			}
+		});
+	</script>
+
+	<div id="vm2" v-cloak>
+		<div is="a-menu" style="width: 256px" :default-selected-keys="['1']" :open-keys.sync="openKeys" mode="inline" @click="handleClick">
+			<div is="a-sub-menu" key="sub1" @titleClick="titleClick">
+				<span slot="title"> <span is="a-icon" type="mail"></span> <span>Navigation One</span>
+				</span>
+				<div is="a-menu-item-group" key="g1">
+					<div slot="title">
+						<span is="a-icon" type="qq"></span> <span>Item 1</span>
+					</div>
+					<div is="a-menu-item" key="1">Option 1</div>
+					<div is="a-menu-item" key="2">Option 2</div>
+				</div>
+				<div is="a-menu-item-group" key="g2" title="Item 2">
+					<div is="a-menu-item" key="3">Option 3</div>
+					<div is="a-menu-item" key="4">Option 4</div>
+				</div>
+			</div>
+			<div is="a-sub-menu" key="sub2" @titleClick="titleClick">
+				<span slot="title"><span is="a-icon" type="appstore"></span><span>Navigation Two</span></span>
+				<div is="a-menu-item" key="5">Option 5</div>
+				<div is="a-menu-item" key="6">Option 6</div>
+				<div is="a-sub-menu" key="sub3" title="Submenu">
+					<div is="a-menu-item" key="7">Option 7</div>
+					<div is="a-menu-item" key="8">Option 8</div>
+				</div>
+			</div>
+			<div is="a-sub-menu" key="sub4">
+				<span slot="title"><span is="a-icon" type="setting"></span><span>Navigation Three</span></span>
+				<div is="a-menu-item" key="9">Option 9</div>
+				<div is="a-menu-item" key="10">Option 10</div>
+				<div is="a-menu-item" key="11">Option 11</div>
+				<div is="a-menu-item" key="12">Option 12</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el : '#vm2',
+			data : function() {
+				return {
+					current : [ 'mail' ],
+					openKeys : [ 'sub1' ]
+				};
+			},
+			watch : {
+				openKeys : function(val) {
+					console.log('openKeys', val);
+				}
+			},
+			methods : {
+				handleClick : function(e) {
+					console.log('click', e);
+				},
+				titleClick : function(e) {
+					console.log('titleClick', e);
+				}
+			}
+		});
+	</script>
+</body>
+</html>
