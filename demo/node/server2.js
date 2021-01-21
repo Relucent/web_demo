@@ -19,6 +19,7 @@ const contentTypes = {
 	'svg' : 'image/svg+xml',
 	'swf' : 'application/x-shockwave-flash',
 	'tiff' : 'image/tiff',
+	'ttf' : 'application/octet-stream',
 	'txt' : 'text/plain',
 	'wav' : 'audio/x-wav',
 	'wma' : 'audio/x-ms-wma',
