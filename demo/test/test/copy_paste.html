@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>copy/paste</title>
+</head>
+<body>
+
+	<div class="source">
+		<h3>浏览器允许 JavaScript 脚本读写剪贴板，自动复制或粘贴内容。</h3>
+		<p>用户向剪贴板放入数据时，将触发copy事件；用户使用剪贴板数据，进行粘贴操作时，会触发paste事件。</p>
+		<p>事件对象的clipboardData属性包含了剪贴板数据。它是一个对象，有以下属性和方法。</p>
+		<pre>
+Event.clipboardData.setData(type, data)：修改剪贴板数据，需要指定数据类型。
+Event.clipboardData.getData(type)：获取剪贴板数据，需要指定数据类型。
+Event.clipboardData.clearData([type])：清除剪贴板数据，可以指定数据类型。如果不指定类型，将清除所有类型的数据。
+Event.clipboardData.items：一个类似数组的对象，包含了所有剪贴项，不过通常只有一个剪贴项。
+		</pre>
+	</div>
+	<div class="target"></div>
+
+
+	<script type="text/javascript">
+		const sourceDom = document.querySelector('.source');
+		const targetDom = document.querySelector('.target');
+		sourceDom.addEventListener('copy', (event) => {
+		  const selection = document.getSelection();
+		  event.clipboardData.setData('text/plain', '拷贝的文本：'+selection.toString());
+		  event.preventDefault();
+		});
+		document.addEventListener('paste', (event) => {
+			event.preventDefault();
+		  	targetDom.innerText= event.clipboardData.getData('text/plain');
+		});
+	</script>
+
+</body>
+</html>
