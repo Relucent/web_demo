@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vuex</title>
+<script src="../../s/vue/2.6.11/vue.min.js"></script>
+<script src="../../s/vuex/3.6.2/vuex.min.js"></script>
+<style type="text/css">
+html, body {
+	margin: 0;
+	padding: 0;
+}
+</style>
+</head>
+<body>
+	<div id="app">
+		<div>{{message}}</div>
+		<div>{{count}}</div>
+		<button @click="onIncrement()">+1</button>
+		<button @click="onIncrementAsync()">async +10</button>
+	</div>
+	<script>
+		Vue.use(Vuex);
+		const store = new Vuex.Store({
+			state : {
+				count : 0
+			},
+			mutations : {
+				increment : function(state, payload) {
+					state.count += payload.amount
+				}
+			},
+			actions : {
+				incrementAsync : function(context, payload) {
+					return new Promise(function(resolve, reject) {
+						setTimeout(function() {
+							context.commit('increment', payload);
+							resolve()
+						}, 1000);
+					});
+				}
+			}
+		});
+		new Vue({
+			el : '#app',
+			data : {
+				message : 'Hello world'
+			},
+			computed : {
+				count : function() {
+					return store.state.count;
+				}
+			},
+			methods : {
+				onIncrement : function() {
+					store.commit('increment', {
+						amount : 1
+					});
+				},
+				onIncrementAsync : function() {
+					store.dispatch('incrementAsync', {
+						amount : 10
+					}).then(function() {
+						console.log('+10 ok ' + store.state.count);
+					})
+				}
+			}
+		});
+	</script>
+</body>
+</html>
