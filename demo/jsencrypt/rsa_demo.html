@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AES/CBC/PKCS7Padding</title>
+<meta charset="UTF-8" />
+<script src="../../s/jsencrypt/3.2.1/jsencrypt.min.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>PublicKey:<br> <textarea id="publicKey" style="width: 300px; height: 100px;"></textarea></td>
+			<td><input id="generateKey" type="button" value="generateKey" /></td>
+			<td>PrivateKey:<br> <textarea id="privateKey" style="width: 300px; height: 100px;"></textarea></td>
+		</tr>
+		<tr>
+			<td>Input:<br> <textarea id="input" style="width: 300px; height: 250px;"></textarea></td>
+			<td style="text-align: center;">
+				<div>
+					<input id="encrypt" type="button" value="encrypt" />
+				</div>
+				<div>
+					<input id="decrypt" type="button" value="decrypt" />
+				</div>
+			</td>
+			<td>Output:<br> <textarea id="output" style="width: 300px; height: 250px;"></textarea></td>
+		<tr>
+	</table>
+
+	<script>
+		var EL = {
+			privateKey : document.querySelector('#privateKey'),
+			generateKey : document.querySelector('#generateKey'),
+			publicKey : document.querySelector('#publicKey'),
+			input : document.querySelector('#input'),
+			encrypt : document.querySelector('#encrypt'),
+			decrypt : document.querySelector('#decrypt'),
+			output : document.querySelector('#output')
+		}, FN = {
+			generateKey : function(callback) {
+				var rsa2text = function(buffer, isPrivate) {
+					var binary = ''
+					var bytes = new Uint8Array(buffer)
+					var len = bytes.byteLength
+					for (var i = 0; i < len; i++) {
+						binary += String.fromCharCode(bytes[i])
+					}
+					var base64 = window.btoa(binary)
+					var text = '-----BEGIN ' + (isPrivate ? 'PRIVATE' : 'PUBLIC') + ' KEY-----'
+					text += base64.replace(/[^\x00-\xff]/g, '$&\x01').replace(/.{64}\x01?/g, '$&\n')
+					text += '-----END ' + (isPrivate ? 'PRIVATE' : 'PUBLIC') + ' KEY-----'
+					return text
+				}
+				var crypto = window.crypto;
+				crypto.subtle.generateKey({
+					// 密钥加密算法
+					name : 'RSA-OAEP',
+					// RSA模数长度	can be 1024, 2048, or 4096
+					modulusLength : 2048,
+					publicExponent : new Uint8Array([ 0x01, 0x00, 0x01 ]),
+					// 要使用的摘要函数的名称 "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
+					hash : {
+						name : 'SHA-256'
+					}
+				},
+				// 是否要开放导出
+				true,
+				//密钥是否可提取
+				[ 'encrypt', 'decrypt' ]).then(function(key) {
+					//导出密钥，'pkcs8'指的是RSA/椭圆曲线私钥
+					crypto.subtle.exportKey('pkcs8', key.privateKey).then(function(keydata1) {
+						window.crypto.subtle.exportKey('spki', key.publicKey).then(function(keydata2) {
+							var privateKey = rsa2text(keydata1, 1);
+							var publicKey = rsa2text(keydata2, 0);
+							callback({
+								privateKey : privateKey,
+								publicKey : publicKey
+							});
+						})['catch'](function(err) {
+							console.error(err);
+						});
+					})['catch'](function(err) {
+						console.error(err);
+					});
+				});
+			},
+			encrypt : function(plaintext, publicKey) {
+				var encrypt = new JSEncrypt();
+				encrypt.setPublicKey(publicKey);
+				return encrypt.encrypt(plaintext);
+			},
+			decrypt : function(ciphertext, privateKey) {
+				var encrypt = new JSEncrypt();
+				encrypt.setPrivateKey(privateKey);
+				return encrypt.decrypt(ciphertext);
+			}
+		};
+		EL.generateKey.addEventListener('click', function() {
+			FN.generateKey(function(key) {
+				EL.publicKey.value = key.publicKey;
+				EL.privateKey.value = key.privateKey;
+			});
+		});
+		EL.encrypt.addEventListener('click', function() {
+			EL.output.value = FN.encrypt(EL.input.value, EL.publicKey.value);
+		});
+		EL.decrypt.addEventListener('click', function() {
+			EL.output.value = FN.decrypt(EL.input.value, EL.privateKey.value);
+		});
+	</script>
+</body>
+</html>
