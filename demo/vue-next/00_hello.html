@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+</head>
+<body>
+	<div id="app">message: {{ message }}</div>
+	<script>
+		const RootComponent = {
+			data : function() {
+				return {
+					message : 'hello'
+				}
+			}
+		};
+		const app = Vue.createApp(RootComponent)
+		const vm = app.mount('#app');
+	</script>
+</body>
+</html>
