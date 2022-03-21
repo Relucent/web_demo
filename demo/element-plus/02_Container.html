@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<script src="index.iife.min.js"></script>
+
+<title>Container 布局容器</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+html, body {
+	margin: 0 0;
+	height: 100%;
+}
+
+#app {
+	height: 100% !important;
+}
+
+.common-layout .el-header, .common-layout .el-footer {
+	background-color: #b3c0d1;
+	color: var(- -el-text-color-primary);
+	text-align: center;
+}
+
+.common-layout .el-header, .common-layout .el-footer, .common-layout .el-main,
+	.common-layout .el-aside {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.common-layout .el-aside {
+	background-color: #d3dce6;
+	color: var(- -el-text-color-primary);
+}
+
+.common-layout .el-main {
+	background-color: #e9eef3;
+	color: var(- -el-text-color-primary);
+}
+
+.el-container {
+	height: 100%;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div is="vue:el-container" class="common-layout">
+			<div is="vue:el-header">Header</div>
+			<div is="vue:el-container">
+				<div is="vue:el-aside" width="200px">Aside</div>
+				<div is="vue:el-main">Main</div>
+			</div>
+			<div is="vue:el-footer">Footer</div>
+		</div>
+	</div>
+	<script>
+		const app = Vue.createApp({});
+		app.use(ElementPlus);
+		app.mount("#app");
+	</script>
+</body>
+</html>

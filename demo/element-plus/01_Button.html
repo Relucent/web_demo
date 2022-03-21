@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<script src="index.iife.min.js"></script>
+
+<title>Button 按钮</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+.el-row {
+	margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div is="vue:el-row" class="mb-4">
+			<button is="vue:el-button">Default</button>
+			<button is="vue:el-button" type="primary">Primary</button>
+			<button is="vue:el-button" type="success">Success</button>
+			<button is="vue:el-button" type="info">Info</button>
+			<button is="vue:el-button" type="warning">Warning</button>
+			<button is="vue:el-button" type="danger">Danger</button>
+			<button is="vue:el-button">中文</button>
+		</div>
+		<div is="vue:el-row" class="mb-4">
+			<button is="vue:el-button" plain>Plain</button>
+			<button is="vue:el-button" type="primary" plain>Primary</button>
+			<button is="vue:el-button" type="success" plain>Success</button>
+			<button is="vue:el-button" type="info" plain>Info</button>
+			<button is="vue:el-button" type="warning" plain>Warning</button>
+			<button is="vue:el-button" type="danger" plain>Danger</button>
+		</div>
+		<div is="vue:el-row" class="mb-4">
+			<button is="vue:el-button" round>Round</button>
+			<button is="vue:el-button" type="primary" round>Primary</button>
+			<button is="vue:el-button" type="success" round>Success</button>
+			<button is="vue:el-button" type="info" round>Info</button>
+			<button is="vue:el-button" type="warning" round>Warning</button>
+			<button is="vue:el-button" type="danger" round>Danger</button>
+		</div>
+		<div is="vue:el-row">
+			<button is="vue:el-button" type="text">Text Button</button>
+			<button is="vue:el-button" type="text" disabled>Text Button</button>
+		</div>
+		<div is="vue:el-button-group">
+			<button is="vue:el-button" type="primary">Previous Page</button>
+			<button is="vue:el-button" type="primary">Next Page</button>
+		</div>
+	</div>
+	<script>
+		const app = Vue.createApp({});
+		app.use(ElementPlus);
+		app.mount("#app");
+	</script>
+</body>
+</html>

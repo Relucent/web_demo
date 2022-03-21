@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<script src="../../s/element-plus-icons-vue/1.1.3/index.iife.min.js"></script>
+<title>Icon 图标</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div is="vue:icon-edit" style="width: 1em; height: 1em; margin-right: 8px"></div>
+		<div is="vue:icon-share" style="width: 1em; height: 1em; margin-right: 8px"></div>
+		<div is="vue:icon-delete" style="width: 1em; height: 1em; margin-right: 8px"></div>
+		<div is="vue:icon-search" style="width: 1em; height: 1em; margin-right: 8px"></div>
+	</div>
+	<script>
+		const app = Vue.createApp({});
+		app.use(ElementPlus);
+		//全局注册图标
+		Object.keys(ElementPlusIconsVue).forEach(function(name) {
+			//为了防止和其他组件冲突，组件名称增加一个Icon前缀
+			app.component('Icon' + name, ElementPlusIconsVue[name]);
+		});
+		app.mount("#app");
+	</script>
+</body>
+</html>
