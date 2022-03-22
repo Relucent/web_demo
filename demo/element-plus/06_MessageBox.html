@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
 <script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
 <script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
-<title>element-plus</title>
+<title>MessageBox 弹框</title>
 <style type="text/css">
 [v-cloak] {
 	display: none !important;
@@ -17,7 +17,7 @@
 		<button is="vue:el-button" @click="open">Click to open the Message Box</button>
 	</div>
 	<script>
-		const App = {
+		Vue.createApp({
 			data : function() {
 				return {};
 			},
@@ -34,10 +34,7 @@
 					});
 				}
 			}
-		};
-		const app = Vue.createApp(App);
-		app.use(ElementPlus);
-		app.mount("#app");
+		}).use(ElementPlus).mount("#app");
 	</script>
 </body>
 </html>

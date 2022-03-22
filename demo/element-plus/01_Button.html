@@ -5,21 +5,26 @@
 <link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
 <script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
 <script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
-<script src="index.iife.min.js"></script>
-
+<script src="../../s/element-plus-icons-vue/1.1.3/index.iife.min.js"></script>
 <title>Button 按钮</title>
 <style type="text/css">
 [v-cloak] {
 	display: none !important;
 }
+
 .el-row {
 	margin-bottom: 20px;
+}
+
+.ml-4 {
+	margin-left: 1rem;
 }
 </style>
 </head>
 <body>
 	<div id="app" v-cloak>
-		<div is="vue:el-row" class="mb-4">
+		<h3>基础用法</h3>
+		<div is="vue:el-row">
 			<button is="vue:el-button">Default</button>
 			<button is="vue:el-button" type="primary">Primary</button>
 			<button is="vue:el-button" type="success">Success</button>
@@ -28,7 +33,7 @@
 			<button is="vue:el-button" type="danger">Danger</button>
 			<button is="vue:el-button">中文</button>
 		</div>
-		<div is="vue:el-row" class="mb-4">
+		<div is="vue:el-row">
 			<button is="vue:el-button" plain>Plain</button>
 			<button is="vue:el-button" type="primary" plain>Primary</button>
 			<button is="vue:el-button" type="success" plain>Success</button>
@@ -36,7 +41,7 @@
 			<button is="vue:el-button" type="warning" plain>Warning</button>
 			<button is="vue:el-button" type="danger" plain>Danger</button>
 		</div>
-		<div is="vue:el-row" class="mb-4">
+		<div is="vue:el-row">
 			<button is="vue:el-button" round>Round</button>
 			<button is="vue:el-button" type="primary" round>Primary</button>
 			<button is="vue:el-button" type="success" round>Success</button>
@@ -45,17 +50,103 @@
 			<button is="vue:el-button" type="danger" round>Danger</button>
 		</div>
 		<div is="vue:el-row">
+			<button is="vue:el-button" :icon="Icon.Search" circle></button>
+			<button is="vue:el-button" type="primary" :icon="Icon.Edit" circle></button>
+			<button is="vue:el-button" type="success" :icon="Icon.Check" circle></button>
+			<button is="vue:el-button" type="info" :icon="Icon.Message" circle></button>
+			<button is="vue:el-button" type="warning" :icon="Icon.Star" circle></button>
+			<button is="vue:el-button" type="danger" :icon="Icon.Delete" circle></button>
+		</div>
+		<h3>禁用状态</h3>
+		<div is="vue:el-row">
+			<button is="vue:el-button" plain disabled>Plain</button>
+			<button is="vue:el-button" type="primary" plain disabled>Primary</button>
+			<button is="vue:el-button" type="success" plain disabled>Success</button>
+			<button is="vue:el-button" type="info" plain disabled>Info</button>
+			<button is="vue:el-button" type="warning" plain disabled>Warning</button>
+			<button is="vue:el-button" type="danger" plain disabled>Danger</button>
+		</div>
+		<div is="vue:el-row">
+			<button is="vue:el-button" disabled>Default</button>
+			<button is="vue:el-button" type="primary" disabled>Primary</button>
+			<button is="vue:el-button" type="success" disabled>Success</button>
+			<button is="vue:el-button" type="info" disabled>Info</button>
+			<button is="vue:el-button" type="warning" disabled>Warning</button>
+			<button is="vue:el-button" type="danger" disabled>Danger</button>
+		</div>
+		<h3>文字按钮</h3>
+		<div is="vue:el-row">
 			<button is="vue:el-button" type="text">Text Button</button>
 			<button is="vue:el-button" type="text" disabled>Text Button</button>
 		</div>
-		<div is="vue:el-button-group">
-			<button is="vue:el-button" type="primary">Previous Page</button>
-			<button is="vue:el-button" type="primary">Next Page</button>
+		<h3>图标按钮</h3>
+		<div is="vue:el-row">
+			<button is="vue:el-button" type="primary" :icon="Icon.Edit"></button>
+			<button is="vue:el-button" type="primary" :icon="Icon.Share"></button>
+			<button is="vue:el-button" type="primary" :icon="Icon.Delete"></button>
+			<button is="vue:el-button" type="primary" :icon="Icon.Search">Search</button>
+			<button is="vue:el-button" type="primary">
+				Upload<span is="vue:el-icon" class="el-icon--right"> <i is="vue:icon-upload"></i></span>
+			</button>
+		</div>
+		<h3>按钮组</h3>
+		<div is="vue:el-row">
+			<div is="vue:el-button-group">
+				<button is="vue:el-button" type="primary" :icon="Icon.ArrowLeft">Previous Page</button>
+				<button is="vue:el-button" type="primary">
+					Next Page<span is="vue:el-icon" class="el-icon--right"><i is="vue:ArrowRight"></i></span>
+				</button>
+			</div>
+			<div is="vue:el-button-group" class="ml-4">
+				<button is="vue:el-button" type="primary" :icon="Icon.Edit"></button>
+				<button is="vue:el-button" type="primary" :icon="Icon.Share"></button>
+				<button is="vue:el-button" type="primary" :icon="Icon.Delete"></button>
+			</div>
+		</div>
+		<h3>加载中</h3>
+		<div is="vue:el-row">
+			<button is="vue:el-button" type="primary" loading>Loading</button>
+			<button is="vue:el-button" type="primary" :loading-icon="Eleme" loading>Loading</button>
+		</div>
+		<h3>各种尺寸的按钮</h3>
+		<div is="vue:el-row">
+			<button is="vue:el-button" size="large">Large</button>
+			<button is="vue:el-button">Default</button>
+			<button is="vue:el-button" size="small">Small</button>
+			<button is="vue:el-button" size="large" :icon="Search">Search</button>
+			<button is="vue:el-button" :icon="Icon.Search">Search</button>
+			<button is="vue:el-button" size="small" :icon="Search">Search</button>
+		</div>
+		<div is="vue:el-row" class="my-4">
+			<button is="vue:el-button" size="large" round>Large</button>
+			<button is="vue:el-button" round>Default</button>
+			<button is="vue:el-button" size="small" round>Small</button>
+			<button is="vue:el-button" size="large" :icon="Icon.Search" round>Search</button>
+			<button is="vue:el-button" :icon="Icon.Search" round>Search</button>
+			<button is="vue:el-button" size="small" :icon="Icon.Search" round>Search</button>
+		</div>
+		<div is="vue:el-row">
+			<button is="vue:el-button" :icon="Icon.Search" size="large" circle></button>
+			<button is="vue:el-button" :icon="Icon.Search" circle></button>
+			<button is="vue:el-button" :icon="Icon.Search" size="small" circle></button>
 		</div>
 	</div>
 	<script>
-		const app = Vue.createApp({});
+		const app = Vue.createApp({
+			data : function() {
+				var icons = {};
+				Object.keys(ElementPlusIconsVue).forEach(function(name) {
+					icons[name] = ElementPlusIconsVue[name];
+				});
+				return {
+					Icon : icons
+				};
+			}
+		});
 		app.use(ElementPlus);
+		Object.keys(ElementPlusIconsVue).forEach(function(name) {
+			app.component('Icon' + name, ElementPlusIconsVue[name]);
+		});
 		app.mount("#app");
 	</script>
 </body>

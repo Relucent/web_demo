@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<title>Scrollbar 滚动条</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+.item1 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	margin: 10px;
+	text-align: center;
+	border-radius: 4px;
+	background: #ecf5ff;
+	color: #409eff;
+}
+
+.flex-content {
+	display: flex;
+}
+
+.item2 {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+	height: 50px;
+	margin: 10px;
+	text-align: center;
+	border-radius: 4px;
+	background: #ecf5ff;
+	color: #409eff;
+}
+
+.item3 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	margin: 10px;
+	text-align: center;
+	border-radius: 4px;
+	background: #ecf5ff;
+	color: #409eff;
+}
+
+.el-slider {
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<h3>基础用法</h3>
+		<div is="vue:el-scrollbar" height="200px">
+			<p v-for="item in 20" :key="item" class="item1">{{ item }}</p>
+		</div>
+		<h3>横向滚动</h3>
+		<div is="vue:el-scrollbar">
+			<div class="flex-content ">
+				<p v-for="item in 50" :key="item" class="item2">{{ item }}</p>
+			</div>
+		</div>
+		<h3>手动滚动</h3>
+		<div is="vue:el-scrollbar" ref="scrollbarRef" height="200px" always @scroll="scroll">
+			<div ref="innerRef">
+				<p v-for="item in 20" :key="item" class="item3">{{ item }}</p>
+			</div>
+		</div>
+		<div is="vue:el-slider" v-model="value" :max="max" :format-tooltip="formatTooltip" @input="inputSlider"></div>
+	</div>
+	<script>
+		Vue.createApp({
+			data : function() {
+				return {
+					max : 0,
+					value : 0
+				};
+			},
+			mounted : function() {
+				this.$nextTick(function() {
+					this.max = this.$refs.innerRef.clientHeight - 180;
+				});
+			},
+			methods : {
+				inputSlider : function(value) {
+					this.$refs.scrollbarRef.setScrollTop(value)
+				},
+				scroll : function(value) {
+					this.value = value.scrollTop
+				},
+				formatTooltip : function(value) {
+					return `${value} px`
+				}
+			}
+		}).use(ElementPlus).mount("#app");
+	</script>
+</body>
+</html>
