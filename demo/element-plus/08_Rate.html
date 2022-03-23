@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<title>Rate 评分</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+.demo-rate-block {
+	padding: 30px 0;
+	text-align: center;
+	display: inline-block;
+	width: 49%;
+	box-sizing: border-box;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div class="demo-rate-block">
+			<div>Default</div>
+			<input is="vue:el-rate" v-model="value1" />
+			<div>{{value1}}</div>
+		</div>
+		<div class="demo-rate-block">
+			<div>Color for different levels</div>
+			<input is="vue:el-rate" v-model="value2" :colors="colors" />
+			<div>{{value2}}</div>
+		</div>
+	</div>
+	<script>
+		Vue.createApp({
+			data : function() {
+				return {
+					value1 : null,
+					value2 : null,
+					colors : [ '#99A9BF', '#F7BA2A', '#FF9900' ]
+				};
+			}
+		}).use(ElementPlus).mount("#app");
+	</script>
+</body>
+</html>

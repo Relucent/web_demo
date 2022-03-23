@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<title>Slider 滑块</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+.demo-block {
+	margin: 25px 25px 50px 25px;
+	width: 500px;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div class="demo-block">
+			<h4>Default value 默认</h4>
+			<input is="vue:el-slider" v-model="value01" />
+			<h4>Customized initial value 自定义初始值</h4>
+			<input is="vue:el-slider" v-model="value02" />
+			<h4>Hide Tooltip 隐藏提示文本</h4>
+			<input is="vue:el-slider" v-model="value03" :show-tooltip="false" />
+			<h4>Format Tooltip 定义提示文本</h4>
+			<input is="vue:el-slider" v-model="value04" :format-tooltip="formatTooltip" />
+			<h4>Disabled 禁用</h4>
+			<input is="vue:el-slider" v-model="value05" disabled />
+			<h4>Breakpoints not displayed 离散值：不显示断点</h4>
+			<input is="vue:el-slider" v-model="value06" :step="10" />
+			<h4>Breakpoints displayed 离散值：显示断点</h4>
+			<input is="vue:el-slider" v-model="value07" :step="10" show-stops />
+			<h4>Show Input 带有输入框的滑块</h4>
+			<input is="vue:el-slider" v-model="value08" show-input />
+			<h4>Range 范围选择</h4>
+			<input is="vue:el-slider" v-model="value09" range show-stops :max="10" />
+			<h4>Vertical 垂直模式</h4>
+			<div is="vue:el-row">
+				<input is="vue:el-slider" v-model="value10" vertical height="200px" />
+			</div>
+			<h4>Marks 显示标记</h4>
+			<input is="vue:el-slider" v-model="value11" range :marks="marks" />
+		</div>
+	</div>
+	<script>
+		Vue.createApp({
+			data : function() {
+				return {
+					value01 : 0,
+					value02 : 60,
+					value03 : 0,
+					value04 : 0,
+					value05 : 0,
+					value06 : 0,
+					value07 : 0,
+					value08 : 0,
+					value09 : [ 3, 5 ],
+					value10 : 0,
+					value11 : [ 30, 60 ],
+					marks : {
+						0 : '0°C',
+						8 : '8°C',
+						37 : '37°C',
+						50 : {
+							style : {
+								color : '#1989FA',
+							},
+							label : '50%',
+						}
+					}
+				};
+			},
+			methods : {
+				formatTooltip : function(val) {
+					return val / 100
+				}
+			}
+		}).use(ElementPlus).mount("#app");
+	</script>
+</body>
+</html>

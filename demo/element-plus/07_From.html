@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../s//element-plus/2.1.4/index.css">
+<script src="../../s/vue/3.2.26/vue.global.prod.js"></script>
+<script src="../../s/element-plus/2.1.4/index.full.min.js"></script>
+<title>Form 表单组件</title>
+<style type="text/css">
+[v-cloak] {
+	display: none !important;
+}
+
+.text-center, [text~="center"] {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<form is="vue:el-form" :model="form" label-width="120px" style="width: 650px;">
+			<div is="vue:el-form-item" label="Activity name">
+				<input is="vue:el-input" v-model="form.name" maxlength="20" show-word-limit />
+			</div>
+			<div is="vue:el-form-item" label="Activity zone">
+				<select is="vue:el-select" v-model="form.region" placeholder="please select your zone">
+					<option is="vue:el-option" label="Zone one" value="shanghai"></option>
+					<option is="vue:el-option" label="Zone two" value="beijing"></option>
+				</select>
+			</div>
+			<div is="vue:el-form-item" label="Activity time">
+				<div is="vue:el-col" :span="11">
+					<input is="vue:el-date-picker" v-model="form.date1" type="date" placeholder="Pick a date" style="width: 100%" />
+				</div>
+				<div is="vue:el-col" :span="2" class="text-center">
+					<span>-</span>
+				</div>
+				<div is="vue:el-col" :span="11">
+					<input is="vue:el-time-picker" v-model="form.date2" placeholder="Pick a time" style="width: 100%" />
+				</div>
+			</div>
+			<div is="vue:el-form-item" label="Instant delivery">
+				<input is="vue:el-switch" v-model="form.delivery" />
+			</div>
+			<div is="vue:el-form-item" label="Activity type">
+				<div is="vue:el-checkbox-group" v-model="form.type">
+					<div is="vue:el-checkbox" label="Online activities" name="type"></div>
+					<div is="vue:el-checkbox" label="Promotion activities" name="type"></div>
+					<div is="vue:el-checkbox" label="Offline activities" name="type"></div>
+					<div is="vue:el-checkbox" label="Simple brand exposure" name="type"></div>
+				</div>
+			</div>
+			<div is="vue:el-form-item" label="Resources">
+				<fieldset is="vue:el-radio-group" v-model="form.resource">
+					<input is="vue:el-radio" label="Sponsor" /> <input is="vue:el-radio" label="Venue" />
+				</fieldset>
+			</div>
+			<div is="vue:el-form-item" label="Activity form">
+				<input is="vue:el-input" v-model="form.desc" type="textarea" maxlength="200" show-word-limit/>
+			</div>
+			<div is="vue:el-form-item">
+				<button is="vue:el-button" type="primary" @click="onSubmit">Create</button>
+				<button is="vue:el-button">Cancel</button>
+			</div>
+		</form>
+	</div>
+	<script>
+		Vue.createApp({
+			data : function() {
+				return {
+					form : {
+						name : '',
+						region : '',
+						date1 : '',
+						date2 : '',
+						delivery : false,
+						type : [],
+						resource : '',
+						desc : ''
+					}
+				};
+			},
+			methods : {
+				onSubmit : function() {
+					console.log('submit!')
+				}
+			}
+		}).use(ElementPlus).mount("#app");
+	</script>
+</body>
+</html>
