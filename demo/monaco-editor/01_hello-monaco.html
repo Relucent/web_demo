@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" data-name="vs/editor/editor.main" href="../../s/monaco-editor/0.33.0/min/vs/editor/editor.main.css" />
+</head>
+<body>
+	<!-- #https://github.com/microsoft/monaco-editor# -->
+	<h2>Monaco Editor Sync Loading Sample</h2>
+	<div id="container" style="width: 800px; height: 600px; border: 1px solid grey"></div>
+	<script src="../../s/monaco-editor/0.33.0/min/vs/loader.js"></script>
+	<!-- 本地运行，浏览器会出现  NetworkError when attempting to fetch resource 异常 -->
+	<script>
+		require.config({
+			paths : {
+				'vs' : '../..//s/monaco-editor/0.33.0/min/vs'
+			}
+		});
+		require([ 'vs/editor/editor.main' ], function() {
+			//创建编辑器
+			var editor = monaco.editor.create(document.getElementById('container'), {
+				language : 'javascript',
+				value : 'function x() {\n\tconsole.log("Hello world!");\n}'
+			});
+			// 代码提示方法(返回一个数组)
+			var createTips = function() {
+				return [ {
+					label : 'SetValue', //显示的提示名称
+					insertText : 'SetValue("text")' //选择后粘贴到编辑器中的文字
+				} ]
+			}
+			// 创建代码提醒
+			monaco.languages.registerCompletionItemProvider('javascript', {
+				provideCompletionItems : function(model, position) {
+					var textUntilPosition = model.getValueInRange({
+						startLineNumber : 1,
+						startColumn : 1,
+						endLineNumber : position.lineNumber,
+						endColumn : position.column
+					});
+					var suggestions = [];
+					var word = model.getWordUntilPosition(position);
+					var range = {
+						startLineNumber : position.lineNumber,
+						endLineNumber : position.lineNumber,
+						startColumn : word.startColumn,
+						endColumn : word.endColumn
+					};
+					if (textUntilPosition.charAt(textUntilPosition.length - 2) == '.') {
+						suggestions = createTips();
+					}
+					return {
+						suggestions : suggestions
+					};
+				}
+			});
+		});
+	</script>
+</body>
+</html>
