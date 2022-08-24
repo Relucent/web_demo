@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<div id="app">
+		<button @click="increment">{{ state.count }}</button>
+	</div>
+	<script type="importmap">
+	{
+		"imports": {
+			"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+		}
+	}
+    </script>
+	<script type="module">
+		import { createApp, reactive, onMounted } from 'vue'
+		createApp({
+			setup : function() {
+				const state = reactive({
+					count : 0
+				})
+				function increment() {
+					state.count++
+				}
+				onMounted(function() {
+					increment()
+				});
+				return {
+					state : state,
+					increment : increment
+				}
+			}
+		}).mount('#app');
+	</script>
+</body>
+</html>

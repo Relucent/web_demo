@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/3.2.37/vue.global.prod.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button @click="increment">{{ state.count }}</button>
+	</div>
+	<script>
+		const app = Vue.createApp({
+			setup : function() {
+				const state = Vue.reactive({
+					count : 0
+				})
+				function increment() {
+					state.count++
+				}
+				Vue.onMounted(function() {
+					increment()
+				});
+				return {
+					state : state,
+					increment : increment
+				}
+			}
+		});
+		const vm = app.mount('#app');
+	</script>
+</body>
+</html>

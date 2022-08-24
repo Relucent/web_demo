@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/3.2.37/vue.global.prod.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button @click="increment">{{ count }}</button>
+	</div>
+	<script>
+		const app = Vue.createApp({
+			data : function() {
+				return {
+					count : 0
+				}
+			},
+			methods : {
+				increment : function() {
+					this.count++
+				}
+			},
+			mounted : function() {
+				this.increment()
+			}
+		})
+		const vm = app.mount('#app');
+	</script>
+</body>
+</html>
