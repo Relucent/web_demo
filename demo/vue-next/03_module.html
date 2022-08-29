@@ -2,15 +2,20 @@
 <html>
 <head>
 <meta charset="utf-8">
+<style type="text/css">
+[v-cloak] {
+	display: none;
+}
+</style>
 </head>
 <body>
-	<div id="app">
+	<div id="app" v-cloak>
 		<button @click="increment">{{ state.count }}</button>
 	</div>
 	<script type="importmap">
 	{
 		"imports": {
-			"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+			"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js"
 		}
 	}
     </script>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/3.2.37/vue.global.prod.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input ref="input" />
+	</div>
+	<script>
+		Vue.createApp({
+			setup : function() {
+				// 声明一个 ref 来存放该元素的引用
+				// 必须和模板里的 ref 同名
+				const input = Vue.ref(null);
+				Vue.onMounted(function() {
+					input.value.focus()
+				});
+				return {
+					input : input
+				};
+			}
+		}).mount('#app');
+	</script>
+</body>
+</html>

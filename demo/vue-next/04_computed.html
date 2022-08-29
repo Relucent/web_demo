@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../s/vue/3.2.37/vue.global.prod.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>Has published books:</p>
+		<span>{{ publishedBooksMessage }}</span>
+	</div>
+	<script>
+		Vue.createApp({
+			setup : function() {
+				const author = Vue.reactive({
+					name : 'John Doe',
+					books : [ 'Advanced Guide', 'Basic Guide', 'The Mystery' ]
+				})
+				const publishedBooksMessage = Vue.computed(function() {
+					return author.books.length > 0 ? 'Yes' : 'No'
+				})
+				return {
+					author : author,
+					publishedBooksMessage : publishedBooksMessage
+				}
+			}
+		}).mount('#app');
+	</script>
+</body>
+</html>
