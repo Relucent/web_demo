@@ -48,11 +48,7 @@
 
 		// Handle mouse down event
 		function onMouseDown(event) {
-
-			// Get the bounding box of the canvas
 			const canvasRect = canvas.getBoundingClientRect();
-
-			// Calculate mouse coordinates relative to the canvas
 			const mouseX = event.clientX - canvasRect.left;
 			const mouseY = event.clientY - canvasRect.top;
 
@@ -63,7 +59,6 @@
 			// Convert to world coordinates
 			raycaster.setFromCamera(mouse, camera);
 
-			// Create a plane at z = 0 for intersection
 			const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 			const intersects = raycaster.ray.intersectPlane(plane, new THREE.Vector3());
 
@@ -78,14 +73,17 @@
 		function onMouseMove(event) {
 			if (!isDrawing) return;
 
+			const canvasRect = canvas.getBoundingClientRect();
+			const mouseX = event.clientX - canvasRect.left;
+			const mouseY = event.clientY - canvasRect.top;
+
 			// Normalize mouse coordinates to -1 to +1 range
-			mouse.x = (event.clientX / width) * 2 - 1;
-			mouse.y = -(event.clientY / height) * 2 + 1;
+			mouse.x = (mouseX / width) * 2 - 1;
+			mouse.y = -(mouseY / height) * 2 + 1;
 
 			// Convert to world coordinates
 			raycaster.setFromCamera(mouse, camera);
 
-			// Create a plane at z = 0 for intersection
 			const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 			const intersects = raycaster.ray.intersectPlane(plane, new THREE.Vector3());
 
@@ -95,12 +93,26 @@
 		// Handle mouse up event
 		function onMouseUp(event) {
 			if (!isDrawing) return;
+
+			const canvasRect = canvas.getBoundingClientRect();
+			const mouseX = event.clientX - canvasRect.left;
+			const mouseY = event.clientY - canvasRect.top;
+
+			// Normalize mouse coordinates to -1 to +1 range
+			mouse.x = (mouseX / width) * 2 - 1;
+			mouse.y = -(mouseY / height) * 2 + 1;
+
+			// Convert to world coordinates
+			raycaster.setFromCamera(mouse, camera);
+
+			const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+			const intersects = raycaster.ray.intersectPlane(plane, new THREE.Vector3());
+
 			isDrawing = false;
 			selectionBox.visible = false;
 
-			// Calculate selection box coordinates
-			const endX = event.clientX;
-			const endY = event.clientY;
+			const endX = intersects.x;
+			const endY = intersects.y;
 			const box = {
 				x: Math.min(startX, endX),
 				y: Math.min(startY, endY),
