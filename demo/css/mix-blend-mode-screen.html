@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mix Blend Mode Screen Example</title>
+	<!--
+	mix-blend-mode: screen; 是一个 CSS 属性值，用于设置元素的内容应该与元素的背景如何混合。		
+	当使用 screen 值时，元素的内容和背景会经过屏幕模式（screen mode）的处理。
+	在屏幕模式下，元素的内容和背景的颜色会被转换为它们的补色（complementary colors），然后叠加在一起。
+	这会导致元素的内容和背景在叠加的区域产生亮度增加的效果，类似于多个幻灯片叠加在一起的效果。
+	-->
+	<style>
+		.container {
+			background-color: red;
+			width: 200px;
+			height: 200px;
+		}
+
+		.text {
+			font-size: 32px;
+			color: white;
+		}
+
+		.blend {
+			mix-blend-mode: screen;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<p class="text">Hello, World!</p>
+	</div>
+	<div class="container">
+		<p class="text blend">Hello, World!</p>
+	</div>
+</body>
+</html>

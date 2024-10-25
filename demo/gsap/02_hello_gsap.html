@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>gsap</title>
+	<script src="../../s/gsap/3.12.5/gsap.min.js"></script>
+	<style>
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+
+		.box {
+			width: 100px;
+			height: 100px;
+		}
+
+		.box.red {
+			background-color: red;
+		}
+
+		.box.green {
+			background-color: green;
+		}
+
+		.box.purple {
+			background-color: purple;
+		}
+
+		.box.blue {
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div class="box red"> </div>
+		<div class="box green"> </div>
+		<div class="box purple"> </div>
+		<div class="box blue"> </div>
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			// 时间线
+			var tl = gsap.timeline();
+			// 定义目标值，自动计算出当前值
+			tl.fromTo('.green', {x: -100}, {rotation: 360, x: 0, duration: 2});
+			// 定义动画“从”的起始值，使用当前值作为目的地
+			tl.fromTo('.purple', {x: 100}, {rotation: -360, x: 0, duration: 2});
+			//fromTo起始值和结束值
+			tl.fromTo('.blue', {x: 0}, {rotation: 360, x: 0, duration: 2});
+		});
+	</script>
+</body>
+</html>
