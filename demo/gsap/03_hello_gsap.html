@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>gsap+svg</title>
+	<script src="../../s/gsap/3.12.5/gsap.min.js"></script>
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<svg style="width:500;height:500px;">
+		<defs>
+			<linearGradient id="Sticky-ConnectConnectionGradient-001" gradientUnits="userSpaceOnUse" x1="0%" x2="0%" y1="0%" y2="100%">
+				<stop offset="0" stop-color="#11EFE3"></stop>
+				<stop offset="1" stop-color="#0073E6"></stop>
+			</linearGradient>
+		</defs>
+		<path id="path001" stroke="url(#Sticky-ConnectConnectionGradient-001)" stroke-width="2" fill="none"
+			d="M200,100 L200,300 Q200,400 300,400 L500,400" style="stroke-dasharray: 600px; stroke-dashoffset: 400px;" />
+	</svg>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			const tl = gsap.timeline();
+			tl.fromTo("#path001",
+				{'stroke-dashoffset': '600px'},  // 初始状态
+				{'stroke-dashoffset': '0px', duration: 3} // 结束状态，持续 3 秒
+			);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tippy</title>
+	<script src="../../s/popper/2.11.8/popper.min.js"></script>
+	<script src="../../s/tippy/6.3.7/tippy.min.js"></script>
+	<style>
+		.main {
+			display: grid;
+			place-items: center;
+			margin: 0;
+		}
+
+		button {
+			padding: 10px;
+			border: 1px solid #ccc;
+			text-align: center;
+			background: rgb(66, 69, 87);
+			color: rgb(255, 255, 255);
+			border-radius: 4px;
+			box-shadow: black 0px 1px 4px -2px, rgba(255, 255, 255, 0.1) 0px 2px 1px -1px inset;
+			min-width: 200px;
+			box-sizing: border-box;
+		}
+
+		.flexbox3 {
+			display: flex;
+			flex-wrap: wrap;
+			width: 700px;
+			gap: 10px;
+			justify-content: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<h2>Hello Tippy</h2>
+		<div class="flexbox3">
+			<button data-tip data-placement="top">top</button>
+			<button data-tip data-placement="top-start">top-start</button>
+			<button data-tip data-placement="top-end">top-end</button>
+			<button data-tip data-placement="right">right</button>
+			<button data-tip data-placement="right-start">right-start</button>
+			<button data-tip data-placement="right-end">right-end</button>
+			<button data-tip data-placement="bottom">bottom</button>
+			<button data-tip data-placement="bottom-start">bottom-start</button>
+			<button data-tip data-placement="bottom-end">bottom-end</button>
+			<button data-tip data-placement="left">left</button>
+			<button data-tip data-placement="left-start">left-start</button>
+			<button data-tip data-placement="left-end">left-end</button>
+		</div>
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('[data-tip ]').forEach(el => {
+				let content = el.getAttribute('data-tip') || el.innerText;
+				let placement = el.getAttribute('data-placement') || 'top';
+				tippy(el, {
+					placement: placement, content: content
+				});
+			});
+
+		});
+	</script>
+</body>
+</html>
