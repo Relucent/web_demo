@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MutationObserver 综合示例</title>
+	<style>
+		#container {
+			border: 2px dashed #17a2b8;
+			padding: 20px;
+			margin-top: 20px;
+		}
+
+		.row {
+			background: #e2e3e5;
+			margin: 8px 0;
+			padding: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.row span {
+			flex: 1;
+		}
+
+		.row button {
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>MutationObserver</h1>
+	<button id="add">新增一行</button>
+	<div id="container">
+		<p>监控区域 (新增/更新/删除)</p>
+	</div>
+	<script>
+		//使用 MutationObserver 自动监控所有变化
+		const container = document.getElementById('container');
+
+		// 创建 MutationObserver
+		const observer = new MutationObserver(function (mutationsList, observer) {
+			for (let mutation of mutationsList) {
+				if (mutation.type === 'childList') {
+					console.log('子节点变化：新增了', mutation.addedNodes.length, '个，移除了', mutation.removedNodes.length, '个');
+				} else if (mutation.type === 'characterData') {
+					console.log('文本内容发生变化：', mutation.target.textContent);
+				}
+			}
+		});
+
+		// 配置项
+		observer.observe(container, {
+			childList: true,      // 监听子元素增删
+			characterData: true,  // 监听文本内容变化
+			attributes: false,    // 不监听属性（可以打开）
+			subtree: true         // 监听所有子孙节点
+		});
+
+		let count = 1; // 用来标记行数
+
+		// 点击新增按钮
+		document.getElementById('add').addEventListener('click', function () {
+			const row = document.createElement('div');
+			row.className = 'row';
+
+			const textSpan = document.createElement('span');
+			textSpan.textContent = '第 ' + (count++) + ' 行内容';
+
+			const updateBtn = document.createElement('button');
+			updateBtn.textContent = '更新';
+			updateBtn.addEventListener('click', function () {
+				textSpan.textContent = '更新于 ' + new Date().toLocaleTimeString();
+			});
+
+			const deleteBtn = document.createElement('button');
+			deleteBtn.textContent = '删除';
+			deleteBtn.addEventListener('click', function () {
+				container.removeChild(row);
+			});
+
+			row.appendChild(textSpan);
+			row.appendChild(updateBtn);
+			row.appendChild(deleteBtn);
+
+			container.appendChild(row);
+		});
+
+	</script>
+</body>
+</html>
